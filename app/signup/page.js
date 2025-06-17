@@ -2,13 +2,24 @@
 
 import { supabase } from "@/lib/initSupabase";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 
 
 const SignUp = () => {
     const [dataForm, setDataForm] = useState({})
-
+    const router = useRouter();
+    
+    useEffect(() => {
+        const checkUser = async () => {
+            const { data } = await supabase.auth.getUser();
+            if (data.user) {
+                router.push("/home");
+            } 
+        };
+        checkUser();
+    }, []);
 
 
     const handleChange = (e) => {
