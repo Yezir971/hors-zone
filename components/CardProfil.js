@@ -1,5 +1,6 @@
 'use client'
 import { authContextApi } from '@/context/authContext'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 const CardProfil = ({ user }) => {
@@ -27,12 +28,11 @@ const CardProfil = ({ user }) => {
       </div>
 
       <div className="mt-10 flex gap-4 justify-center">
-        <button
-          onClick={() => router.push('/edit-profile')}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl"
-        >
-          Modifier le profil
-        </button>
+        <Link href="/user/edit">
+          <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl">
+            Modifier le profil
+          </button>
+        </Link>
 
         <button
           onClick={logout}

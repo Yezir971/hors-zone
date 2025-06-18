@@ -1,33 +1,40 @@
-"use client"
-import { authContextApi } from "@/context/authContext";
-import Link from "next/link";
+'use client'
+import { authContextApi } from '@/context/authContext'
+import Link from 'next/link'
 
 const NavBar = () => {
-    const {logout, isAuth} = authContextApi()
-    
-    return(
-        <nav style={styles.nav}>
-            <div style={styles.buttons}>
-                {!isAuth ? (
-                <>
-                    <Link style={styles.button} href="/login">
-                        Se connecter
-                    </Link>
-                    <Link style={styles.button} href="/signup">
-                        S'inscrire
-                    </Link>
-                </>
-                ) : (
-                <>
-                    <Link style={styles.button} href="/profil">
-                        Voir le profil
-                    </Link>
-                    <button style={styles.button} onClick={logout}>Se déconnecter</button>
-                </>
-                )}
-            </div>
-        </nav>
-    )
+  const { logout, isAuth } = authContextApi()
+
+  return (
+    <nav style={styles.nav}>
+      <div style={styles.buttons}>
+        {!isAuth ? (
+          <>
+            <Link style={styles.button} href="/login">
+              Se connecter
+            </Link>
+            <Link style={styles.button} href="/signup">
+              S'inscrire
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link style={styles.button} href="/profil">
+              Voir le profil
+            </Link>
+
+            <Link style={styles.button} href="/home">
+              page d'accueil
+            </Link>
+            
+            <button style={styles.button} onClick={logout}>
+              Se déconnecter
+            </button>
+          </>
+        )}
+      </div>
+    </nav>
+  )
 }
 const styles = {
   nav: {
@@ -52,5 +59,5 @@ const styles = {
     cursor: 'pointer',
     borderRadius: '4px',
   },
-};
+}
 export default NavBar
