@@ -1,7 +1,6 @@
 "use client"
 import { authContextApi } from "@/context/authContext";
 import Link from "next/link";
-import { useState } from "react";
 
 const NavBar = () => {
     const {logout, isAuth} = authContextApi()
@@ -20,7 +19,9 @@ const NavBar = () => {
                 </>
                 ) : (
                 <>
-                    <button style={styles.button}>Voir le profil</button>
+                    <Link style={styles.button} href="/profil">
+                        Voir le profil
+                    </Link>
                     <button style={styles.button} onClick={logout}>Se déconnecter</button>
                 </>
                 )}

@@ -1,0 +1,150 @@
+'use client'
+
+import { useRef, useState } from 'react'
+import { supabase } from '@/lib/initSupabase'
+import { toast } from 'react-toastify'
+import DATA_TOAST from '@/app/utils/constant/toast'
+import { ArticleContextApi } from '@/context/articleContext'
+
+export default function AdminPanel({ profil }) {
+  const [uploading, setUploading] = useState(false)
+  const [imageUrl, setImageUrl] = useState(null)
+  const [dataForm, setDataForm] = useState({})
+  const { update } = ArticleContextApi()
+  const formRef = useRef(null)
+  const handleChange = (e) => {
+    const { name, value, files } = e.target
+    setDataForm((prevState) => ({
+      ...prevState,
+
+      [name]: name == 'fileName' ? files : value,
+    }))
+  }
+
+  const handleUpload = async (event) => {
+    event.preventDefault()
+
+    try {
+      setUploading(true)
+
+      const file = dataForm.fileName?.[0]
+
+      if (!file) {
+        toast.error('Aucun fichier sélectionné', DATA_TOAST)
+        throw new Error('Aucun fichier sélectionné')
+      }
+
+      const fileExt = file.name.split('.').pop()
+      const fileName = `${Date.now()}.${fileExt}`
+      const filePath = `uploads/${fileName}`
+
+      const { error: urlError, data: urlData } = await supabase.storage
+        .from('sports')
+        .upload(filePath, file)
+
+      if (urlError) throw urlError
+      //   envoie dans la table sports
+
+      const { error: insertError } = await supabase.from('sports').insert([
+        {
+          name: dataForm['titre'],
+          description: dataForm['description'],
+          id_admin_who_add: profil.id,
+          image_url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${urlData.fullPath}`,
+        },
+      ])
+      if (insertError) {
+        throw new Error('Erreur base de données : ' + insertError.message)
+      }
+
+      setImageUrl(urlData.publicUrl)
+      toast.success('Événement ajouté avec succès', DATA_TOAST)
+      update()
+      setDataForm({})
+      formRef.current?.reset()
+    } catch (error) {
+      toast.error('Erreur lors de l’upload: ' + error.message, DATA_TOAST)
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  return (
+    <div className="max-w-2xl mx-auto mt-10 bg-white p-6 rounded-2xl shadow-xl">
+      <h1 className="text-center border-amber-50 font-bold">Admin</h1>
+
+      <form
+        ref={formRef}
+        onSubmit={handleUpload}
+        className="max-w-2xl mx-auto mt-10 bg-indigo-500 rounded-2xl shadow-xl p-6"
+      >
+        {/* Label */}
+        <label
+          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          htmlFor="dropzone-file"
+        >
+          Upload file
+        </label>
+
+        {/* Input file */}
+        <input
+          className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          aria-describedby="user_avatar_help"
+          id="dropzone-file"
+          type="file"
+          accept="image/*"
+          name="fileName"
+          onChange={handleChange}
+          disabled={uploading}
+        />
+
+        {/* Helper text */}
+        <div
+          className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+          id="user_avatar_help"
+        >
+          A profile picture is useful to confirm you are logged into your
+          account
+        </div>
+
+        <div className="mb-5">
+          <label
+            htmlFor="titre"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Titre sport
+          </label>
+          <input
+            type="text"
+            id="titre"
+            name="titre"
+            onChange={handleChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Aqua poney"
+            required
+          />
+        </div>
+        <label
+          htmlFor="message"
+          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >
+          Description du sport
+        </label>
+        <textarea
+          id="message"
+          rows="4"
+          name="description"
+          onChange={handleChange}
+          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Description"
+        ></textarea>
+        <button
+          type="submit"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  )
+}
