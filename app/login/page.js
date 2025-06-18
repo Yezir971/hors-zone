@@ -1,17 +1,18 @@
 "use client";
 
 import Loading from "@/components/loading";
+import { authContextApi } from "@/context/authContext";
 import { supabase } from "@/lib/initSupabase";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Bounce, toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
     const router = useRouter();
     
     const [dataForm, setDataForm] = useState({})
-    const [isLoading, setIsLoading] = useState(false)
+
+    const {login, isLoading} = authContextApi()
 
     useEffect(() => {
         const checkUser = async () => {
@@ -24,8 +25,6 @@ const Login = () => {
         checkUser();
     }, []);
 
-
-
     const handleChange = (e) => {
         const {name, value}= e.target;
         setDataForm(prevState => ({
@@ -33,47 +32,8 @@ const Login = () => {
         }))
     }
     const fetchLogin = async (e) => {
-        setIsLoading(true)
         e.preventDefault()
-        try {
-            const {error} = await supabase.auth.signInWithPassword({
-                "email": dataForm.email, 
-                "password" : dataForm.password
-            })
-            if(error && error.message == "missing email or phone"){
-                toast.warning("Mot de passe ou mail incorrect", {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: false,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    transition: Bounce,
-                });
-                console.log(`${error}`);
-                return
-            }
-            setIsLoading(false)
-            router.push('/home');
-
-            
-        } catch (error) {
-            setIsLoading(false)
-            toast.error("Errreur de connexion, Vérifier votre connexion internet ", {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Bounce,
-            });
-            throw new Error(`erreur de connexion avec supabase ${error}`);
-        }
+        await login(dataForm)
     }
 
     return(
@@ -100,20 +60,6 @@ const Login = () => {
                     </form>
                 </div>
             </div>
-            <ToastContainer
-                position="bottom-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-                transition={Bounce}
-            />
-
         </>
     )
 }
