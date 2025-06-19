@@ -105,7 +105,8 @@ export const AuthProvider = ({ children }) => {
         password: dataForm.password,
         options: {
           data: {
-            name: dataForm.name,
+            pseudo: dataForm.pseudo,
+            email: dataForm.email,
           },
         },
       })

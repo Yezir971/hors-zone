@@ -87,7 +87,13 @@ const Login = () => {
               type="submit"
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
             >
-              {isLoading ? <Loading /> : 'Se connecter'}
+              {isLoading ? (
+                <span className="flex justify-center">
+                  <Loading />
+                </span>
+              ) : (
+                'Se connecter'
+              )}
             </button>
             <p className="text-sm text-center text-gray-500 mt-4">
               Pas encore de compte ?{' '}
