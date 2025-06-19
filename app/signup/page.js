@@ -57,17 +57,14 @@ const SignUp = () => {
         <>
             <div className="p-10">
                 <TopLoginSignUp />
-                <div
-                    id="signup"
-                    className="flex items-center justify-center bg-gray-100"
-                >
-                    <div className="bg-white rounded-2xl shadow-md w-full max-w-md">
+                <div id="signup" className="flex items-center justify-center ">
+                    <div className="rounded-2xl  w-full max-w-md">
                         {/* <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
                             Créer un compte
                         </h2> */}
                         <form onSubmit={fetchSignUp} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">
+                                <label className="block mb-3 text-sm font-medium text-gray-700">
                                     Pseudo
                                 </label>
                                 <input
@@ -79,7 +76,7 @@ const SignUp = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">
+                                <label className="block mb-3 text-sm font-medium text-gray-700">
                                     Email
                                 </label>
                                 <input
@@ -91,7 +88,7 @@ const SignUp = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">
+                                <label className="block mb-3 text-sm font-medium text-gray-700">
                                     Mot de passe
                                 </label>
                                 <input
@@ -103,7 +100,7 @@ const SignUp = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">
+                                <label className="block mb-3 text-sm font-medium text-gray-700">
                                     Confirmation du mot de passe
                                 </label>
                                 <input
