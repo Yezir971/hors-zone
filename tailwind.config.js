@@ -17,6 +17,9 @@ module.exports = {
                 gris: 'var(--gris)',
                 nuanceDeBlanc2: 'var(--nuance-de-blanc-2)',
             },
+            screens: {
+                xs: '480px',
+            },
         },
     },
     plugins: [],

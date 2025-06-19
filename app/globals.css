@@ -9,9 +9,15 @@
     --nuance-de-blanc-1: #f9f9f9;
     --gris: #a5a5a5;
     --nuance-de-blanc-2: #f4f4f8;
+
+    /* form  */
+    --poice-label: 
+    /* form  */
 }
 
-
+.input{
+    font-family:Po;
+}
 
 /* .dark {
     --orange-1: #cc6600;
