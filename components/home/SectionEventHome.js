@@ -3,9 +3,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const SectionEventHome = ({ sports }) => {
-    console.log(`dans componants sectionEventHome ${sports}`)
-    console.table(sports)
-
 
     return (
         <>
@@ -39,7 +36,7 @@ const SectionEventHome = ({ sports }) => {
                                         {sport.name}
                                     </h3>
                                     <Link
-                                        href="/description/"
+                                        href={`/description/${sport.slug}`}
                                         className="text-blue-600 mt-2 inline-flex items-center"
                                     >
                                         En savoir plus{' '}

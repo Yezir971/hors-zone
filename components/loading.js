@@ -1,16 +1,18 @@
-import { DNA } from "react-loader-spinner";
+import { TailSpin } from 'react-loader-spinner'
 
 export default function Loading() {
-  return(
-    <>
-      <DNA
-        visible={true}
-        height="40"
-        width="40"
-        ariaLabel="dna-loading"
-        wrapperStyle={{}}
-        wrapperClass="dna-wrapper"
-      />
-    </>
-  )
+    return (
+        <>
+            <TailSpin
+                visible={true}
+                height="80"
+                width="80"
+                color="#fffff"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass=""
+            />
+        </>
+    )
 }
