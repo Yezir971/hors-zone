@@ -1,4 +1,5 @@
 'use client'
+import Map from '@/components/detail/Map'
 import Loading from '@/components/Loading'
 import { supabase } from '@/lib/initSupabase'
 import { useParams } from 'next/navigation'
@@ -64,6 +65,7 @@ const Description = () => {
             </div>
         )
     }
+
     return (
         <>
             {/* <p>page de description</p>
@@ -85,16 +87,16 @@ const Description = () => {
                     <p className="text-gray-700 mb-4">
                         <strong>Description :</strong> {sport.description}
                     </p>
-
-                    <p className="text-gray-700">
-                        <strong>Nombre de joueurs :</strong> {sport.players}
-                    </p>
                     <p className="text-gray-700">
                         <strong>Terrain :</strong> {sport.field}
                     </p>
-                    <p className="text-gray-700">
-                        <strong>Zones géographiques :</strong> {sport.regions}
-                    </p>
+                </div>
+                <div className="container w-full h-11">
+                    <Map long={sport.long} lat={sport.lat} />
+                    <p>la map ici </p>
+                </div>
+                <div className="container w-full h-11">
+                    <p>les commentaire ici</p>
                 </div>
             </div>
         </>
