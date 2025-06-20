@@ -92,7 +92,7 @@ const Description = () => {
                     </p>
                 </div>
                 <div className="container w-full h-11">
-                    <Map long={sport.long} lat={sport.lat} />
+                    <Map long={sport.long} lat={sport.lat} titre={sport.name} />
                     <p>la map ici </p>
                 </div>
                 <div className="container w-full h-11">

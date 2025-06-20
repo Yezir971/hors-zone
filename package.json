@@ -11,6 +11,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.20.7",
     "@supabase/supabase-js": "^2.50.0",
     "clsx": "^2.1.1",
     "next": "15.3.3",
