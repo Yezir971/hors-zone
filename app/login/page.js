@@ -72,7 +72,7 @@ const Login = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block mb-3 text-base font-normal">
+                                <label className="block mt-7 mb-3 text-base font-normal">
                                     Mot de passe
                                 </label>
                                 <input

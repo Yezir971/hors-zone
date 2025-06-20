@@ -55,7 +55,7 @@ const SignUp = () => {
 
     return (
         <>
-            <div className='p-10'>
+            <div className="p-10">
                 <TopLoginSignUp />
                 <div id="signup" className="flex items-center justify-center ">
                     <div className="rounded-2xl  w-full max-w-md">
@@ -114,7 +114,7 @@ const SignUp = () => {
 
                             <button
                                 type="submit"
-                                className="cursor-pointer w-full bg-[var(--orange-1)] hover:bg-amber-500 text-white font-semibold py-4 px-4 rounded-lg transition duration-300"
+                                className="cursor-pointer w-full mt-16 bg-[var(--orange-1)] hover:bg-amber-500 text-white font-semibold py-4 px-4 rounded-lg transition duration-300"
                             >
                                 {isLoading ? (
                                     <span className="flex justify-center">

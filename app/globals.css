@@ -3,31 +3,27 @@
 :root {
     --orange-1: #cf3700;
     --orange-2: #ff6c37;
+    --orange-3: #FF6A00;
     --noir: #1a1a1a;
     --gris-bleute: #6b7280;
     --blanc: #ffffff;
     --nuance-de-blanc-1: #f9f9f9;
     --gris: #a5a5a5;
     --nuance-de-blanc-2: #f4f4f8;
-
-    /* form  */
-    --poice-label: 
-    /* form  */
 }
 
-.input{
-    font-family:Po;
-}
 
-/* .dark {
-    --orange-1: #cc6600;
+
+.dark {
+    --orange-1: #0A5197;
     --orange-2: #e69533;
+    --orange-3: #0080FF;
     --noir: #f2f2f2;
     --gris-bleute: #5d7787;
     --blanc: #0a0a0a;
     --nuance-de-blanc-1: #1a1a1a;
     --gris: #444444;
     --nuance-de-blanc-2: #121212;
-} */
+}
 
 
