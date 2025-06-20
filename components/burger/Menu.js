@@ -12,7 +12,7 @@ const Menu = ({ open }) => {
         >
             <Link
                 href="/"
-                className="mt-[120px] text-2xl font-medium tracking-widest text-white no-underline transition-colors duration-300"
+                className="mt-[160px] text-2xl font-medium tracking-widest text-white no-underline transition-colors duration-300"
             >
                 Accueil
             </Link>
