@@ -1,65 +1,62 @@
+'use client'
 import HeroBanner from '@/components/home/HeroBanner'
+import SectionEventHome from '@/components/home/SectionEventHome'
+import Loading from '@/components/Loading'
+import { authContextApi } from '@/context/authContext'
+import { supabase } from '@/lib/initSupabase'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
+    const router = useRouter()
+    const { isAuth, user, isLoadingUser } = authContextApi()
+    const [sports, setSports] = useState([])
+    const [isLoadingSports, setIsLoadingSports] = useState(false)
+    const fetchDataEvent = async () => {
+        try {
+            const { data, error } = await supabase.from('sports').select()
+
+            if (error) {
+                console.error('Erreur Supabase:', error.message)
+                return []
+            }
+
+            return data
+        } catch (err) {
+            console.error('Erreur inattendue:', err)
+            return []
+        } finally {
+            setIsLoadingSports(true)
+        }
+    }
+    // useEffect(() => {
+    //     if (!isLoadingUser && !user) {
+    //         router.push('/login')
+    //     }
+    // }, [isAuth, isLoadingUser])
+
+    useEffect(() => {
+        const getData = async () => {
+            const data = await fetchDataEvent()
+            setSports(data)
+        }
+
+        getData()
+    }, [])
+
+    if (isLoadingUser && !isLoadingSports) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <Loading />
+            </div>
+        )
+    }
     return (
         <>
             <HeroBanner />
             <main className="px-5">
-                <section>
-                    <h2 className="mt-[100px] ml-2.5 mb-[1.9rem] font-bold text-[1.25rem]">
-                        {' '}
-                        Événements à venir
-                    </h2>
-                    <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth">
-                        {/* Carte 1 */}
-                        <div className="min-w-[300px] snap-start rounded-xl bg-white shadow-md overflow-hidden">
-                            <Image
-                                src="/images/logo/logo.svg"
-                                alt="Quidditch"
-                                className="h-48 w-full object-cover"
-                                width={302}
-                                height={165}
-                            />
-                            <div className="p-4">
-                                <h3 className="font-semibold text-lg">
-                                    League de Sabre laser
-                                </h3>
-                                <a
-                                    href="#"
-                                    className="text-blue-600 mt-2 inline-flex items-center"
-                                >
-                                    En savoir plus{' '}
-                                    <span className="ml-1">→</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        {/* Carte 2 */}
-                        <div className="min-w-[300px] snap-start rounded-xl bg-white shadow-md overflow-hidden">
-                            <Image
-                                src="/images/logo/logo.svg"
-                                alt="Quidditch"
-                                className="h-48 w-full object-cover"
-                                width={302}
-                                height={165}
-                            />
-
-                            <div className="p-4">
-                                <h3 className="font-semibold text-lg">
-                                    Quidditch
-                                </h3>
-                                <a
-                                    href="#"
-                                    className="text-blue-600 mt-2 inline-flex items-center"
-                                >
-                                    En savoir plus{' '}
-                                    <span className="ml-1">→</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <SectionEventHome sports={sports} />
             </main>
         </>
     )

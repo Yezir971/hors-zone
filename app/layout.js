@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
             <body className={`${popins.variable} antialiased`}>
                 <AuthProvider>
                     <ArticleProvider>
-                        {/* <NavBar /> */}
+                        <NavBar />
                         {children}
                     </ArticleProvider>
                 </AuthProvider>
