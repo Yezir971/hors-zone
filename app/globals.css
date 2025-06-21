@@ -3,27 +3,40 @@
 :root {
     --orange-1: #cf3700;
     --orange-2: #ff6c37;
-    --orange-3: #FF6A00;
+    --orange-3: #ff6a00;
     --noir: #1a1a1a;
     --gris-bleute: #6b7280;
     --blanc: #ffffff;
     --nuance-de-blanc-1: #f9f9f9;
     --gris: #a5a5a5;
     --nuance-de-blanc-2: #f4f4f8;
+
+    --bleu-electrique: #0080ff;
 }
 
-
-
 .dark {
-    --orange-1: #0A5197;
+    --orange-1: #0a5197;
     --orange-2: #e69533;
-    --orange-3: #0080FF;
+    --orange-3: #0080ff;
     --noir: #f2f2f2;
     --gris-bleute: #5d7787;
     --blanc: #0a0a0a;
     --nuance-de-blanc-1: #1a1a1a;
     --gris: #444444;
     --nuance-de-blanc-2: #121212;
+
+    --bleu-electrique: #0080ff;
 }
 
-
+/* WebKit only (Chrome, Edge, Safari) */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--bleu-electrique);
+    border-radius: 50px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background-color: var(--gris);
+    border-radius: 50px;
+}

@@ -1,4 +1,5 @@
 'use client'
+import CommentBlock from '@/components/detail/CommentBlock'
 import Map from '@/components/detail/Map'
 import Loading from '@/components/Loading'
 import { supabase } from '@/lib/initSupabase'
@@ -68,13 +69,6 @@ const Description = () => {
 
     return (
         <>
-            {/* <p>page de description</p>
-            <p>page de description</p>
-            <p>page de description</p>
-            <p>page de description</p>
-            <p>page de description</p>
-            <p>page de description</p> */}
-            {/* <p>{sport}</p> */}
             <div className="min-h-screen bg-gray-100 p-6">
                 <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-8">
                     <h1 className="text-3xl font-bold text-indigo-700 mb-4">
@@ -91,12 +85,11 @@ const Description = () => {
                         <strong>Terrain :</strong> {sport.field}
                     </p>
                 </div>
-                <div className="container w-full h-11">
+                <div className="container  mx-auto w-full flex justify-center ">
                     <Map long={sport.long} lat={sport.lat} titre={sport.name} />
-                    <p>la map ici </p>
                 </div>
-                <div className="container w-full h-11">
-                    <p>les commentaire ici</p>
+                <div className="container  mx-auto">
+                    <CommentBlock idSport={sport.id}  />
                 </div>
             </div>
         </>
