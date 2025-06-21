@@ -10,8 +10,6 @@ const containerStyle = {
 }
 
 const Map = ({ long, lat, titre }) => {
-    console.log(long)
-    console.log(lat)
     const center = {
         lat: lat,
         lng: long,

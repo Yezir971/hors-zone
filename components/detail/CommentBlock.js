@@ -5,20 +5,79 @@ import Loading from '../Loading'
 import { toast } from 'react-toastify'
 import DATA_TOAST from '@/app/utils/constant/toast'
 import Image from 'next/image'
+import dateMessage from '@/utils/dateMesage'
 
 const CommentBlock = ({ idSport }) => {
     const [message, setMessage] = useState()
     const { profil } = authContextApi()
     const [comments, setComments] = useState([])
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [isReply, setIsReply] = useState(false)
     const [replyId, setReplyId] = useState()
     const [update, setupdate] = useState(false)
     const formRef = useRef(null)
+    const socketRef = useRef(null)
+    const bottomRef = useRef(null)
 
     useEffect(() => {
+        bottomRef.current?.scrollIntoView({ behavior: 'auto' })
+    }, [comments])
+    useEffect(() => {
         fetchMessage()
-    }, [update])
+        socketRef.current = new WebSocket(
+            process.env.NEXT_PUBLIC_WEBSOCKET_LINK
+        )
+        socketRef.current.onopen = () => {
+            console.log('WebSocket connecté !')
+            // on envoie l'id du sport où l'utilisateur est pour lui envoyer le message
+            socketRef.current.send(
+                JSON.stringify({
+                    type: 'init',
+                    data: {
+                        targetSportId: idSport,
+                    },
+                })
+            )
+        }
+        socketRef.current.onmessage = (event) => {
+            const message = JSON.parse(event.data)
+
+            try {
+                if (message.type === 'message') {
+                    setComments((prev) => [...prev, message.data[0]])
+                }
+            } catch (e) {
+                console.error(
+                    'Erreur lors du parsing du message WebSocket :',
+                    e
+                )
+            }
+        }
+        return () => {
+            if (socketRef.current) {
+                socketRef.current.close()
+            }
+        }
+    }, [])
+
+    const sendMessageWebsocket = (msg) => {
+        if (
+            socketRef.current &&
+            socketRef.current.readyState === WebSocket.OPEN
+        ) {
+            socketRef.current.send(
+                JSON.stringify({
+                    type: 'message',
+                    data: {
+                        comment: msg[0],
+                        targetSportId: idSport,
+                    },
+                })
+            )
+        } else {
+            console.warn('Socket non prête')
+        }
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -33,7 +92,7 @@ const CommentBlock = ({ idSport }) => {
             const { data, error } = await supabase
                 .from('comments')
                 .select(
-                    'id, sport_who_comment, user_who_comment(id, pseudo), comment'
+                    'id, sport_who_comment, user_who_comment(id, pseudo), comment, date'
                 )
                 .eq('sport_who_comment', idSport)
             if (error) {
@@ -52,22 +111,27 @@ const CommentBlock = ({ idSport }) => {
                 DATA_TOAST
             )
         } finally {
-            setLoading(true)
+            setLoading(false)
         }
     }
 
     const sendMessage = async (e) => {
         e.preventDefault()
+        const dataMessage = {
+            sport_who_comment: idSport,
+            user_who_comment: profil.id,
+            comment: message.comment,
+            date: new Date().toISOString(),
+            ...(isReply && { id_parent_comment: replyId }),
+        }
         try {
             if (isReply) {
-                const { error } = await supabase.from('comments').insert([
-                    {
-                        sport_who_comment: idSport,
-                        user_who_comment: profil.id,
-                        comment: message.comment,
-                        id_parent_comment: replyId,
-                    },
-                ])
+                const { error, data } = await supabase
+                    .from('comments')
+                    .insert(dataMessage)
+                    .select(
+                        'id, sport_who_comment, user_who_comment(id, pseudo), comment, date'
+                    )
                 if (error) {
                     toast.error('Réponse pas envoyée.' + error, DATA_TOAST)
                     return
@@ -75,20 +139,24 @@ const CommentBlock = ({ idSport }) => {
                     toast.success('Réponse envoyée.', DATA_TOAST)
                     unTriggerReplay()
                 }
+                sendMessageWebsocket([data, idSport])
             } else {
-                const { error } = await supabase.from('comments').insert([
-                    {
-                        sport_who_comment: idSport,
-                        user_who_comment: profil.id,
-                        comment: message.comment,
-                    },
-                ])
+                const { error, data } = await supabase
+                    .from('comments')
+                    .insert(dataMessage)
+                    .select(
+                        'id, sport_who_comment, user_who_comment(id, pseudo), comment, date'
+                    )
                 if (error) {
-                    toast.error('Message pas envoyée.' + error, DATA_TOAST)
+                    toast.error(
+                        'Message pas envoyée.' + error.message,
+                        DATA_TOAST
+                    )
                     return
                 } else {
                     toast.success('Message envoyé.', DATA_TOAST)
                 }
+                sendMessageWebsocket([data, idSport])
             }
             setupdate(!update)
             formRef.current?.reset()
@@ -110,7 +178,7 @@ const CommentBlock = ({ idSport }) => {
         setIsReply(false)
     }
 
-    if (!loading) {
+    if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <Loading />
@@ -164,7 +232,11 @@ const CommentBlock = ({ idSport }) => {
                                         {comment.comment}
                                     </p>
                                     <div className="text-xs text-gray-400 mt-1 flex items-center space-x-2">
-                                        <span>{comment.temps}</span>
+                                        <span>
+                                            {dateMessage(
+                                                new Date(comment.date)
+                                            )}
+                                        </span>
                                         <button
                                             onClick={() =>
                                                 triggerReplay(comment.id)
@@ -177,6 +249,7 @@ const CommentBlock = ({ idSport }) => {
                                 </div>
                             </div>
                         ))}
+                        <div ref={bottomRef} />
                     </>
                 )}
             </div>
