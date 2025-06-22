@@ -3,7 +3,6 @@ import './globals.css'
 import { AuthProvider } from '@/context/authContext'
 import ArticleProvider from '@/context/articleContext'
 import NavBar from '@/components/navBar'
-
 const popins = Poppins({
     variable: '--font-popins',
     subsets: ['latin'],
@@ -11,8 +10,42 @@ const popins = Poppins({
 })
 
 export const metadata = {
-    title: 'Hors zone',
-    description: 'Application web progressive',
+    applicationName: 'Hors Zone',
+    title: {
+        default: "Hors Zone - Explorez l'inattendu",
+        template: '%s | Hors Zone',
+    },
+    description:
+        'Découvrez Hors Zone, une application innovante pour explorer des contenus dynamiques et personnalisés.',
+    manifest: '/manifest.json',
+    appleWebApp: {
+        capable: true,
+        statusBarStyle: 'default',
+        title: "Hors Zone - Explorez l'inattendu",
+        // startUpImage: [],
+    },
+    formatDetection: {
+        telephone: false,
+    },
+    openGraph: {
+        type: 'website',
+        siteName: 'Hors Zone',
+        title: {
+            default: "Hors Zone - Explorez l'inattendu",
+            template: '%s | Hors Zone',
+        },
+        description:
+            'Découvrez Hors Zone, une application innovante pour explorer des contenus dynamiques et personnalisés.',
+    },
+    twitter: {
+        card: 'summary',
+        title: {
+            default: "Hors Zone - Explorez l'inattendu",
+            template: '%s | Hors Zone',
+        },
+        description:
+            'Découvrez Hors Zone, une application innovante pour explorer des contenus dynamiques et personnalisés.',
+    },
 }
 
 export default function RootLayout({ children }) {

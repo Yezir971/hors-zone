@@ -1,6 +1,7 @@
 'use client'
 import { authContextApi } from '@/context/authContext'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 const NavBar = () => {
     const { logout, isAuth } = authContextApi()
