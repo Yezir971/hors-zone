@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const SectionEventHome = ({ sports }) => {
+    console.log(sports)
 
     return (
         <>
@@ -11,7 +12,7 @@ const SectionEventHome = ({ sports }) => {
                     {' '}
                     Événements à venir
                 </h2>
-                {sports.length != 0 ? (
+                {sports && sports?.length != 0 ? (
                     <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth">
                         {/* Carte 1 */}
                         {sports.map((sport, id) => (
@@ -27,16 +28,16 @@ const SectionEventHome = ({ sports }) => {
                                     height={165}
                                 /> */}
                                 <img
-                                    src={sport.image_url}
-                                    alt={`image ${sport.name}`}
+                                    src={sport?.image_url}
+                                    alt={`image ${sport?.name}`}
                                     className="h-48 w-full object-cover rounded-t-xl"
                                 />
                                 <div className="p-4">
                                     <h3 className="font-semibold text-lg">
-                                        {sport.name}
+                                        {sport?.name}
                                     </h3>
                                     <Link
-                                        href={`/description/${sport.slug}`}
+                                        href={`/description/${sport?.slug}`}
                                         className="text-blue-600 mt-2 inline-flex items-center"
                                     >
                                         En savoir plus{' '}

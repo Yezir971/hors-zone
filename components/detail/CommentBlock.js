@@ -18,10 +18,15 @@ const CommentBlock = ({ idSport }) => {
     const formRef = useRef(null)
     const socketRef = useRef(null)
     const bottomRef = useRef(null)
+    const scrollContainerRef = useRef(null)
 
     useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: 'auto' })
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop =
+                scrollContainerRef.current.scrollHeight
+        }
     }, [comments])
+
     useEffect(() => {
         fetchMessage()
         socketRef.current = new WebSocket(
@@ -201,7 +206,10 @@ const CommentBlock = ({ idSport }) => {
                     </p>
                 </>
             )}
-            <div className="space-y-4 h-64 overflow-y-auto custom-scrollbar">
+            <div
+                ref={scrollContainerRef}
+                className="space-y-4 h-64 overflow-y-auto custom-scrollbar"
+            >
                 {comments && (
                     <>
                         {comments.map((comment, id) => (
@@ -249,7 +257,7 @@ const CommentBlock = ({ idSport }) => {
                                 </div>
                             </div>
                         ))}
-                        <div ref={bottomRef} />
+                        {/* <div ref={bottomRef} /> */}
                     </>
                 )}
             </div>
