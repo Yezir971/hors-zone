@@ -22,7 +22,6 @@ export default function AdminPanel({ profil }) {
         }))
     }
     const geocodeAddress = async (address) => {
-
         const response = await fetch(
             `https://api.opencagedata.com/geocode/v1/json?q=${address}&key=${process.env.NEXT_PUBLIC_LOCATION_API_KEY}`
         )
@@ -94,7 +93,6 @@ export default function AdminPanel({ profil }) {
             if (urlError) throw urlError
 
             let locationData = await geocodeAddress(dataForm['localisation'])
-            console.log(locationData)
 
             if (!locationData) {
                 toast.error(
@@ -141,10 +139,10 @@ export default function AdminPanel({ profil }) {
             toast.success('Événement ajouté avec succès', DATA_TOAST)
             update()
             setDataForm({})
-            formRef.current?.reset()
         } catch (error) {
             toast.error('Erreur lors de l’upload: ' + error, DATA_TOAST)
         } finally {
+            formRef.current?.reset()
             setUploading(false)
         }
     }
@@ -177,16 +175,6 @@ export default function AdminPanel({ profil }) {
                     onChange={handleChange}
                     disabled={uploading}
                 />
-
-                {/* Helper text */}
-                <div
-                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                    id="user_avatar_help"
-                >
-                    A profile picture is useful to confirm you are logged into
-                    your account
-                </div>
-
                 <div className="mb-5">
                     <label
                         htmlFor="titre"

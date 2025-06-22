@@ -14,16 +14,6 @@ const EditProfil = () => {
     const [dataForm, setDataForm] = useState(null)
     const [flagAvatar, setFlagAvatar] = useState()
 
-    // const [dataForm, setdataForm] = useState(profil)
-
-    // const handleChange = (e) => {
-    //     const { value, name } = e.target
-    //     setdataForm((prev) => ({
-    //         ...prev,
-    //         [name]: value,
-    //     }))
-    // }
-
     useEffect(() => {
         if (profil) {
             setFlagAvatar(profil.avatar_url)
@@ -39,7 +29,6 @@ const EditProfil = () => {
             })
         }
     }, [profil])
-    console.log(dataForm)
 
     const deleteArticle = async (imageUrl) => {
         try {

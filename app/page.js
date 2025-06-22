@@ -13,6 +13,8 @@ export default function Home() {
     const { isAuth, user, isLoadingUser } = authContextApi()
     const [sports, setSports] = useState([])
     const [isLoadingSports, setIsLoadingSports] = useState(false)
+    const [isLoadingVideo, setIsLoadingVideo] = useState(false)
+    const [video, setVideo] = useState([])
     const fetchDataEvent = async () => {
         try {
             const { data, error } = await supabase.from('sports').select()
@@ -22,7 +24,8 @@ export default function Home() {
                 return []
             }
 
-            return data
+            // return data
+            setSports(data)
         } catch (err) {
             console.error('Erreur inattendue:', err)
             return []
@@ -30,20 +33,37 @@ export default function Home() {
             setIsLoadingSports(true)
         }
     }
-    // useEffect(() => {
-    //     if (!isLoadingUser && !user) {
-    //         router.push('/login')
-    //     }
-    // }, [isAuth, isLoadingUser])
+    const fetchVideo = async () => {
+        try {
+            const { data, error } = await supabase.from('videos').select()
+
+            if (error) {
+                console.error('Erreur Supabase:', error.message)
+                return []
+            }
+
+            setVideo(data)
+        } catch (err) {
+            console.error('Erreur inattendue:', err)
+            return []
+        } finally {
+            setIsLoadingVideo(true)
+        }
+    }
 
     useEffect(() => {
-        const getData = async () => {
-            const data = await fetchDataEvent()
-            setSports(data)
-        }
-
-        getData()
+        fetchDataEvent()
+        fetchVideo()
     }, [])
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         const data = await fetchDataEvent()
+    //         await fetchVideo()
+    //         setSports(data)
+    //     }
+
+    //     getData()
+    // }, [])
 
     if (isLoadingUser && !isLoadingSports) {
         return (
@@ -56,7 +76,16 @@ export default function Home() {
         <>
             <HeroBanner />
             <main className="px-5">
-                <SectionEventHome sports={sports} />
+                <SectionEventHome
+                    sports={sports}
+                    titre={'Événements à venir'}
+                    type={'picture'}
+                />
+                <SectionEventHome
+                    sports={video}
+                    titre={'Les Reportages'}
+                    type={'video'}
+                />
             </main>
         </>
     )

@@ -1,18 +1,18 @@
-import { supabase } from '@/lib/initSupabase'
-import { useEffect, useState } from 'react'
-import Loading from './Loading'
 import { ArticleContextApi } from '@/context/articleContext'
+import { useEffect, useState } from 'react'
+import Loading from '../Loading'
 import { toast } from 'react-toastify'
 import DATA_TOAST from '@/app/utils/constant/toast'
+import { supabase } from '@/lib/initSupabase'
 
-const ListSportsAdd = ({ profil }) => {
-    const { updateListSports, update } = ArticleContextApi()
+const ListVideoAdd = ({ profil }) => {
+    const { updateVideo, updateListeVideoSports } = ArticleContextApi()
     const [sports, setSports] = useState()
     const [loading, setIsLoading] = useState(true)
 
     const fetchAllSports = async () => {
         try {
-            const { data, error } = await supabase.from('sports').select()
+            const { data, error } = await supabase.from('videos').select()
             if (error) {
                 toast.error(error, DATA_TOAST)
             }
@@ -26,7 +26,7 @@ const ListSportsAdd = ({ profil }) => {
     }
     useEffect(() => {
         fetchAllSports()
-    }, [updateListSports])
+    }, [updateListeVideoSports])
     if (!sports) {
         return (
             <div className="flex justify-center items-center h-screen">
@@ -34,28 +34,27 @@ const ListSportsAdd = ({ profil }) => {
             </div>
         )
     }
-
-    const deleteArticle = async (id, imageUrl) => {
+    const deleteVideo = async (id, videoUrl) => {
         try {
             const { error } = await supabase
-                .from('sports')
+                .from('videos')
                 .delete()
                 .eq('id', id)
 
-            let path = imageUrl
+            let path = videoUrl
             path = path.replace(
-                `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/sports/`,
+                `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/videos/`,
                 ''
             )
 
-            // on supprime l'image dans le bucket
+            // on supprime lavidéo dans le bucket
             const { error: erroBucket } = await supabase.storage
-                .from('sports')
+                .from('videos')
                 .remove([path])
             if (erroBucket) {
                 toast.error(
-                    "Erreur à la suppression de l'image dans le bucket " +
-                        erroBucket,
+                    'Erreur à la suppression de la vidéo dans le bucket ' +
+                        erroBucket.message,
                     DATA_TOAST
                 )
                 return
@@ -63,13 +62,13 @@ const ListSportsAdd = ({ profil }) => {
 
             if (error) {
                 toast.error(
-                    "Erreur à la suppression de l'événement " + error,
+                    'Erreur à la suppression de la vidéo ' + error.message,
                     DATA_TOAST
                 )
                 return
             }
-            toast.success('Événement supprimé avec succès !', DATA_TOAST)
-            update()
+            toast.success('Vidéo supprimé avec succès !', DATA_TOAST)
+            updateVideo()
         } catch (e) {
             toast.error(e, DATA_TOAST)
         }
@@ -79,11 +78,11 @@ const ListSportsAdd = ({ profil }) => {
         <>
             <div className="max-w-2xl mx-auto mt-10 bg-white p-6 rounded-2xl shadow-xl">
                 <h1 className="text-center font-bold">
-                    List d'article ajouter
+                    List des vidéos ajouter
                 </h1>
                 {sports.length == 0 ? (
                     <p className="text-center text-gray-500">
-                        Aucun sport ajouter pour le moment.
+                        Aucune vidéo ajouter.
                     </p>
                 ) : (
                     <div className="space-y-6">
@@ -92,22 +91,27 @@ const ListSportsAdd = ({ profil }) => {
                                 key={index}
                                 className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-gray-50 p-4 rounded-xl shadow hover:shadow-md transition"
                             >
-                                <img
-                                    src={sport.image_url}
-                                    alt={sport.name}
-                                    className="w-full sm:w-40 h-32 object-cover rounded-xl"
-                                />
+                                <video
+                                    controls
+                                    width="302"
+                                    className="rounded-xl shadow-md"
+                                >
+                                    <source
+                                        src={sport.link_video}
+                                        type="video/mp4"
+                                    />
+                                    Votre navigateur ne supporte pas la lecture
+                                    vidéo.
+                                </video>
+
                                 <div className="flex-1">
                                     <h3 className="text-xl font-semibold text-indigo-700">
                                         {sport.name}
                                     </h3>
-                                    <p className="text-gray-600 mt-1 text-sm">
-                                        {sport.description}
-                                    </p>
                                 </div>
                                 <button
                                     onClick={() =>
-                                        deleteArticle(sport.id, sport.image_url)
+                                        deleteVideo(sport.id, sport.link_video)
                                     }
                                     className={`mt-2 sm:mt-0 ${
                                         sport.id_admin_who_add == profil.id
@@ -129,4 +133,4 @@ const ListSportsAdd = ({ profil }) => {
     )
 }
 
-export default ListSportsAdd
+export default ListVideoAdd
