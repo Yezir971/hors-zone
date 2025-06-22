@@ -9,44 +9,95 @@ const popins = Poppins({
     weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 })
 
+// export const metadata = {
+//     applicationName: 'Hors Zone',
+//     title: {
+//         default: "Hors Zone - Explorez les sports l'inattendu",
+//         template: '%s | Hors Zone',
+//     },
+//     description:
+//         'Découvrez Hors Zone, une application innovante pour explorer des contenus dynamiques et personnalisés.',
+//     manifest: '/manifest.json',
+//     appleWebApp: {
+//         capable: true,
+//         statusBarStyle: 'default',
+//         title: "Hors Zone - Explorez l'inattendu",
+//         // startUpImage: [],
+//     },
+//     formatDetection: {
+//         telephone: false,
+//     },
+//     openGraph: {
+//         type: 'website',
+//         siteName: 'Hors Zone',
+//         title: {
+//             default: "Hors Zone - Explorez l'inattendu",
+//             template: '%s | Hors Zone',
+//         },
+//         description:
+//             'Découvrez Hors Zone, une application innovante pour explorer des contenus dynamiques et personnalisés.',
+//     },
+//     twitter: {
+//         card: 'summary',
+//         title: {
+//             default: "Hors Zone - Explorez l'inattendu",
+//             template: '%s | Hors Zone',
+//         },
+//         description:
+//             'Découvrez Hors Zone, une application innovante pour explorer des contenus dynamiques et personnalisés.',
+//     },
+// }
+
+
 export const metadata = {
-    applicationName: 'Hors Zone',
+  applicationName: 'Hors Zone',
+  title: {
+    default: "Hors Zone - Découvrez les sports insolites et l'inattendu",
+    template: '%s | Hors Zone',
+  },
+  description:
+    "Hors Zone est l'application dédiée aux sports insolites : explorez des disciplines inattendues, localisez les événements proches, laissez des commentaires, ajoutez vos favoris et découvrez des vidéos inspirantes.",
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: "Hors Zone - Sports insolites et découvertes",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  openGraph: {
+    type: 'website',
+    siteName: 'Hors Zone',
+    url: 'https://hors-zone.vercel.app', // domaine final
     title: {
-        default: "Hors Zone - Explorez l'inattendu",
-        template: '%s | Hors Zone',
+      default: "Hors Zone - Découvrez les sports insolites",
+      template: '%s | Hors Zone',
     },
     description:
-        'Découvrez Hors Zone, une application innovante pour explorer des contenus dynamiques et personnalisés.',
-    manifest: '/manifest.json',
-    appleWebApp: {
-        capable: true,
-        statusBarStyle: 'default',
-        title: "Hors Zone - Explorez l'inattendu",
-        // startUpImage: [],
+      "Explorez les sports alternatifs et lieux d'événements insolites avec Hors Zone. Regardez des vidéos, commentez, partagez et créez vos favoris.",
+    images: [
+      {
+        url: 'https://hors-zone.vercel.app/images/og-image.jpg', // ajoute une image 1200x630 dans /public
+        width: 1200,
+        height: 630,
+        alt: 'Hors Zone - Sports insolites',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: {
+      default: "Hors Zone - Sports insolites et découvertes",
+      template: '%s | Hors Zone',
     },
-    formatDetection: {
-        telephone: false,
-    },
-    openGraph: {
-        type: 'website',
-        siteName: 'Hors Zone',
-        title: {
-            default: "Hors Zone - Explorez l'inattendu",
-            template: '%s | Hors Zone',
-        },
-        description:
-            'Découvrez Hors Zone, une application innovante pour explorer des contenus dynamiques et personnalisés.',
-    },
-    twitter: {
-        card: 'summary',
-        title: {
-            default: "Hors Zone - Explorez l'inattendu",
-            template: '%s | Hors Zone',
-        },
-        description:
-            'Découvrez Hors Zone, une application innovante pour explorer des contenus dynamiques et personnalisés.',
-    },
-}
+    description:
+      "Trouvez des événements insolites, explorez des sports originaux et partagez vos découvertes. Hors Zone, l'app pour sortir des sentiers battus.",
+    images: ['https://hors-zone.vercel.app/images/og-image.jpg'], 
+    // creator: '@tonTwitter', // pour le compte tweeter lier a l'aapp
+  },
+  themeColor: '#0080FF', 
+};
 
 export default function RootLayout({ children }) {
     return (
