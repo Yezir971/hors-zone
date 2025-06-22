@@ -96,7 +96,6 @@ export const metadata = {
     images: ['https://hors-zone.vercel.app/images/og-image.jpg'], 
     // creator: '@tonTwitter', // pour le compte tweeter lier a l'aapp
   },
-  themeColor: '#0080FF', 
 };
 
 export default function RootLayout({ children }) {
