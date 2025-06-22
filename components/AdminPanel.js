@@ -22,7 +22,6 @@ export default function AdminPanel({ profil }) {
         }))
     }
     const geocodeAddress = async (address) => {
-        console.log('results[0].lat')
 
         const response = await fetch(
             `https://api.opencagedata.com/geocode/v1/json?q=${address}&key=${process.env.NEXT_PUBLIC_LOCATION_API_KEY}`
