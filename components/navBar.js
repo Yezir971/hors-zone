@@ -1,5 +1,6 @@
 'use client'
 import { authContextApi } from '@/context/authContext'
+import ThemeToggle from '@/context/themeToggle'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -7,8 +8,8 @@ const NavBar = () => {
     const { logout, isAuth } = authContextApi()
 
     return (
-        <nav style={styles.nav}>
-            <div style={styles.buttons}>
+        <nav className=" right-0 px-5 py-2 bg-[#222] top-0 text-white absolute">
+            <div className="flex flex-col justify-between">
                 {!isAuth ? (
                     <>
                         <Link style={styles.button} href="/login">
@@ -31,6 +32,7 @@ const NavBar = () => {
                         <button style={styles.button} onClick={logout}>
                             Se déconnecter
                         </button>
+                        <ThemeToggle />
                     </>
                 )}
             </div>
@@ -40,6 +42,7 @@ const NavBar = () => {
 const styles = {
     nav: {
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'space-between',
         padding: '10px 20px',
         backgroundColor: '#222',

@@ -12,6 +12,10 @@
     --nuance-de-blanc-2: #f4f4f8;
 
     --bleu-electrique: #0080ff;
+
+    /* footer  */
+    --background-color-footer: #ffffff;
+    --text-color-footer: #000000;
 }
 
 .dark {
@@ -26,6 +30,10 @@
     --nuance-de-blanc-2: #121212;
 
     --bleu-electrique: #0080ff;
+
+    /* footer  */
+    --background-color-footer: #000000;
+    --text-color-footer: #ffffff;
 }
 
 /* WebKit only (Chrome, Edge, Safari) */
