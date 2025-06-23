@@ -17,9 +17,9 @@
 
     --bleu-electrique: #0080ff;
 
-    /* footer  */
-    --background-color-footer: #ffffff;
-    --text-color-footer: #000000;
+   
+    --background-color: #ffffff;
+    --text-color: #000000;
 }
 
 
@@ -37,9 +37,9 @@
 
     --bleu-electrique: #0080ff;
 
-    /* footer  */
-    --background-color-footer: #000000;
-    --text-color-footer: #ffffff;
+    
+    --background-color: #000000;
+    --text-color: #ffffff;
 }
 
 /* WebKit only (Chrome, Edge, Safari) */

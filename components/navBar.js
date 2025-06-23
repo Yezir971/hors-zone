@@ -31,9 +31,10 @@ const NavBar = () => {
                         <button style={styles.button} onClick={logout}>
                             Se déconnecter
                         </button>
-                        <ThemeToggle />
                     </>
                 )}
+                        <ThemeToggle />
+
             </div>
         </nav>
     )
