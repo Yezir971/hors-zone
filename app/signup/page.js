@@ -100,7 +100,7 @@ const SignUp = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block mb-3 text-base  text-black">
+                                <label className="block mb-3 text-[var(--text-color)] ">
                                     Confirmation du mot de passe
                                 </label>
                                 <input
