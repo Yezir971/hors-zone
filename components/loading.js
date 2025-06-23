@@ -1,6 +1,6 @@
 import { TailSpin } from 'react-loader-spinner'
 
-export default function Loading() {
+const Loading = () => {
     return (
         <>
             <TailSpin
@@ -16,3 +16,5 @@ export default function Loading() {
         </>
     )
 }
+
+export default Loading
