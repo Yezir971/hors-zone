@@ -114,7 +114,7 @@ const SignUp = () => {
 
                             <button
                                 type="submit"
-                                className="cursor-pointer w-full mt-16 bg-[var(--orange-1)] hover:bg-amber-500 text-white font-semibold py-4 px-4 rounded-lg transition duration-300"
+                                className="cursor-pointer w-full mt-16 bg-[var(--bleu-electrique)] hover:bg-[var(--bleu-fonce)]  text-white font-semibold py-4 px-4 rounded-lg transition duration-300"
                             >
                                 {isLoading ? (
                                     <span className="flex justify-center">
@@ -128,7 +128,7 @@ const SignUp = () => {
                             <p className="text-sm text-center text-gray-500 mt-4">
                                 Vous avez déjà un compte ?{' '}
                                 <Link
-                                    className="text-[var(--orange-1)] hover:underline"
+                                    className="text-[var(--bleu-electrique)] hover:underline"
                                     href="/login"
                                 >
                                     Connectez-vous !

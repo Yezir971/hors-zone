@@ -17,7 +17,7 @@ const TopLoginSignUp = () => {
             </Link>
             <div className="w-full flex justify-center mt-8 mb-20">
                 <Image
-                    src="/images/logo/logo.svg"
+                    src="/images/logo/logo0.svg"
                     alt="arrow-left"
                     width={81}
                     height={79}
