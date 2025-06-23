@@ -7,10 +7,10 @@ const withPWA = withPWAInit({
 // export default withPWA({
 //   // Your Next.js config
 // });
-
+const supabaseUrl = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).hostname
 const nextConfig = {
     images: {
-        domains: [process.env.NEXT_PUBLIC_SUPABASE_URL, 'yezir971.github.io'],
+        domains: [supabaseUrl, 'yezir971.github.io'],
     },
 }
 

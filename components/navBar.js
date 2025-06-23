@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 const NavBar = () => {
     const { logout, isAuth } = authContextApi()
     return (
-        <nav className=" right-0 px-5 py-2 bg-[#222] top-0 text-white absolute">
+        <nav className="hidden right-0 px-5 py-2 bg-[#222] top-0 text-white absolute">
             <div className="flex flex-col justify-between">
                 {!isAuth ? (
                     <>
