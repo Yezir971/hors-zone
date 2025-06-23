@@ -1,14 +1,20 @@
+import { checkEmail } from '../input_email';
 
-
-describe('test 1 de l\'input email', () => {
-  test('test 1 email vide', () => {
-    expect(checkEmail("")).toBe(false);
+describe('checkEmail', () => {
+  it('retourne "Email vide" si vide', () => {
+    expect(checkEmail("")).toBe("Email vide");
+    expect(checkEmail("   ")).toBe("Email vide");
   });
 
-  test('test 2 l\'input n\'est pas valide', () => {
-    expect(checkEmail("test.fr")).toBe(false);
+  it('retourne "Email non valide" si mal formé', () => {
+    expect(checkEmail("test")).toBe("Email non valide");
+    expect(checkEmail("test@")).toBe("Email non valide");
+    expect(checkEmail("test@domain")).toBe("Email non valide");
+    expect(checkEmail("test@domain,com")).toBe("Email non valide");
   });
-  test('test 3 l\'input est valide', () => {
-    expect(checkEmail("test@gmail.fr")).toBe(true);
+
+  it('retourne true si email valide', () => {
+    expect(checkEmail("test@domain.com")).toBe(true);
+    expect(checkEmail("user.name@sub.domain.co")).toBe(true);
   });
 });

@@ -3,13 +3,17 @@
 :root {
     --orange-1: #cf3700;
     --orange-2: #ff6c37;
-    --orange-3: #ff6a00;
     --noir: #1a1a1a;
     --gris-bleute: #6b7280;
     --blanc: #ffffff;
     --nuance-de-blanc-1: #f9f9f9;
     --gris: #a5a5a5;
     --nuance-de-blanc-2: #f4f4f8;
+    --bleu-fonce: #0a5197;
+    --like-:#E20000;
+    --gris2: #696969;
+    --gris-fonce: #343434;
+    --favorite: #ffd400;
 
     --bleu-electrique: #0080ff;
 
@@ -17,6 +21,8 @@
     --background-color-footer: #ffffff;
     --text-color-footer: #000000;
 }
+
+
 
 .dark {
     --orange-1: #0a5197;

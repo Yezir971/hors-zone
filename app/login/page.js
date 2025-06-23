@@ -99,7 +99,7 @@ const Login = () => {
 
                             <button
                                 type="submit"
-                                className="cursor-pointer w-full bg-[var(--orange-1)] hover:bg-amber-500 text-white font-semibold py-4 px-4 rounded-lg transition duration-300"
+                                className="cursor-pointer w-full bg-[var(--bleu-electrique)] hover:bg-[var(--bleu-fonce)] text-white font-semibold py-4 px-4 rounded-lg transition duration-300"
                             >
                                 {isLoading ? (
                                     <span className="flex justify-center">
