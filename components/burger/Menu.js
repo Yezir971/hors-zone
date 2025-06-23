@@ -1,6 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
+import ButtonLightNight from './ButtonLightNight'
 
 const Menu = ({ open }) => {
     return (
@@ -28,6 +29,7 @@ const Menu = ({ open }) => {
             >
                 Déconnexion
             </Link>
+            <ButtonLightNight />
         </nav>
     )
 }
