@@ -55,15 +55,6 @@ export default function Home() {
         fetchDataEvent()
         fetchVideo()
     }, [])
-    // useEffect(() => {
-    //     const getData = async () => {
-    //         const data = await fetchDataEvent()
-    //         await fetchVideo()
-    //         setSports(data)
-    //     }
-
-    //     getData()
-    // }, [])
 
     if (isLoadingUser && !isLoadingSports) {
         return (
@@ -75,7 +66,7 @@ export default function Home() {
     return (
         <>
             <HeroBanner />
-            <main className="px-5">
+            <main className="px-5 gap-[79px] mt-[92px] mb-[100px]">
                 <SectionEventHome
                     sports={sports}
                     titre={'Événements à venir'}
