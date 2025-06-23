@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import Burger from '../burger/Burger'
 import Menu from '../burger/Menu'
-import ThemeToggle from '@/context/themeToggle'
 
 const useOnClickOutside = (ref, handler) => {
     useEffect(() => {

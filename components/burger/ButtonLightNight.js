@@ -1,19 +1,22 @@
 'use client'
-import { authContextApi } from '@/context/authContext'
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 import { FiSun, FiMoon } from 'react-icons/fi'
 
 const ButtonLightNight = () => {
-    const { logout, isAuth } = authContextApi()
-
-    const [darkMode, setDarkMode] = useState(false)
+    const dataLocalstorage = localStorage.getItem('darkMode')
+    const [darkMode, setDarkMode] = useState(
+        dataLocalstorage ? JSON.parse(dataLocalstorage) : false
+    )
 
     useEffect(() => {
+        const root = window.document.documentElement
         if (darkMode) {
-            document.body.classList.add('dark')
+            root.classList.add('dark')
+            localStorage.setItem('darkMode', true)
         } else {
-            document.body.classList.remove('dark')
+            localStorage.setItem('darkMode', false)
+            root.classList.remove('dark')
         }
     }, [darkMode])
     return (

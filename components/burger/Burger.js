@@ -9,7 +9,7 @@ const Burger = ({ open, setOpen }) => {
             <span
                 className={clsx(
                     'block w-8 h-1 rounded-full bg-current transition-transform duration-300 origin-[1px]',
-                    open ? 'rotate-45' : 'rotate-0'
+                    open ? 'rotate-[42deg]' : 'rotate-0'
                 )}
             />
             <span
@@ -23,7 +23,7 @@ const Burger = ({ open, setOpen }) => {
             <span
                 className={clsx(
                     'block w-8 h-1 rounded-full bg-current transition-transform duration-300 origin-[1px]',
-                    open ? '-rotate-45' : 'rotate-0'
+                    open ? '-rotate-[42deg]' : 'rotate-0'
                 )}
             />
         </button>

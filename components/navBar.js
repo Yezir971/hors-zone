@@ -1,6 +1,5 @@
 'use client'
 import { authContextApi } from '@/context/authContext'
-import ThemeToggle from '@/context/themeToggle'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -31,7 +30,6 @@ const NavBar = () => {
                         <button style={styles.button} onClick={logout}>
                             Se déconnecter
                         </button>
-                        <ThemeToggle />
                     </>
                 )}
             </div>
