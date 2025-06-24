@@ -7,7 +7,6 @@ import { supabase } from '@/lib/initSupabase'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-
 const Description = () => {
     const { slug } = useParams()
     // const sport = sportData[slug]

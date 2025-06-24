@@ -1,5 +1,5 @@
 'use client'
-import Loading from "@/components/Loading";
+import Loading from '@/components/Loading'
 import { authContextApi } from '@/context/authContext'
 import { supabase } from '@/lib/initSupabase'
 import { useRouter } from 'next/navigation'

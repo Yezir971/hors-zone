@@ -68,7 +68,8 @@ const SignUp = () => {
                         <form onSubmit={fetchSignUp} className="space-y-4">
                             <div>
                                 <label className="block mb-3 text-base font-normal">
-                                    Pseudo <span className="text-red-500">*</span>
+                                    Pseudo{' '}
+                                    <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     onChange={handleChange}
@@ -80,7 +81,8 @@ const SignUp = () => {
                             </div>
                             <div>
                                 <label className="block mb-3 text-base font-normal">
-                                    Email <span className="text-red-500">*</span>
+                                    Email{' '}
+                                    <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     onChange={handleChange}
@@ -92,12 +94,15 @@ const SignUp = () => {
                             </div>
                             <div>
                                 <label className="block mb-3 text-base font-normal">
-                                    Mot de passe <span className="text-red-500">*</span>
+                                    Mot de passe{' '}
+                                    <span className="text-red-500">*</span>
                                 </label>
                                 <div className="relative">
                                     <input
                                         onChange={handleChange}
-                                        type={showPassword ? "text" : "password"}
+                                        type={
+                                            showPassword ? 'text' : 'password'
+                                        }
                                         name="password"
                                         id="password"
                                         className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2 pr-12"
@@ -109,17 +114,24 @@ const SignUp = () => {
                                         onClick={togglePasswordVisibility}
                                         tabIndex={-1}
                                     >
-                                        {showPassword ? <LuEye /> : <LuEyeClosed />}
+                                        {showPassword ? (
+                                            <LuEye />
+                                        ) : (
+                                            <LuEyeClosed />
+                                        )}
                                     </button>
                                 </div>
                             </div>
                             <div>
                                 <label className="block mb-3 text-base font-normal">
-                                    Confirmation du mot de passe <span className="text-red-500">*</span>
+                                    Confirmation du mot de passe{' '}
+                                    <span className="text-red-500">*</span>
                                 </label>
                                 <div className="relative">
                                     <input
-                                        type={showPassword2 ? "text" : "password"}
+                                        type={
+                                            showPassword2 ? 'text' : 'password'
+                                        }
                                         onChange={handleChange}
                                         name="passwordConfirm"
                                         className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2 pr-12"
@@ -131,7 +143,11 @@ const SignUp = () => {
                                         onClick={togglePassword2Visibility}
                                         tabIndex={-1}
                                     >
-                                        {showPassword2 ? <LuEye /> : <LuEyeClosed />}
+                                        {showPassword2 ? (
+                                            <LuEye />
+                                        ) : (
+                                            <LuEyeClosed />
+                                        )}
                                     </button>
                                 </div>
                             </div>
