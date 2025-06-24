@@ -43,7 +43,14 @@ const AdminFormVideo = ({ profil }) => {
                 .from('videos')
                 .upload(filePath, file)
 
-            if (urlError) throw urlError
+            if (urlError) {
+                toast.error(
+                    "Erreur au moment de l'upload de la vidéo" +
+                        errorVideo.message,
+                    DATA_TOAST
+                )
+                return
+            }
 
             const { error: errorVideo } = await supabase.from('videos').insert([
                 {
@@ -51,6 +58,7 @@ const AdminFormVideo = ({ profil }) => {
                     video_name: dataForm.titre,
                     link_video: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${urlData.fullPath}`,
                     id_admin_who_add: profil?.id,
+                    description: dataForm.description,
                 },
             ])
 
@@ -60,8 +68,6 @@ const AdminFormVideo = ({ profil }) => {
                         errorVideo.message,
                     DATA_TOAST
                 )
-                console.table(errorVideo)
-                console.log(errorVideo)
                 return
             }
             toast.success('Vidéo upload avec succès.', DATA_TOAST)
@@ -72,7 +78,6 @@ const AdminFormVideo = ({ profil }) => {
                     error.message,
                 DATA_TOAST
             )
-            console.log(error)
         } finally {
             setUploading(false)
             formRef.current?.reset()
@@ -125,6 +130,22 @@ const AdminFormVideo = ({ profil }) => {
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Aqua poney"
                             required
+                        />
+                    </div>
+
+                    <div>
+                        <label
+                            className="block text-gray-700 font-semibold mb-2"
+                            htmlFor="description"
+                        >
+                            Description
+                        </label>
+                        <textarea
+                            id="description"
+                            name="description"
+                            onChange={handleChange}
+                            rows={4}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-indigo-300 transition resize-none"
                         />
                     </div>
 

@@ -1,5 +1,6 @@
 'use client'
 import truncate from '@/utils/truncate'
+import truncateDate from '@/utils/truncateDate'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -16,21 +17,21 @@ const SectionEventHome = ({ sports, titre, type }) => {
                         {sports.map((sport, id) => (
                             <div
                                 key={id}
-                                className="min-w-[300px] shrink-0 snap-start bg-[var(--nuance-de-blanc-2)] rounded-xl shadow-md overflow-hidden"
+                                className="min-w-[300px]  border-[20px] border-solid border-[var(--card-color-nuance-1)] shrink-0 snap-start bg-[var(--card-color-nuance-1)] rounded-xl shadow-md overflow-hidden"
                             >
                                 {type == 'picture' ? (
                                     <>
                                         <img
                                             src={sport?.image_url}
                                             alt={`image ${sport?.name}`}
-                                            className="h-48 w-full object-cover rounded-t-xl"
+                                            className="h-48 w-full object-cover rounded-[10px] "
                                         />
                                     </>
                                 ) : (
                                     <>
                                         <video
                                             controls
-                                            className="h-48 w-full object-cover rounded-t-xl"
+                                            className="h-48 w-full object-cover rounded-[10px] "
                                         >
                                             <source
                                                 src={sport?.link_video}
@@ -42,27 +43,24 @@ const SectionEventHome = ({ sports, titre, type }) => {
                                     </>
                                 )}
 
-                                <div className="p-5">
+                                <div className="">
                                     <a href="#">
-                                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+                                        <h5 className="mb-2 mt-2.5 text-2xl font-bold tracking-tight">
                                             {type == 'picture'
                                                 ? sport?.name
                                                 : sport?.video_name}
                                         </h5>
                                     </a>
-                                    {type == 'picture' && (
+                                    <p className="mt-2.5 font-normal ">
+                                        {truncate(sport?.description, 50)}
+                                    </p>
+                                    {type == 'picture' ? (
                                         <>
-                                            <p className="mb-3 font-normal text-gray-700">
-                                                {truncate(
-                                                    sport?.description,
-                                                    50
-                                                )}
-                                            </p>
                                             <Link
                                                 href={`/description/${sport?.slug}`}
-                                                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 "
+                                                className="inline-flex items-center mt-8 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 "
                                             >
-                                                En savoir plus
+                                                Voir plus
                                                 <svg
                                                     className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
                                                     aria-hidden="true"
@@ -80,6 +78,11 @@ const SectionEventHome = ({ sports, titre, type }) => {
                                                 </svg>
                                             </Link>
                                         </>
+                                    ) : (
+                                        <p className="text-[10px] font-normal mt-2.5 ">
+                                            Publié le{' '}
+                                            {truncateDate(sport?.created_at)}
+                                        </p>
                                     )}
                                 </div>
                             </div>

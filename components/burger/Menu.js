@@ -2,8 +2,10 @@ import React from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
 import ButtonLightNight from './ButtonLightNight'
+import { authContextApi } from '@/context/authContext'
 
 const Menu = ({ open }) => {
+    const { isAuth } = authContextApi()
     return (
         <nav
             className={clsx(
@@ -23,12 +25,16 @@ const Menu = ({ open }) => {
             >
                 Reportages
             </Link>
-            <Link
-                href="/"
-                className="text-2xl font-medium tracking-widest text-white no-underline transition-colors duration-300"
-            >
-                Déconnexion
-            </Link>
+            {isAuth ? (
+                <Link
+                    href="/"
+                    className="text-2xl font-medium tracking-widest text-white no-underline transition-colors duration-300"
+                >
+                    Déconnexion
+                </Link>
+            ) : (
+                <p>hello</p>
+            )}
             <ButtonLightNight />
         </nav>
     )
