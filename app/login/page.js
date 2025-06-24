@@ -19,7 +19,7 @@ const Login = () => {
 
     useEffect(() => {
         if (!isLoadingUser && user) {
-            router.push('/home')
+            router.push('/')
         }
     }, [isAuth, isLoadingUser])
 

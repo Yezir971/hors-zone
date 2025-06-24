@@ -25,7 +25,7 @@ const SignUp = () => {
         const checkUser = async () => {
             const { data } = await supabase.auth.getUser()
             if (data.user) {
-                router.push('/home')
+                router.push('/')
             }
         }
         checkUser()

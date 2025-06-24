@@ -4,6 +4,7 @@ import NotifButton from '@/components/button/NotifButton'
 import ShareButton from '@/components/button/ShareButton'
 import CommentBlock from '@/components/detail/CommentBlock'
 import Map from '@/components/detail/Map'
+import SectionEventHome from '@/components/home/SectionEventHome'
 import Loading from '@/components/Loading'
 import { supabase } from '@/lib/initSupabase'
 import Image from 'next/image'
@@ -132,8 +133,8 @@ const Description = () => {
                     <div className="">
                         <CommentBlock idSport={sport.id} />
                     </div>
+                    <SectionEventHome titre={'On en parle'} type={'picture'} />
                 </div>
-
             </div>
         </>
     )
