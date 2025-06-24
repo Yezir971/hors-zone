@@ -9,11 +9,17 @@ import { toast } from 'react-toastify'
 import DATA_TOAST from '../utils/constant/toast'
 import Loading from '@/components/Loading'
 import TopLoginSignUp from '@/components/TopLoginSignup'
+import { LuEye, LuEyeClosed } from 'react-icons/lu'
 
 const SignUp = () => {
     const [dataForm, setDataForm] = useState({})
     const router = useRouter()
     const { signUp, isLoading } = authContextApi()
+    const [showPassword, setShowPassword] = useState(false)
+    const [showPassword2, setShowPassword2] = useState(false)
+
+    const togglePasswordVisibility = () => setShowPassword((v) => !v)
+    const togglePassword2Visibility = () => setShowPassword2((v) => !v)
 
     useEffect(() => {
         const checkUser = async () => {
@@ -34,7 +40,7 @@ const SignUp = () => {
     }
 
     const checkAllInputSignup = () => {
-        if (dataForm.pseudo.trim().length == 0) {
+        if (!dataForm.pseudo || dataForm.pseudo.trim().length === 0) {
             toast.warn('Le champ pseudo est vide.', DATA_TOAST)
             return false
         } else if (dataForm.password !== dataForm.passwordConfirm) {
@@ -58,26 +64,23 @@ const SignUp = () => {
             <div className="p-10">
                 <TopLoginSignUp />
                 <div id="signup" className="flex items-center justify-center ">
-                    <div className="rounded-2xl  w-full max-w-md">
-                        {/* <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
-                            Créer un compte
-                        </h2> */}
+                    <div className="rounded-2xl w-full max-w-md">
                         <form onSubmit={fetchSignUp} className="space-y-4">
                             <div>
                                 <label className="block mb-3 text-base font-normal">
-                                    Pseudo
+                                    Pseudo <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     onChange={handleChange}
                                     name="pseudo"
                                     type="text"
-                                    className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2 "
+                                    className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2"
                                     required
                                 />
                             </div>
                             <div>
                                 <label className="block mb-3 text-base font-normal">
-                                    Email
+                                    Email <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     onChange={handleChange}
@@ -89,32 +92,52 @@ const SignUp = () => {
                             </div>
                             <div>
                                 <label className="block mb-3 text-base font-normal">
-                                    Mot de passe
+                                    Mot de passe <span className="text-red-500">*</span>
                                 </label>
-                                <input
-                                    onChange={handleChange}
-                                    name="password"
-                                    type="password"
-                                    className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2"
-                                    required
-                                />
+                                <div className="relative">
+                                    <input
+                                        onChange={handleChange}
+                                        type={showPassword ? "text" : "password"}
+                                        name="password"
+                                        id="password"
+                                        className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2 pr-12"
+                                        required
+                                    />
+                                    <button
+                                        type="button"
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-xl text-gray-400 hover:text-gray-700"
+                                        onClick={togglePasswordVisibility}
+                                        tabIndex={-1}
+                                    >
+                                        {showPassword ? <LuEye /> : <LuEyeClosed />}
+                                    </button>
+                                </div>
                             </div>
                             <div>
-                                <label className="block mb-3 text-[var(--text-color)] ">
-                                    Confirmation du mot de passe
+                                <label className="block mb-3 text-base font-normal">
+                                    Confirmation du mot de passe <span className="text-red-500">*</span>
                                 </label>
-                                <input
-                                    type="password"
-                                    onChange={handleChange}
-                                    name="passwordConfirm"
-                                    className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2"
-                                    required
-                                />
+                                <div className="relative">
+                                    <input
+                                        type={showPassword2 ? "text" : "password"}
+                                        onChange={handleChange}
+                                        name="passwordConfirm"
+                                        className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2 pr-12"
+                                        required
+                                    />
+                                    <button
+                                        type="button"
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-xl text-gray-400 hover:text-gray-700"
+                                        onClick={togglePassword2Visibility}
+                                        tabIndex={-1}
+                                    >
+                                        {showPassword2 ? <LuEye /> : <LuEyeClosed />}
+                                    </button>
+                                </div>
                             </div>
-
                             <button
                                 type="submit"
-                                className="cursor-pointer w-full mt-16 bg-[var(--bleu-electrique)] hover:bg-[var(--bleu-fonce)]  text-white font-semibold py-4 px-4 rounded-lg transition duration-300"
+                                className="cursor-pointer w-full mt-16 bg-[var(--bleu-electrique)] hover:bg-[var(--bleu-fonce)] text-white font-semibold py-4 px-4 rounded-lg transition duration-300"
                             >
                                 {isLoading ? (
                                     <span className="flex justify-center">
@@ -124,7 +147,6 @@ const SignUp = () => {
                                     "S'inscrire"
                                 )}
                             </button>
-
                             <p className="text-sm text-center text-gray-500 mt-4">
                                 Vous avez déjà un compte ?{' '}
                                 <Link

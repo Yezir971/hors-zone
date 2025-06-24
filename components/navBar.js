@@ -32,6 +32,8 @@ const NavBar = () => {
                         </button>
                     </>
                 )}
+                        {/* <ThemeToggle /> */}
+
             </div>
         </nav>
     )
