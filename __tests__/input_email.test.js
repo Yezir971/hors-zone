@@ -1,4 +1,5 @@
-import { checkEmail } from '../input_email';
+const checkEmail = require("@/utils/checkemail");
+
 
 describe('checkEmail', () => {
   it('retourne "Email vide" si vide', () => {

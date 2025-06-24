@@ -1,4 +1,5 @@
-export function checkEmail(email) {
+
+const checkEmail = (email) => {
     if (!email || email.trim() === "") {
         return "Email vide";
     }
@@ -11,3 +12,4 @@ export function checkEmail(email) {
 
     return true;
 }
+module.exports = checkEmail;

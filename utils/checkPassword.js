@@ -1,5 +1,5 @@
 
-export function checkPassword(password) {
+const checkPassword = (password) => {
     if (password === "") {
         return "password vide";
     }
@@ -10,6 +10,6 @@ export function checkPassword(password) {
     if (!passwordRegex.test(password)) {
         return "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial";
     }
-    
+    return true;
 }
-export default checkPassword;
+module.exports = checkPassword;

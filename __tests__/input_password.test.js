@@ -1,4 +1,6 @@
-import { checkPassword } from '../src/functions/checkpassword.js';
+const checkPassword = require("@/utils/checkpassword");
+
+
 
 describe('test de l\'input password', () => {
   test('input password vide', () => {
