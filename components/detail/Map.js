@@ -40,7 +40,7 @@ const Map = ({ long, lat, titre }) => {
                 label={{ text: titre, fontSize: '14px', color: 'red' }}
                 icon={{
                     url: '/images/icons/google_maps_pin.svg',
-                    labelOrigin: new window.google.maps.Point(60, 12),
+                    labelOrigin: new window.google.maps.Point(10, -10),
                 }}
             />
         </GoogleMap>

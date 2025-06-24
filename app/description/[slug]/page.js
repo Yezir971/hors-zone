@@ -6,6 +6,7 @@ import CommentBlock from '@/components/detail/CommentBlock'
 import Map from '@/components/detail/Map'
 import SectionEventHome from '@/components/home/SectionEventHome'
 import Loading from '@/components/Loading'
+import Return from '@/components/return/return'
 import { supabase } from '@/lib/initSupabase'
 import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
@@ -84,35 +85,14 @@ const Description = () => {
                             'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)',
                     }}
                 />
-                <div
-                    onClick={handleBack}
-                    className="absolute left-8 top-8 cursor-pointer text-white"
-                >
-                    <Image
-                        src="/images/icons/arrow-left.svg"
-                        alt="arrow-left"
-                        width={20}
-                        height={20}
-                    />
-                </div>
+
+                <Return />
 
                 <div className="w-auto absolute right-[39px] top-8 flex flex-col items-end gap-4">
                     <HeartButton idSport={sport.id} />
                     <ShareButton />
                     <NotifButton />
                 </div>
-                {/* <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-8">
-                    <h1 className="text-3xl font-bold text-indigo-700 mb-4">
-                        {sport.name}
-                    </h1>
-                    <img src={sport.image_url} />
-                    <p className="text-gray-700 mb-2">
-                        <strong>Catégorie :</strong> {sport.category}
-                    </p>
-                    <p className="text-gray-700 mb-4">
-                        <strong>Description :</strong> {sport.description}
-                    </p>
-                </div> */}
             </div>
 
             <div className="mb-[46px] flex flex-col gap-14 rounded-2xl border-[var(--gris-fonce)] border-t-[2px] rounded-t-[50px] p-[39px]">
