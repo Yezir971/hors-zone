@@ -10,19 +10,17 @@
     --gris: #a5a5a5;
     --nuance-de-blanc-2: #f4f4f8;
     --bleu-fonce: #0a5197;
-    --like-:#E20000;
+    --like-: #e20000;
     --gris2: #696969;
     --gris-fonce: #343434;
     --favorite: #ffd400;
 
     --bleu-electrique: #0080ff;
 
-   
     --background-color: #ffffff;
     --text-color: #000000;
+    --card-color-nuance-1: #f9f9f9;
 }
-
-
 
 .dark {
     --orange-1: #0a5197;
@@ -37,9 +35,9 @@
 
     --bleu-electrique: #0080ff;
 
-    
     --background-color: #000000;
     --text-color: #ffffff;
+    --card-color-nuance-1: #232323;
 }
 
 /* WebKit only (Chrome, Edge, Safari) */
