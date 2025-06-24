@@ -33,7 +33,20 @@ const Menu = ({ open }) => {
                     Déconnexion
                 </Link>
             ) : (
-                <p>hello</p>
+                <>
+                    <Link
+                        href="/signup"
+                        className="text-2xl font-medium tracking-widest text-white no-underline transition-colors duration-300"
+                    >
+                        Inscription
+                    </Link>
+                    <Link
+                        href="/login"
+                        className="text-2xl font-medium tracking-widest text-white no-underline transition-colors duration-300"
+                    >
+                        Connexion
+                    </Link>
+                </>
             )}
             <ButtonLightNight />
         </nav>
