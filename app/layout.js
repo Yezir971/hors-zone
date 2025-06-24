@@ -122,7 +122,9 @@ export default function RootLayout({ children }) {
                 />
                 <meta name="apple-mobile-web-app-title" content="hors zone" />
             </head>
-            <body className={`${popins.variable} bg-[var(--background-color)] text-[var(--text-color)] antialiased`}>
+            <body
+                className={`${popins.variable} bg-[var(--background-color)] text-[var(--text-color)] antialiased`}
+            >
                 <AuthProvider>
                     <ArticleProvider>
                         <NavBar />

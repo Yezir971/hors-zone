@@ -9,7 +9,7 @@ import dateMessage from '@/utils/dateMesage'
 
 const CommentBlock = ({ idSport }) => {
     const [message, setMessage] = useState()
-    const { profil } = authContextApi()
+    const { profil, isAuth } = authContextApi()
     const [comments, setComments] = useState([])
     const [loading, setLoading] = useState(false)
     const [isReply, setIsReply] = useState(false)
@@ -19,7 +19,6 @@ const CommentBlock = ({ idSport }) => {
     const socketRef = useRef(null)
     const bottomRef = useRef(null)
     const scrollContainerRef = useRef(null)
-
     useEffect(() => {
         if (scrollContainerRef.current) {
             scrollContainerRef.current.scrollTop =
@@ -183,7 +182,7 @@ const CommentBlock = ({ idSport }) => {
         setIsReply(false)
     }
 
-    if (loading) {
+    if (loading && !isAuth) {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <Loading />
@@ -257,7 +256,6 @@ const CommentBlock = ({ idSport }) => {
                                 </div>
                             </div>
                         ))}
-                        {/* <div ref={bottomRef} /> */}
                     </>
                 )}
             </div>
@@ -290,13 +288,17 @@ const CommentBlock = ({ idSport }) => {
                         />
                     </svg>
                 </div>
-
                 <form ref={formRef} className="w-full" onSubmit={sendMessage}>
                     <input
                         name="comment"
                         onChange={handleChange}
                         type="text"
-                        placeholder="Ajoutez un commentaire..."
+                        disabled={!isAuth}
+                        placeholder={
+                            profil?.id
+                                ? 'Ajoutez un commentaire'
+                                : 'Connecte-toi pour ajouter un commentaire'
+                        }
                         className="w-full border border-gray-300 rounded-full px-4 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400"
                     />
                     <input

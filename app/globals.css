@@ -52,3 +52,20 @@
     background-color: var(--gris);
     border-radius: 50px;
 }
+
+* {
+    /* border: 1px solid red; */
+}
+@keyframes modalAppear {
+    0% {
+        transform: translateY(-30%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.animate-modalAppear {
+    animation: modalAppear 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
