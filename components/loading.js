@@ -5,8 +5,8 @@ const Loading = () => {
         <>
             <TailSpin
                 visible={true}
-                height="80"
-                width="80"
+                height="20"
+                width="20"
                 color="#fffff"
                 ariaLabel="tail-spin-loading"
                 radius="1"

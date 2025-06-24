@@ -6,24 +6,16 @@ import { authContextApi } from '@/context/authContext'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { LuEye, LuEyeClosed } from 'react-icons/lu'
 
 const Login = () => {
     const router = useRouter()
+    const [showPassword, setShowPassword] = useState(false)
 
     const [dataForm, setDataForm] = useState({})
+    const togglePasswordVisibility = () => setShowPassword((v) => !v)
 
     const { login, isLoading, isLoadingUser, isAuth, user } = authContextApi()
-
-    // useEffect(() => {
-    //     const checkUser = async () => {
-    //         const { data } = await supabase.auth.getUser();
-    //         if (data.user) {
-    //             router.push("/home");
-    //         }
-    //     };
-
-    //     checkUser();
-    // }, []);
 
     useEffect(() => {
         if (!isLoadingUser && user) {
@@ -75,13 +67,29 @@ const Login = () => {
                                 <label className="block mt-7 mb-3 text-base font-normal">
                                     Mot de passe
                                 </label>
-                                <input
-                                    onChange={handleChange}
-                                    name="password"
-                                    type="password"
-                                    className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2"
-                                    required
-                                />
+                                <div className="relative">
+                                    <input
+                                        onChange={handleChange}
+                                        name="password"
+                                        type={`${
+                                            showPassword ? 'text' : 'password'
+                                        }`}
+                                        className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2"
+                                        required
+                                    />
+                                    <button
+                                        type="button"
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-xl text-gray-400 hover:text-gray-700"
+                                        onClick={togglePasswordVisibility}
+                                        tabIndex={-1}
+                                    >
+                                        {showPassword ? (
+                                            <LuEye />
+                                        ) : (
+                                            <LuEyeClosed />
+                                        )}
+                                    </button>
+                                </div>{' '}
                             </div>
 
                             <p className="mt-2 text-[0.75rem] text-[var(--orange-1)]">
