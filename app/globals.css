@@ -20,6 +20,12 @@
     --background-color: #ffffff;
     --text-color: #000000;
     --card-color-nuance-1: #f9f9f9;
+
+    --color-loader: #000000;
+
+    --color-background-input-admin: #f4f4f8;
+
+    --color-border-input-admin: #444444;
 }
 
 .dark {
@@ -38,6 +44,10 @@
     --background-color: #000000;
     --text-color: #ffffff;
     --card-color-nuance-1: #232323;
+
+    --color-loader: #ffffff;
+    --color-background-input-admin: #232323;
+    --color-border-input-admin: #232323;
 }
 
 /* WebKit only (Chrome, Edge, Safari) */

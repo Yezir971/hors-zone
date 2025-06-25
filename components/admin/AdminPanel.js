@@ -6,12 +6,16 @@ import { toast } from 'react-toastify'
 import DATA_TOAST from '@/app/utils/constant/toast'
 import { ArticleContextApi } from '@/context/articleContext'
 import toSlug from '@/utils/slug'
+import Loading from '../Loading'
+import { FaUpload } from 'react-icons/fa'
 
 export default function AdminPanel({ profil }) {
     const [uploading, setUploading] = useState(false)
     const [imageUrl, setImageUrl] = useState(null)
     const [dataForm, setDataForm] = useState({})
     const { update } = ArticleContextApi()
+    const [showDropdown, setShowDropdown] = useState(false)
+    const [categories, setCategories] = useState([])
     const formRef = useRef(null)
     const handleChange = (e) => {
         const { name, value, files } = e.target
@@ -20,6 +24,15 @@ export default function AdminPanel({ profil }) {
 
             [name]: name == 'fileName' ? files : value,
         }))
+    }
+
+    const handleCheckboxChange = (e) => {
+        const { value } = e.target
+        if (categories.includes(value)) {
+            setCategories(categories.filter((category) => category !== value))
+        } else {
+            setCategories([...categories, value])
+        }
     }
     const geocodeAddress = async (address) => {
         const response = await fetch(
@@ -73,6 +86,7 @@ export default function AdminPanel({ profil }) {
         }
 
         try {
+            if (!profil) return
             setUploading(true)
 
             const file = dataForm.fileName?.[0]
@@ -106,6 +120,9 @@ export default function AdminPanel({ profil }) {
                 .insert([
                     {
                         name: dataForm['titre'],
+                        sub_title: dataForm['sous_titre'],
+                        categories: categories,
+                        city: dataForm['localisation'],
                         description: dataForm['description'],
                         id_admin_who_add: profil.id,
                         image_url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${urlData.fullPath}`,
@@ -139,63 +156,195 @@ export default function AdminPanel({ profil }) {
             toast.success('Événement ajouté avec succès', DATA_TOAST)
             update()
             setDataForm({})
+            formRef.current?.reset()
         } catch (error) {
             toast.error('Erreur lors de l’upload: ' + error, DATA_TOAST)
+            return
         } finally {
-            formRef.current?.reset()
             setUploading(false)
         }
     }
 
     return (
-        <div className="max-w-2xl mx-auto mt-10 bg-white p-6 rounded-2xl shadow-xl">
-            <h1 className="text-center border-amber-50 font-bold">Admin</h1>
+        <div className="max-w-2xl  mx-auto mt-10">
+            <h2 className="text-center mb-5 font-bold text-2xl">Admin</h2>
+            <p className="text-center  font-bold ">Ajouter un sport</p>
 
             <form
                 ref={formRef}
                 onSubmit={handleUpload}
-                className="max-w-2xl mx-auto mt-10 bg-indigo-500 rounded-2xl shadow-xl p-6"
+                className="max-w-2xl mx-auto mt-10  bg-[var(--nuance-de-blanc-1)] rounded-2xl shadow-xl p-6"
             >
                 {/* Label */}
-                <label
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    htmlFor="dropzone-file"
-                >
-                    Upload file
-                </label>
 
-                {/* Input file */}
-                <input
-                    className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    aria-describedby="user_avatar_help"
-                    id="dropzone-file"
-                    type="file"
-                    accept="image/*"
-                    name="fileName"
-                    onChange={handleChange}
-                    disabled={uploading}
-                />
+                <div className="relative">
+                    <label
+                        className="block mb-2 top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-medium absolute text-[var(--text-color)] "
+                        htmlFor="dropzone-file"
+                    >
+                        Téléverser une image (maximum 50Mo)
+                    </label>
+                    <FaUpload className="text-5xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute text-[var(--text-color)]" />
+
+                    {/* Input file */}
+                    <input
+                        className="border cursor-pointer mb-5 border-dashed h-36 border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-[var(--text-color)] text-sm rounded-lg  block w-full p-2.5"
+                        aria-describedby="user_avatar_help"
+                        id="dropzone-file"
+                        type="file"
+                        accept="image/*"
+                        name="fileName"
+                        onChange={handleChange}
+                        disabled={uploading}
+                    />
+                </div>
                 <div className="mb-5">
                     <label
                         htmlFor="titre"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        className="block mb-2 text-sm font-medium text-[var(--text-color)]"
                     >
-                        Titre sport
+                        Titre du sport
                     </label>
                     <input
                         type="text"
                         id="titre"
                         name="titre"
                         onChange={handleChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
                         placeholder="Aqua poney"
                         required
                     />
                 </div>
+
+                <div className="mb-5">
+                    <label
+                        htmlFor="sous_titre"
+                        className="block mb-2 text-sm font-medium text-[var(--text-color)]"
+                    >
+                        Sous titre du sport
+                    </label>
+                    <input
+                        type="text"
+                        id="sous_titre"
+                        name="sous_titre"
+                        onChange={handleChange}
+                        className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
+                        placeholder="Aqua poney"
+                        required
+                    />
+                </div>
+
+                {/* dropdown */}
+                <button
+                    id="dropdownBgHoverButton"
+                    data-dropdown-toggle="dropdownBgHover"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    type="button"
+                    onClick={() => setShowDropdown(!showDropdown)}
+                >
+                    Categories{' '}
+                    <svg
+                        className="w-2.5 h-2.5 ms-3"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 10 6"
+                    >
+                        <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="m1 1 4 4 4-4"
+                        />
+                    </svg>
+                </button>
+
+                <div
+                    id="dropdownBgHover"
+                    className={`z-10 ${
+                        !showDropdown && 'hidden'
+                    }  w-48 bg-white absolute rounded-lg shadow-sm dark:bg-gray-700`}
+                >
+                    <ul
+                        className="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200"
+                        aria-labelledby="dropdownBgHoverButton"
+                    >
+                        <li>
+                            <div className="flex items-center p-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <input
+                                    id="checkbox-item-4"
+                                    type="checkbox"
+                                    value="Quidditch"
+                                    onChange={handleCheckboxChange}
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                />
+                                <label
+                                    htmlFor="checkbox-item-4"
+                                    className="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm dark:text-gray-300"
+                                >
+                                    Quidditch
+                                </label>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="flex items-center p-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <input
+                                    id="checkbox-item-5"
+                                    type="checkbox"
+                                    value="Sabre Laser"
+                                    onChange={handleCheckboxChange}
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                />
+                                <label
+                                    htmlFor="checkbox-item-5"
+                                    className="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm dark:text-gray-300"
+                                >
+                                    Sabre Laser
+                                </label>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="flex items-center p-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <input
+                                    id="checkbox-item-6"
+                                    type="checkbox"
+                                    value="Tir à l’arc équestre"
+                                    onChange={handleCheckboxChange}
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                />
+                                <label
+                                    htmlFor="checkbox-item-6"
+                                    className="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm dark:text-gray-300"
+                                >
+                                    Tir à l’arc équestre
+                                </label>
+                            </div>
+                            <div className="flex items-center p-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <input
+                                    id="checkbox-item-7"
+                                    type="checkbox"
+                                    value="Yoga aérien"
+                                    onChange={handleCheckboxChange}
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                />
+                                <label
+                                    htmlFor="checkbox-item-7"
+                                    className="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm dark:text-gray-300"
+                                >
+                                    Yoga aérien
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                {/* enddropdown */}
+
                 <div className="mb-5">
                     <label
                         htmlFor="localisation"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        className="block my-5 mb-2 text-sm font-medium text-[var(--text-color)]"
                     >
                         Localisation
                     </label>
@@ -204,7 +353,7 @@ export default function AdminPanel({ profil }) {
                         id="localisation"
                         name="localisation"
                         onChange={handleChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
                         placeholder="	52 Rue Verdun 75012"
                         required
                     />
@@ -212,7 +361,7 @@ export default function AdminPanel({ profil }) {
                 <div className="mb-5">
                     <label
                         htmlFor="date_start"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        className="block mb-2 text-sm font-medium text-[var(--text-color)]"
                     >
                         Date de début
                     </label>
@@ -221,14 +370,14 @@ export default function AdminPanel({ profil }) {
                         id="date_start"
                         name="date_start"
                         onChange={handleChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
                         required
                     />
                 </div>
                 <div className="mb-5">
                     <label
                         htmlFor="dateEnd"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        className="block mb-2 text-sm font-medium text-[var(--text-color)]"
                     >
                         Date de fin
                     </label>
@@ -237,13 +386,13 @@ export default function AdminPanel({ profil }) {
                         id="dateEnd"
                         name="date_end"
                         onChange={handleChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
                         required
                     />
                 </div>
                 <label
                     htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-[var(--text-color)]"
                 >
                     Description du sport
                 </label>
@@ -252,14 +401,15 @@ export default function AdminPanel({ profil }) {
                     rows="4"
                     name="description"
                     onChange={handleChange}
-                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
                     placeholder="Description"
                 ></textarea>
                 <button
                     type="submit"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    disabled={uploading}
+                    className="text-white mt-[19px] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                    Submit
+                    {uploading ? <Loading /> : 'Ajouter'}
                 </button>
             </form>
         </div>

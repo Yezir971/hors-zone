@@ -5,9 +5,9 @@ const Loading = () => {
         <>
             <TailSpin
                 visible={true}
-                height="20"
-                width="20"
-                color="#fffff"
+                height="25"
+                width="25"
+                color="var(--color-loader)"
                 ariaLabel="tail-spin-loading"
                 radius="1"
                 wrapperStyle={{}}

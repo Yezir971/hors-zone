@@ -58,7 +58,6 @@ const Description = () => {
             </div>
         )
     }
-    console.log(sport)
 
     return (
         <>
@@ -71,7 +70,7 @@ const Description = () => {
                         {sport.name}
                     </h1>
                     <p className="font-semibold text-[24px]">
-                        Le Sabre Laser : un sport entre fiction et réalité
+                        {sport.sub_title}
                     </p>
                     <p className="font-normal text-[14px]">
                         {sport.description}
@@ -100,7 +99,7 @@ const Description = () => {
                     <p>
                         {sport.date_start} au {sport.date_end}
                     </p>
-                    <p>sport.lieu</p>
+                    <p>{sport.city}</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-14">
                     <div className="w-full h-[400px]">

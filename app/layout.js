@@ -2,52 +2,13 @@ import { Poppins } from 'next/font/google'
 import './globals.css'
 import { AuthProvider } from '@/context/authContext'
 import ArticleProvider from '@/context/articleContext'
-import NavBar from '@/components/navBar'
 import Footer from '@/components/footer/Footer'
+import ThemeProvider from '@/context/themeContext'
 const popins = Poppins({
     variable: '--font-popins',
     subsets: ['latin'],
     weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 })
-
-// export const metadata = {
-//     applicationName: 'Hors Zone',
-//     title: {
-//         default: "Hors Zone - Explorez les sports l'inattendu",
-//         template: '%s | Hors Zone',
-//     },
-//     description:
-//         'Découvrez Hors Zone, une application innovante pour explorer des contenus dynamiques et personnalisés.',
-//     manifest: '/manifest.json',
-//     appleWebApp: {
-//         capable: true,
-//         statusBarStyle: 'default',
-//         title: "Hors Zone - Explorez l'inattendu",
-//         // startUpImage: [],
-//     },
-//     formatDetection: {
-//         telephone: false,
-//     },
-//     openGraph: {
-//         type: 'website',
-//         siteName: 'Hors Zone',
-//         title: {
-//             default: "Hors Zone - Explorez l'inattendu",
-//             template: '%s | Hors Zone',
-//         },
-//         description:
-//             'Découvrez Hors Zone, une application innovante pour explorer des contenus dynamiques et personnalisés.',
-//     },
-//     twitter: {
-//         card: 'summary',
-//         title: {
-//             default: "Hors Zone - Explorez l'inattendu",
-//             template: '%s | Hors Zone',
-//         },
-//         description:
-//             'Découvrez Hors Zone, une application innovante pour explorer des contenus dynamiques et personnalisés.',
-//     },
-// }
 
 export const metadata = {
     applicationName: 'Hors Zone',
@@ -127,9 +88,10 @@ export default function RootLayout({ children }) {
             >
                 <AuthProvider>
                     <ArticleProvider>
-                        <NavBar />
-                        {children}
-                        <Footer />
+                        <ThemeProvider>
+                            {children}
+                            <Footer />
+                        </ThemeProvider>
                     </ArticleProvider>
                 </AuthProvider>
             </body>

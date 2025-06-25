@@ -2,30 +2,16 @@
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 import { FiSun, FiMoon } from 'react-icons/fi'
-
+import { useTheme } from '@/context/themeContext'
 const ButtonLightNight = () => {
-    const dataLocalstorage = localStorage.getItem('darkMode')
-    const [darkMode, setDarkMode] = useState(
-        dataLocalstorage ? JSON.parse(dataLocalstorage) : false
-    )
-
-    useEffect(() => {
-        const root = window.document.documentElement
-        if (darkMode) {
-            root.classList.add('dark')
-            localStorage.setItem('darkMode', true)
-        } else {
-            localStorage.setItem('darkMode', false)
-            root.classList.remove('dark')
-        }
-    }, [darkMode])
+    const { theme, toggleTheme } = useTheme()
     return (
         <div className="flex items-start justify-start ">
             <input
                 id="theme-toggle"
                 type="checkbox"
-                checked={darkMode}
-                onChange={() => setDarkMode(!darkMode)}
+                checked={theme === 'dark'}
+                onChange={toggleTheme}
                 className="sr-only"
             />
             <label
@@ -39,10 +25,10 @@ const ButtonLightNight = () => {
                 <span
                     className={clsx(
                         'absolute bg-white w-6 h-6 rounded-full shadow-md transform transition-transform flex justify-center items-center',
-                        darkMode ? 'translate-x-6' : 'translate-x-0'
+                        theme === 'dark' ? 'translate-x-6' : 'translate-x-0'
                     )}
                 >
-                    {darkMode ? (
+                    {theme === 'dark' ? (
                         <FiSun className="text-[#0A5197] text-sm" />
                     ) : (
                         <FiMoon className="text-[#0A5197] text-sm" />
