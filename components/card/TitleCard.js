@@ -15,7 +15,7 @@ const TitleCard = ({ title, icons, showMore, labelShowMore }) => {
 
     return (
         <>
-            <div className="pt-[100px] pb-[1.9rem] container  flex justify-between items-center">
+            <div className="pt-[100px] max-w-[300px] pb-[1.9rem] flex justify-between items-center">
                 <div className=" flex gap-[18px]">
                     {icons && (
                         <Image
@@ -25,7 +25,9 @@ const TitleCard = ({ title, icons, showMore, labelShowMore }) => {
                             height={20}
                         />
                     )}
-                    <h2 className="text-2xl font-bold">{title}</h2>
+                    <h2 className="max-w-[245px] text-2xl font-bold">
+                        {title}
+                    </h2>
                 </div>
                 {showMore && (
                     <Link href={showMore} className="text-sm underline">

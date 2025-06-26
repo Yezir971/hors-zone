@@ -6,7 +6,7 @@ import { ArticleContextApi } from '@/context/articleContext'
 import { authContextApi } from '@/context/authContext'
 
 export default function Home() {
-    const { isLoadingUser } = authContextApi()
+    const { isLoadingUser, profil } = authContextApi()
     const { sports, isLoadingSports, isLoadingVideo, video } =
         ArticleContextApi()
 
@@ -26,7 +26,8 @@ export default function Home() {
                     titre={'Événements à venir'}
                     type={'picture'}
                     filtre={true}
-                    infiniteScroll={true}
+                    infiniteScroll={false}
+                    profil={profil}
                 />
                 <SectionEventHome
                     sports={video}
@@ -34,8 +35,9 @@ export default function Home() {
                     type={'video'}
                     filtre={true}
                     infiniteScroll={true}
-                    showMore={"/profil"}
+                    showMore={'/profil'}
                     labelShowMore={'Voir plus'}
+                    profil={profil}
                 />
             </main>
         </>

@@ -30,7 +30,6 @@ const ArticleProvider = ({ children }) => {
                 return []
             }
 
-            // return data
             setSports(data)
         } catch (err) {
             console.error('Erreur inattendue:', err)
