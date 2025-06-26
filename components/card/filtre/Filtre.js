@@ -5,7 +5,6 @@ import { useEffect, useState, useCallback } from 'react'
 // Composant de filtre local pour les catégories
 // Utilisation: <Filtre data={mesDonnees} onFilterChange={handleFilterChange} />
 const Filtre = ({ data, onFilterChange }) => {
-    const [filteredSports, setFilteredSports] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
     const [allCategories, setAllCategories] = useState([])
 
@@ -55,13 +54,10 @@ const Filtre = ({ data, onFilterChange }) => {
         setSelectedCategories([])
     }
 
-    // Effet pour filtrer les sports quand les catégories sélectionnées changent
+    // Effet pour notifier le parent quand les catégories changent
     useEffect(() => {
-        const filtered = filterSportsByCategories(data, selectedCategories)
-        setFilteredSports(filtered)
-
-        // Notifier le parent du changement
         if (onFilterChange) {
+            const filtered = filterSportsByCategories(data, selectedCategories)
             onFilterChange(filtered, selectedCategories)
         }
     }, [selectedCategories, data, filterSportsByCategories, onFilterChange])
@@ -102,6 +98,12 @@ const Filtre = ({ data, onFilterChange }) => {
         return null
     }
 
+    // Calculer le nombre de résultats filtrés pour l'affichage
+    const filteredCount = filterSportsByCategories(
+        data,
+        selectedCategories
+    ).length
+
     return (
         <div className="mt-[26px] mb-[29px]">
             <div className="flex flex-wrap gap-2 items-center">
@@ -140,9 +142,9 @@ const Filtre = ({ data, onFilterChange }) => {
                 {selectedCategories.length > 0 ? (
                     <>
                         <span>
-                            {filteredSports.length} résultat
-                            {filteredSports.length > 1 ? 's' : ''} sur{' '}
-                            {data.length} événement{data.length > 1 ? 's' : ''}
+                            {filteredCount} résultat
+                            {filteredCount > 1 ? 's' : ''} sur {data.length}{' '}
+                            événement{data.length > 1 ? 's' : ''}
                         </span>
                         <span className="ml-2">
                             (Filtré par : {selectedCategories.join(', ')})

@@ -6,7 +6,8 @@ import DATA_TOAST from '@/app/utils/constant/toast'
 import { supabase } from '@/lib/initSupabase'
 
 const ListVideoAdd = ({ profil }) => {
-    const { updateVideo, updateListeVideoSports } = ArticleContextApi()
+    const { updateVideo, updateListeVideoSports, deleteVideo } =
+        ArticleContextApi()
     const [sports, setSports] = useState()
     const [loading, setIsLoading] = useState(true)
 
@@ -34,45 +35,45 @@ const ListVideoAdd = ({ profil }) => {
             </div>
         )
     }
-    const deleteVideo = async (id, videoUrl) => {
-        try {
-            const { error } = await supabase
-                .from('videos')
-                .delete()
-                .eq('id', id)
+    // const deleteVideo = async (id, videoUrl) => {
+    //     try {
+    //         const { error } = await supabase
+    //             .from('videos')
+    //             .delete()
+    //             .eq('id', id)
 
-            let path = videoUrl
-            path = path.replace(
-                `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/videos/`,
-                ''
-            )
+    //         let path = videoUrl
+    //         path = path.replace(
+    //             `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/videos/`,
+    //             ''
+    //         )
 
-            // on supprime lavidéo dans le bucket
-            const { error: erroBucket } = await supabase.storage
-                .from('videos')
-                .remove([path])
-            if (erroBucket) {
-                toast.error(
-                    'Erreur à la suppression de la vidéo dans le bucket ' +
-                        erroBucket.message,
-                    DATA_TOAST
-                )
-                return
-            }
+    //         // on supprime lavidéo dans le bucket
+    //         const { error: erroBucket } = await supabase.storage
+    //             .from('videos')
+    //             .remove([path])
+    //         if (erroBucket) {
+    //             toast.error(
+    //                 'Erreur à la suppression de la vidéo dans le bucket ' +
+    //                     erroBucket.message,
+    //                 DATA_TOAST
+    //             )
+    //             return
+    //         }
 
-            if (error) {
-                toast.error(
-                    'Erreur à la suppression de la vidéo ' + error.message,
-                    DATA_TOAST
-                )
-                return
-            }
-            toast.success('Vidéo supprimé avec succès !', DATA_TOAST)
-            updateVideo()
-        } catch (e) {
-            toast.error(e, DATA_TOAST)
-        }
-    }
+    //         if (error) {
+    //             toast.error(
+    //                 'Erreur à la suppression de la vidéo ' + error.message,
+    //                 DATA_TOAST
+    //             )
+    //             return
+    //         }
+    //         toast.success('Vidéo supprimé avec succès !', DATA_TOAST)
+    //         updateVideo()
+    //     } catch (e) {
+    //         toast.error(e, DATA_TOAST)
+    //     }
+    // }
 
     return (
         <>

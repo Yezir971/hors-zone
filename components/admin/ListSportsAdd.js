@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import DATA_TOAST from '@/app/utils/constant/toast'
 
 const ListSportsAdd = ({ profil }) => {
-    const { updateListSports, update } = ArticleContextApi()
+    const { updateListSports, update, deleteSport } = ArticleContextApi()
     const [sports, setSports] = useState()
     const [loading, setIsLoading] = useState(true)
 
@@ -35,45 +35,45 @@ const ListSportsAdd = ({ profil }) => {
         )
     }
 
-    const deleteArticle = async (id, imageUrl) => {
-        try {
-            const { error } = await supabase
-                .from('sports')
-                .delete()
-                .eq('id', id)
+    // const deleteArticle = async (id, imageUrl) => {
+    //     try {
+    //         const { error } = await supabase
+    //             .from('sports')
+    //             .delete()
+    //             .eq('id', id)
 
-            let path = imageUrl
-            path = path.replace(
-                `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/sports/`,
-                ''
-            )
+    //         let path = imageUrl
+    //         path = path.replace(
+    //             `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/sports/`,
+    //             ''
+    //         )
 
-            // on supprime l'image dans le bucket
-            const { error: erroBucket } = await supabase.storage
-                .from('sports')
-                .remove([path])
-            if (erroBucket) {
-                toast.error(
-                    "Erreur à la suppression de l'image dans le bucket " +
-                        erroBucket.erroBucket,
-                    DATA_TOAST
-                )
-                return
-            }
+    //         // on supprime l'image dans le bucket
+    //         const { error: erroBucket } = await supabase.storage
+    //             .from('sports')
+    //             .remove([path])
+    //         if (erroBucket) {
+    //             toast.error(
+    //                 "Erreur à la suppression de l'image dans le bucket " +
+    //                     erroBucket.erroBucket,
+    //                 DATA_TOAST
+    //             )
+    //             return
+    //         }
 
-            if (error) {
-                toast.error(
-                    "Erreur à la suppression de l'événement " + error.message,
-                    DATA_TOAST
-                )
-                return
-            }
-            toast.success('Événement supprimé avec succès !', DATA_TOAST)
-            update()
-        } catch (e) {
-            toast.error(e, DATA_TOAST)
-        }
-    }
+    //         if (error) {
+    //             toast.error(
+    //                 "Erreur à la suppression de l'événement " + error.message,
+    //                 DATA_TOAST
+    //             )
+    //             return
+    //         }
+    //         toast.success('Événement supprimé avec succès !', DATA_TOAST)
+    //         update()
+    //     } catch (e) {
+    //         toast.error(e, DATA_TOAST)
+    //     }
+    // }
 
     return (
         <>
@@ -107,7 +107,7 @@ const ListSportsAdd = ({ profil }) => {
                                 </div>
                                 <button
                                     onClick={() =>
-                                        deleteArticle(sport.id, sport.image_url)
+                                        deleteSport(sport.id, sport.image_url)
                                     }
                                     className={`mt-2 sm:mt-0 ${
                                         sport.id_admin_who_add == profil.id

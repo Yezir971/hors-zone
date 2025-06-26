@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useState, useEffect, useCallback } from 'react'
 import TitleCard from '../card/TitleCard'
 import Filtre from '../card/filtre/Filtre'
+import { ArticleContextApi } from '@/context/articleContext'
 
 const SectionEventHome = ({
     sports,
@@ -20,16 +21,38 @@ const SectionEventHome = ({
 }) => {
     const [filteredData, setFilteredData] = useState(sports || [])
     const [selectedCategories, setSelectedCategories] = useState([])
+    const { deleteSport, deleteVideo } = ArticleContextApi()
 
-    // Mettre à jour les données filtrées quand les sports changent
+    // Fonction pour filtrer les données selon les catégories sélectionnées
+    const filterDataByCategories = useCallback((data, categories) => {
+        if (categories.length === 0) {
+            return data
+        }
+
+        return data.filter((item) => {
+            if (!item.categories || !Array.isArray(item.categories)) {
+                return false
+            }
+
+            return categories.some((selectedCategory) =>
+                item.categories.includes(selectedCategory)
+            )
+        })
+    }, [])
+
+    // Mettre à jour les données filtrées quand les sports changent OU quand les catégories changent
     useEffect(() => {
-        setFilteredData(sports || [])
-    }, [sports])
+        const filtered = filterDataByCategories(
+            sports || [],
+            selectedCategories
+        )
+        setFilteredData(filtered)
+    }, [sports, selectedCategories, filterDataByCategories])
 
     // Callback pour recevoir les données filtrées du composant Filtre
     const handleFilterChange = useCallback((filteredSports, categories) => {
-        setFilteredData(filteredSports)
         setSelectedCategories(categories)
+        // Note: setFilteredData sera géré par le useEffect ci-dessus
     }, [])
 
     console.log(sports)
@@ -110,43 +133,63 @@ const SectionEventHome = ({
                                         )}
 
                                     <div className="flex justify-between items-center">
-                                        <Link
-                                            href={`/description/${sport?.slug}`}
-                                            className="inline-flex items-center  px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 "
-                                        >
-                                            Voir plus
-                                            <svg
-                                                className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 14 10"
-                                            >
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M1 5h12m0 0L9 1m4 4L9 9"
-                                                />
-                                            </svg>
-                                        </Link>
-
-                                        {type == 'picture' && (
-                                            <div className="flex justify-between items-center">
-                                                {profil?.is_admin && (
-                                                    <>
-                                                        <Link href={`/profil`}>
+                                        {type == 'picture' ? (
+                                            <>
+                                                <Link
+                                                    href={`/description/${sport?.slug}`}
+                                                    className="inline-flex items-center  px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 "
+                                                >
+                                                    Voir plus
+                                                    <svg
+                                                        className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                                                        aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 14 10"
+                                                    >
+                                                        <path
+                                                            stroke="currentColor"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            strokeWidth="2"
+                                                            d="M1 5h12m0 0L9 1m4 4L9 9"
+                                                        />
+                                                    </svg>
+                                                </Link>
+                                                <div className="flex justify-between items-center">
+                                                    {profil?.is_admin && (
+                                                        <>
                                                             <Image
+                                                                onClick={() =>
+                                                                    deleteSport(
+                                                                        sport?.id,
+                                                                        sport?.image_url
+                                                                    )
+                                                                }
                                                                 src="/images/icons/trash.svg"
                                                                 alt="trash"
                                                                 width={20}
                                                                 height={20}
                                                                 className="cursor-pointer"
                                                             />
-                                                        </Link>
-                                                    </>
-                                                )}
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <div className="flex justify-between items-center">
+                                                <Image
+                                                    onClick={() =>
+                                                        deleteVideo(
+                                                            sport?.id,
+                                                            sport?.link_video
+                                                        )
+                                                    }
+                                                    src="/images/icons/trash.svg"
+                                                    alt="trash"
+                                                    width={20}
+                                                    height={20}
+                                                />
                                             </div>
                                         )}
                                     </div>

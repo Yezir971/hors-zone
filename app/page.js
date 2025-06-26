@@ -25,7 +25,7 @@ export default function Home() {
                     sports={sports}
                     titre={'Événements à venir'}
                     type={'picture'}
-                    filtre={true}
+                    filtre={false}
                     infiniteScroll={false}
                     profil={profil}
                 />
