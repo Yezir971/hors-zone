@@ -4,6 +4,8 @@ import { AuthProvider } from '@/context/authContext'
 import ArticleProvider from '@/context/articleContext'
 import Footer from '@/components/footer/Footer'
 import ThemeProvider from '@/context/themeContext'
+import PWAInstallPrompt from '@/components/PWAInstallPrompt'
+
 const popins = Poppins({
     variable: '--font-popins',
     subsets: ['latin'],
@@ -66,22 +68,82 @@ export default function RootLayout({ children }) {
                 <meta charSet="utf-8" />
                 <meta
                     name="viewport"
-                    content="width=device-width, initial-scale=1"
+                    content="width=device-width, initial-scale=1, viewport-fit=cover"
                 />
                 <meta name="theme-color" content="#0080FF" />
+                <meta name="apple-mobile-web-app-capable" content="yes" />
+                <meta
+                    name="apple-mobile-web-app-status-bar-style"
+                    content="default"
+                />
+                <meta name="apple-mobile-web-app-title" content="Hors Zone" />
+                <meta name="mobile-web-app-capable" content="yes" />
+
                 <link rel="manifest" href="/manifest.json" />
-                <link rel="icon" href="/icons/icon-192x192.png" />
+                <link rel="icon" href="/favicon.ico" />
                 <link
                     rel="apple-touch-icon"
-                    sizes="192x192"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+
+                {/* Icônes pour différents appareils */}
+                <link
+                    rel="icon"
+                    type="image/png"
+                    sizes="32x32"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+                <link
+                    rel="icon"
+                    type="image/png"
+                    sizes="16x16"
                     href="/images/logo/web-app-manifest-192x192.png"
                 />
                 <link
                     rel="apple-touch-icon"
-                    sizes="512x512"
-                    href="/icons/icon-512x512.png"
+                    sizes="180x180"
+                    href="/images/logo/web-app-manifest-192x192.png"
                 />
-                <meta name="apple-mobile-web-app-title" content="hors zone" />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="152x152"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="144x144"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="120x120"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="114x114"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="76x76"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="72x72"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="60x60"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="57x57"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
             </head>
             <body
                 className={`${popins.variable} bg-[var(--background-color)] text-[var(--text-color)] antialiased`}
@@ -91,6 +153,7 @@ export default function RootLayout({ children }) {
                         <ThemeProvider>
                             {children}
                             <Footer />
+                            <PWAInstallPrompt />
                         </ThemeProvider>
                     </ArticleProvider>
                 </AuthProvider>

@@ -1,12 +1,24 @@
 import withPWAInit from '@ducanh2912/next-pwa'
+
 const withPWA = withPWAInit({
     dest: 'public',
     disable: process.env.NODE_ENV === 'development',
-    // disable: process.env.NODE_ENV === 'development',
+    register: true,
+    skipWaiting: true,
+    runtimeCaching: [
+        {
+            urlPattern: /^https?.*/,
+            handler: 'NetworkFirst',
+            options: {
+                cacheName: 'offlineCache',
+                expiration: {
+                    maxEntries: 200,
+                },
+            },
+        },
+    ],
 })
-// export default withPWA({
-//   // Your Next.js config
-// });
+
 const supabaseUrl = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).hostname
 const nextConfig = {
     images: {
