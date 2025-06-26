@@ -26,8 +26,8 @@ export default function ProfilePage() {
         if (isAuth && profil?.id) {
             fetchUserSportLike()
         }
-        if (!isAuth && profil) {
-            router.push('/')
+        if (!isAuth && !profil) {
+            router.push('/login')
         }
     }, [profil])
 

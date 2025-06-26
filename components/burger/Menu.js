@@ -5,7 +5,7 @@ import ButtonLightNight from './ButtonLightNight'
 import { authContextApi } from '@/context/authContext'
 
 const Menu = ({ open }) => {
-    const { isAuth } = authContextApi()
+    const { isAuth, logout } = authContextApi()
     return (
         <nav
             className={clsx(
@@ -26,12 +26,12 @@ const Menu = ({ open }) => {
                 Reportages
             </Link>
             {isAuth ? (
-                <Link
-                    href="/"
+                <button
                     className="text-2xl font-medium tracking-widest text-white no-underline transition-colors duration-300"
+                    onClick={logout}
                 >
                     Déconnexion
-                </Link>
+                </button>
             ) : (
                 <>
                     <Link
