@@ -16,7 +16,7 @@ const YouTubeEmbed = ({
     const [hasError, setHasError] = useState(false)
 
     // Debug
-    console.log('YouTubeEmbed props:', { videoId, title, width, height })
+    // console.log('YouTubeEmbed props:', { videoId, title, width, height })
 
     // Construire l'URL YouTube avec les paramètres
     const buildYouTubeUrl = (videoId, autoplay, controls) => {
@@ -36,17 +36,17 @@ const YouTubeEmbed = ({
         const finalUrl = params.toString()
             ? `${baseUrl}?${params.toString()}`
             : baseUrl
-        console.log('Built YouTube URL:', finalUrl)
+        // console.log('Built YouTube URL:', finalUrl)
         return finalUrl
     }
 
     const handleLoad = () => {
-        console.log('YouTube iframe loaded successfully')
+        // console.log('YouTube iframe loaded successfully')
         setIsLoading(false)
     }
 
     const handleError = () => {
-        console.error('YouTube iframe failed to load')
+        // console.error('YouTube iframe failed to load')
         setIsLoading(false)
         setHasError(true)
     }
@@ -104,7 +104,7 @@ const YouTubeEmbed = ({
 
 // Fonction utilitaire pour extraire l'ID vidéo d'une URL YouTube
 export const extractYouTubeId = (url) => {
-    console.log('Extracting YouTube ID from:', url)
+    // console.log('Extracting YouTube ID from:', url)
 
     if (!url) {
         console.log('URL is null or undefined')
@@ -123,7 +123,7 @@ export const extractYouTubeId = (url) => {
     // Supprimer d'autres caractères indésirables potentiels
     cleanUrl = cleanUrl.replace(/^[^h]*/, '')
 
-    console.log('Clean URL:', cleanUrl)
+    // console.log('Clean URL:', cleanUrl)
 
     const patterns = [
         // youtube.com/watch?v=VIDEO_ID
@@ -140,12 +140,12 @@ export const extractYouTubeId = (url) => {
         const match = cleanUrl.match(pattern)
         if (match) {
             const videoId = match[1]
-            console.log('Extracted video ID:', videoId)
+            // console.log('Extracted video ID:', videoId)
             return videoId
         }
     }
 
-    console.log('No video ID found in URL')
+    // console.log('No video ID found in URL')
     return null
 }
 

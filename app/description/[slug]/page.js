@@ -7,17 +7,21 @@ import Map from '@/components/detail/Map'
 import SectionEventHome from '@/components/home/SectionEventHome'
 import Loading from '@/components/Loading'
 import Return from '@/components/return/return'
+import { ArticleContextApi } from '@/context/articleContext'
+import { authContextApi } from '@/context/authContext'
 import { supabase } from '@/lib/initSupabase'
-import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const Description = () => {
     const { slug } = useParams()
-    // const sport = sportData[slug]
+    const [sportDataFiltre, setSportDataFiltre] = useState([])
     const [sport, setSport] = useState()
     const [sportLoad, setSportLoad] = useState(false)
     const router = useRouter()
+    const { isLoadingUser, profil } = authContextApi()
+    const { video } = ArticleContextApi()
+
     const handleBack = () => {
         router.back()
     }
@@ -47,6 +51,22 @@ const Description = () => {
             setSportLoad(true)
         }
     }
+
+    // Filtrer les vidéos quand sport ou video changent
+    useEffect(() => {
+        if (sport && video && Array.isArray(video)) {
+            const videoFilter = video.filter(
+                (videoItem) =>
+                    videoItem.categories &&
+                    sport.categories &&
+                    videoItem.categories.some((cat) =>
+                        sport.categories.includes(cat)
+                    )
+            )
+            setSportDataFiltre(videoFilter)
+        }
+    }, [sport, video])
+
     useEffect(() => {
         fetchOneSport()
     }, [])
@@ -112,7 +132,14 @@ const Description = () => {
                     <div className="">
                         <CommentBlock idSport={sport.id} />
                     </div>
-                    <SectionEventHome titre={'On en parle'} type={'picture'} />
+                    <SectionEventHome
+                        sports={sportDataFiltre}
+                        titre={'On en parle'}
+                        type={'video'}
+                        filtre={false}
+                        infiniteScroll={false}
+                        profil={profil}
+                    />
                 </div>
             </div>
         </>

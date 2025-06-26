@@ -56,8 +56,6 @@ const SectionEventHome = ({
         // Note: setFilteredData sera géré par le useEffect ci-dessus
     }, [])
 
-    console.log(sports)
-
     return (
         <>
             <section className="container ">
