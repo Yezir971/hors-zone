@@ -3,21 +3,42 @@ import truncate from '@/utils/truncate'
 import truncateDate from '@/utils/truncateDate'
 import Image from 'next/image'
 import Link from 'next/link'
+import TitleCard from '../card/TitleCard'
+import Filtre from '../card/filtre/Filtre'
 
-const SectionEventHome = ({ sports, titre, type }) => {
+const SectionEventHome = ({
+    sports,
+    titre,
+    type,
+    icons,
+    filtre,
+    infiniteScroll,
+    showMore,
+    labelShowMore,
+}) => {
     return (
         <>
-            <section>
-                <h2 className="mt-[100px] mb-[1.9rem] font-bold text-[1.87rem]">
-                    {' '}
-                    {titre}
-                </h2>
+            <section className="container px-10">
+                <TitleCard
+                    title={titre}
+                    showMore={showMore}
+                    icons={icons}
+                    labelShowMore={labelShowMore}
+                />
+
+                {true && <Filtre />}
                 {sports && sports?.length != 0 ? (
-                    <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth  ">
+                    <div
+                        className={
+                            infiniteScroll
+                                ? 'flex gap-4 flex-wrap '
+                                : 'flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth '
+                        }
+                    >
                         {sports.map((sport, id) => (
                             <div
                                 key={id}
-                                className="min-w-[300px]  border-[20px] border-solid border-[var(--card-color-nuance-1)] shrink-0 snap-start bg-[var(--card-color-nuance-1)] rounded-xl shadow-md overflow-hidden"
+                                className="max-w-[300px] border-[20px] border-solid border-[var(--card-color-nuance-1)] shrink-0 snap-start bg-[var(--card-color-nuance-1)] rounded-xl shadow-md overflow-hidden"
                             >
                                 {type == 'picture' ? (
                                     <>
@@ -55,7 +76,7 @@ const SectionEventHome = ({ sports, titre, type }) => {
                                         {truncate(sport?.description, 50)}
                                     </p>
                                     {type == 'picture' ? (
-                                        <>
+                                        <div className="flex justify-between items-center">
                                             <Link
                                                 href={`/description/${sport?.slug}`}
                                                 className="inline-flex items-center mt-8 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 "
@@ -77,12 +98,30 @@ const SectionEventHome = ({ sports, titre, type }) => {
                                                     />
                                                 </svg>
                                             </Link>
-                                        </>
+                                            <Image
+                                                src="/images/icons/trash.svg"
+                                                alt="trash"
+                                                width={20}
+                                                height={20}
+                                                className="cursor-pointer"
+                                            />
+                                        </div>
                                     ) : (
-                                        <p className="text-[10px] font-normal mt-2.5 ">
-                                            Publié le{' '}
-                                            {truncateDate(sport?.created_at)}
-                                        </p>
+                                        <div className="flex justify-between items-center">
+                                            <p className="text-[10px] font-normal mt-2.5 ">
+                                                Publié le{' '}
+                                                {truncateDate(
+                                                    sport?.created_at
+                                                )}
+                                            </p>
+                                            <Image
+                                                src="/images/icons/trash.svg"
+                                                alt="trash"
+                                                width={20}
+                                                height={20}
+                                                className="cursor-pointer"
+                                            />
+                                        </div>
                                     )}
                                 </div>
                             </div>

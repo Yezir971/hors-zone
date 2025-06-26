@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
                 .single()
 
             if (error) {
-                console.error('Erreur de chargement du profil:', error)
+                console.error('Erreur de chargement du profil:', error.message)
             } else {
                 setProfil(data)
             }

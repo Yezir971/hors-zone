@@ -158,7 +158,7 @@ export default function AdminPanel({ profil }) {
             setDataForm({})
             formRef.current?.reset()
         } catch (error) {
-            toast.error('Erreur lors de l’upload: ' + error, DATA_TOAST)
+            toast.error('Erreur lors de l’upload: ' + error.message, DATA_TOAST)
             return
         } finally {
             setUploading(false)

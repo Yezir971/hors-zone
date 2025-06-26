@@ -2,59 +2,13 @@
 import HeroBanner from '@/components/home/HeroBanner'
 import SectionEventHome from '@/components/home/SectionEventHome'
 import Loading from '@/components/Loading'
+import { ArticleContextApi } from '@/context/articleContext'
 import { authContextApi } from '@/context/authContext'
-import { supabase } from '@/lib/initSupabase'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
 
 export default function Home() {
-    const router = useRouter()
-    const { isAuth, user, isLoadingUser } = authContextApi()
-    const [sports, setSports] = useState([])
-    const [isLoadingSports, setIsLoadingSports] = useState(false)
-    const [isLoadingVideo, setIsLoadingVideo] = useState(false)
-    const [video, setVideo] = useState([])
-    const fetchDataEvent = async () => {
-        try {
-            const { data, error } = await supabase.from('sports').select()
-
-            if (error) {
-                console.error('Erreur Supabase:', error.message)
-                return []
-            }
-
-            // return data
-            setSports(data)
-        } catch (err) {
-            console.error('Erreur inattendue:', err)
-            return []
-        } finally {
-            setIsLoadingSports(true)
-        }
-    }
-    const fetchVideo = async () => {
-        try {
-            const { data, error } = await supabase.from('videos').select()
-
-            if (error) {
-                console.error('Erreur Supabase:', error.message)
-                return []
-            }
-
-            setVideo(data)
-        } catch (err) {
-            console.error('Erreur inattendue:', err)
-            return []
-        } finally {
-            setIsLoadingVideo(true)
-        }
-    }
-
-    useEffect(() => {
-        fetchDataEvent()
-        fetchVideo()
-    }, [])
+    const { isLoadingUser } = authContextApi()
+    const { sports, isLoadingSports, isLoadingVideo, video } =
+        ArticleContextApi()
 
     if (isLoadingUser && !isLoadingSports) {
         return (
@@ -71,11 +25,17 @@ export default function Home() {
                     sports={sports}
                     titre={'Événements à venir'}
                     type={'picture'}
+                    filtre={true}
+                    infiniteScroll={true}
                 />
                 <SectionEventHome
                     sports={video}
                     titre={'Les Reportages'}
                     type={'video'}
+                    filtre={true}
+                    infiniteScroll={true}
+                    showMore={"/profil"}
+                    labelShowMore={'Voir plus'}
                 />
             </main>
         </>

@@ -82,7 +82,7 @@ export default function ProfilePage() {
                             />
                         ) : (
                             <Image
-                                src="/images/icons/avatar-default.svg"
+                                src="/images/icons/user.svg"
                                 alt="avatar"
                                 width={100}
                                 height={100}
