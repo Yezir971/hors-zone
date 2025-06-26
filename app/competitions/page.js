@@ -5,7 +5,7 @@ import Loading from '@/components/Loading'
 import { ArticleContextApi } from '@/context/articleContext'
 import { authContextApi } from '@/context/authContext'
 
-export default function Home() {
+const Competitions = () => {
     const { isLoadingUser, profil } = authContextApi()
     const { sports, isLoadingSports, isLoadingVideo, video } =
         ArticleContextApi()
@@ -20,34 +20,25 @@ export default function Home() {
     return (
         <>
             <HeroBanner
-                titre={'Explorez le sport autrement !'}
+                titre={'Envie de nouveauté ? '}
                 description={
-                    'Quidditch, sabre laser, tir à l’arc à cheval, yoga aérien… Hors Zone te fait découvrir des sports insolites et leurs événements près de chez toi.'
+                    'Découvrez un nouveau sport insolite chaque semaine avec Hors Zone, le reportage qui te fera changer d’air.'
                 }
-                subDescription={'Change de zone. Vis l’aventure.'}
+                subDescription={''}
             />
             <main className="px-5 gap-[79px] mt-[92px] mb-[100px]">
                 <SectionEventHome
                     sports={sports}
-                    titre={'Événements à venir'}
+                    titre={'Les compétitions insolites'}
                     type={'picture'}
-                    filtre={false}
-                    infiniteScroll={false}
-                    profil={profil}
-                    showMore={'/competitions'}
-                    labelShowMore={'Tout afficher'}
-                />
-                <SectionEventHome
-                    sports={video}
-                    titre={'Les Reportages'}
-                    type={'video'}
-                    filtre={false}
+                    filtre={true}
                     infiniteScroll={true}
-                    showMore={'/profil'}
-                    labelShowMore={'Voir plus'}
                     profil={profil}
+              
                 />
             </main>
         </>
     )
 }
+
+export default Competitions
