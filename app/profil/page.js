@@ -26,7 +26,7 @@ export default function ProfilePage() {
         if (isAuth && profil?.id) {
             fetchUserSportLike()
         }
-        if (!isAuth && !profil) {
+        if (!isAuth && profil) {
             router.push('/login')
         }
     }, [profil])
@@ -72,7 +72,8 @@ export default function ProfilePage() {
                 <Return />
                 <div className="text-center gap-[62px]">
                     <div className="flex flex-col justify-center items-center gap-2.5">
-                        {profil?.avatar_url ? (
+                        {profil?.avatar_url &&
+                        profil.avatar_url.trim() !== '' ? (
                             <Image
                                 src={profil?.avatar_url}
                                 alt="avatar"
@@ -129,8 +130,15 @@ export default function ProfilePage() {
             {/* <CardProfil user={user} /> */}
             <SectionEventHome
                 sports={likedSports}
-                titre={'Évènements favoris'}
+                titre={'Mes rappels'}
                 type={'picture'}
+                icons={'notification'}
+            />
+            <SectionEventHome
+                sports={likedSports}
+                titre={'Favoris'}
+                type={'picture'}
+                icons={'like'}
             />
             {profil && profil.is_admin && (
                 <>

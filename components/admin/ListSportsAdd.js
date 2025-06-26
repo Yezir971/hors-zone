@@ -4,29 +4,31 @@ import Loading from '../Loading'
 import { ArticleContextApi } from '@/context/articleContext'
 import { toast } from 'react-toastify'
 import DATA_TOAST from '@/app/utils/constant/toast'
+import SectionEventHome from '../home/SectionEventHome'
 
 const ListSportsAdd = ({ profil }) => {
-    const { updateListSports, update, deleteSport } = ArticleContextApi()
-    const [sports, setSports] = useState()
+    const { updateListSports, update, deleteSport, sports } =
+        ArticleContextApi()
+    // const [sports, setSports] = useState()
     const [loading, setIsLoading] = useState(true)
 
-    const fetchAllSports = async () => {
-        try {
-            const { data, error } = await supabase.from('sports').select()
-            if (error) {
-                toast.error(error.message, DATA_TOAST)
-            }
-            setSports(data)
-        } catch (e) {
-            toast.error('Errur de réception des sports : ' + e, DATA_TOAST)
-            throw new Error('Errur de réception des sports : ' + e)
-        } finally {
-            setIsLoading(false)
-        }
-    }
-    useEffect(() => {
-        fetchAllSports()
-    }, [updateListSports])
+    // const fetchAllSports = async () => {
+    //     try {
+    //         const { data, error } = await supabase.from('sports').select()
+    //         if (error) {
+    //             toast.error(error.message, DATA_TOAST)
+    //         }
+    //         setSports(data)
+    //     } catch (e) {
+    //         toast.error('Errur de réception des sports : ' + e, DATA_TOAST)
+    //         throw new Error('Errur de réception des sports : ' + e)
+    //     } finally {
+    //         setIsLoading(false)
+    //     }
+    // }
+    // useEffect(() => {
+    //     fetchAllSports()
+    // }, [updateListSports])
     if (!sports) {
         return (
             <div className="flex justify-center items-center h-screen">
@@ -77,7 +79,14 @@ const ListSportsAdd = ({ profil }) => {
 
     return (
         <>
-            <div className="max-w-2xl mx-auto mt-10 bg-white p-6 rounded-2xl shadow-xl">
+            <SectionEventHome
+                sports={sports}
+                titre={'Tous les évènements'}
+                type={'picture'}
+                filtre={true}
+                profil={profil}
+            />
+            {/* <div className="max-w-2xl mx-auto mt-10 bg-white p-6 rounded-2xl shadow-xl">
                 <h1 className="text-center font-bold">
                     List d'article ajouter
                 </h1>
@@ -124,7 +133,7 @@ const ListSportsAdd = ({ profil }) => {
                         ))}
                     </div>
                 )}
-            </div>
+            </div> */}
         </>
     )
 }

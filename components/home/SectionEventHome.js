@@ -58,7 +58,7 @@ const SectionEventHome = ({
 
     return (
         <>
-            <section className="container ">
+            <section className=" md:px-40 px-4">
                 <TitleCard
                     title={titre}
                     showMore={showMore}
