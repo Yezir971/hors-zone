@@ -20,7 +20,7 @@ const Menu = ({ open }) => {
                 Accueil
             </Link>
             <Link
-                href="/"
+                href="/reportages"
                 className="text-2xl font-medium tracking-widest text-white no-underline transition-colors duration-300"
             >
                 Reportages

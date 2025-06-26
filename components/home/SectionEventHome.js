@@ -97,11 +97,9 @@ const SectionEventHome = ({
                                         <div className="h-48 w-full rounded-[10px] overflow-hidden">
                                             {sport?.link_video ? (
                                                 <YouTubeEmbed
-                                                    videoId={
-                                                        extractYouTubeId(
-                                                            sport.link_video
-                                                        ) || 'os0bfBqS7mo'
-                                                    }
+                                                    videoId={extractYouTubeId(
+                                                        sport.link_video
+                                                    )}
                                                     title={
                                                         sport?.name ||
                                                         'Vidéo YouTube'
@@ -192,6 +190,12 @@ const SectionEventHome = ({
                                             </>
                                         ) : (
                                             <div className="flex justify-between items-center w-full">
+                                                <p className="text-sm text-[var(--text-color)]">
+                                                    Publié le{' '}
+                                                    {truncateDate(
+                                                        sport?.created_at
+                                                    )}
+                                                </p>
                                                 {/* <Link
                                                     href={`/description/${sport?.slug}`}
                                                     className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
