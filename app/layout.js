@@ -81,12 +81,14 @@ export default function RootLayout({ children }) {
 
                 <link rel="manifest" href="/manifest.json" />
                 <link rel="icon" href="/favicon.ico" />
+
+                {/* Icônes optimisées pour réduire la taille du splash screen */}
                 <link
-                    rel="apple-touch-icon"
+                    rel="icon"
+                    type="image/png"
+                    sizes="16x16"
                     href="/images/logo/web-app-manifest-192x192.png"
                 />
-
-                {/* Icônes pour différents appareils */}
                 <link
                     rel="icon"
                     type="image/png"
@@ -96,42 +98,18 @@ export default function RootLayout({ children }) {
                 <link
                     rel="icon"
                     type="image/png"
-                    sizes="16x16"
+                    sizes="48x48"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+
+                {/* Icônes iOS optimisées - tailles plus petites */}
+                <link
+                    rel="apple-touch-icon"
                     href="/images/logo/web-app-manifest-192x192.png"
                 />
                 <link
                     rel="apple-touch-icon"
-                    sizes="180x180"
-                    href="/images/logo/web-app-manifest-192x192.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="152x152"
-                    href="/images/logo/web-app-manifest-192x192.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="144x144"
-                    href="/images/logo/web-app-manifest-192x192.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="120x120"
-                    href="/images/logo/web-app-manifest-192x192.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="114x114"
-                    href="/images/logo/web-app-manifest-192x192.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="76x76"
-                    href="/images/logo/web-app-manifest-192x192.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="72x72"
+                    sizes="57x57"
                     href="/images/logo/web-app-manifest-192x192.png"
                 />
                 <link
@@ -141,7 +119,37 @@ export default function RootLayout({ children }) {
                 />
                 <link
                     rel="apple-touch-icon"
-                    sizes="57x57"
+                    sizes="72x72"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="76x76"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="114x114"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="120x120"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="144x144"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="152x152"
+                    href="/images/logo/web-app-manifest-192x192.png"
+                />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="180x180"
                     href="/images/logo/web-app-manifest-192x192.png"
                 />
             </head>
