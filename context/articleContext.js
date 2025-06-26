@@ -94,18 +94,18 @@ const ArticleProvider = ({ children }) => {
                 ''
             )
 
-            // on supprime lavidéo dans le bucket
-            const { error: erroBucket } = await supabase.storage
-                .from('videos')
-                .remove([path])
-            if (erroBucket) {
-                toast.error(
-                    'Erreur à la suppression de la vidéo dans le bucket ' +
-                        erroBucket.message,
-                    DATA_TOAST
-                )
-                return
-            }
+            // on supprime la vidéo dans le bucket
+            // const { error: erroBucket } = await supabase.storage
+            //     .from('videos')
+            //     .remove([path])
+            // if (erroBucket) {
+            //     toast.error(
+            //         'Erreur à la suppression de la vidéo dans le bucket ' +
+            //             erroBucket.message,
+            //         DATA_TOAST
+            //     )
+            //     return
+            // }
 
             if (error) {
                 toast.error(

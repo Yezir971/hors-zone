@@ -33,7 +33,7 @@ export default function Home() {
                     sports={video}
                     titre={'Les Reportages'}
                     type={'video'}
-                    filtre={true}
+                    filtre={false}
                     infiniteScroll={true}
                     showMore={'/profil'}
                     labelShowMore={'Voir plus'}

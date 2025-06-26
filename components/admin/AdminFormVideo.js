@@ -26,13 +26,15 @@ const AdminFormVideo = ({ profil }) => {
     }
 
     const handleChange = (e) => {
-        const { name, value, files } = e.target
+        const { name, value } = e.target
         setDataForm((prevState) => ({
             ...prevState,
 
-            [name]: name == 'fileName' ? files : value,
+            [name]: value,
+            // [name]: name == 'fileName' ? files : value,
         }))
     }
+    console.log(dataForm)
 
     const handleUpload = async (e) => {
         e.preventDefault()
@@ -41,35 +43,36 @@ const AdminFormVideo = ({ profil }) => {
             if (!profil) return
             setUploading(true)
 
-            const file = dataForm.fileName?.[0]
+            // const file = dataForm.fileName?.[0]
 
-            if (!file) {
-                toast.error('Aucun fichier sélectionné', DATA_TOAST)
-                throw new Error('Aucun fichier sélectionné')
-            }
+            // if (!file) {
+            //     toast.error('Aucun fichier sélectionné', DATA_TOAST)
+            //     throw new Error('Aucun fichier sélectionné')
+            // }
 
-            const fileExt = file.name.split('.').pop()
-            const fileName = `${Date.now()}.${fileExt}`
-            const filePath = `uploads/${fileName}`
+            // const fileExt = file.name.split('.').pop()
+            // const fileName = `${Date.now()}.${fileExt}`
+            // const filePath = `uploads/${fileName}`
 
-            const { error: urlError, data: urlData } = await supabase.storage
-                .from('videos')
-                .upload(filePath, file)
+            // const { error: urlError, data: urlData } = await supabase.storage
+            //     .from('videos')
+            //     .upload(filePath, file)
 
-            if (urlError) {
-                toast.error(
-                    "Erreur au moment de l'upload de la vidéo " +
-                        urlError.message,
-                    DATA_TOAST
-                )
-                return
-            }
+            // if (urlError) {
+            //     toast.error(
+            //         "Erreur au moment de l'upload de la vidéo " +
+            //             urlError.message,
+            //         DATA_TOAST
+            //     )
+            //     return
+            // }
 
             const { error: errorVideo } = await supabase.from('videos').insert([
                 {
                     created_at: new Date().toISOString(),
                     video_name: dataForm.titre,
-                    link_video: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${urlData.fullPath}`,
+                    link_video: dataForm.link_video,
+                    // link_video: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${urlData.fullPath}`,
                     id_admin_who_add: profil?.id,
                     description: dataForm.description,
                     categories: categories,
@@ -111,7 +114,7 @@ const AdminFormVideo = ({ profil }) => {
                     className="max-w-2xl mx-auto mt-10  bg-[var(--nuance-de-blanc-1)] rounded-2xl shadow-xl p-6"
                 >
                     {/* Label */}
-                    <div className="relative">
+                    {/* <div className="relative">
                         <label
                             className="block mb-2 top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-medium absolute text-[var(--text-color)] "
                             htmlFor="dropzone-file"
@@ -119,7 +122,6 @@ const AdminFormVideo = ({ profil }) => {
                             Téléverser une vidéo (maximum 50Mo)
                         </label>
                         <FaUpload className="text-5xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute text-[var(--text-color)]" />
-                        {/* Input file */}
                         <input
                             className="border z-30 mb-5 cursor-pointer border-dashed h-36 border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-[var(--text-color)] text-sm rounded-lg  block w-full p-2.5"
                             aria-describedby="user_avatar_help"
@@ -129,6 +131,24 @@ const AdminFormVideo = ({ profil }) => {
                             name="fileName"
                             onChange={handleChange}
                             disabled={uploading}
+                        />
+                    </div> */}
+
+                    <div className="mb-5">
+                        <label
+                            htmlFor="link_video"
+                            className="block mb-2 text-sm font-medium text-[var(--text-color)]"
+                        >
+                            Lien de la vidéo (youtube)
+                        </label>
+                        <input
+                            type="text"
+                            id="link_video"
+                            name="link_video"
+                            onChange={handleChange}
+                            className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
+                            placeholder="https://www.youtube.com/watch?v=os0bfBqS7mo"
+                            required
                         />
                     </div>
 

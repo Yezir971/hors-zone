@@ -7,6 +7,7 @@ import { useState, useEffect, useCallback } from 'react'
 import TitleCard from '../card/TitleCard'
 import Filtre from '../card/filtre/Filtre'
 import { ArticleContextApi } from '@/context/articleContext'
+import YouTubeEmbed, { extractYouTubeId } from '../YouTubeEmbed'
 
 const SectionEventHome = ({
     sports,
@@ -93,17 +94,29 @@ const SectionEventHome = ({
                                     </>
                                 ) : (
                                     <>
-                                        <video
-                                            controls
-                                            className="h-48 w-full object-cover rounded-[10px] "
-                                        >
-                                            <source
-                                                src={sport?.link_video}
-                                                type="video/mp4"
-                                            />
-                                            Votre navigateur ne supporte pas la
-                                            lecture vidéo.
-                                        </video>
+                                        <div className="h-48 w-full rounded-[10px] overflow-hidden">
+                                            {sport?.link_video ? (
+                                                <YouTubeEmbed
+                                                    videoId={
+                                                        extractYouTubeId(
+                                                            sport.link_video
+                                                        ) || 'os0bfBqS7mo'
+                                                    }
+                                                    title={
+                                                        sport?.name ||
+                                                        'Vidéo YouTube'
+                                                    }
+                                                    height="100%"
+                                                    className="h-full"
+                                                />
+                                            ) : (
+                                                <div className="h-full flex items-center justify-center bg-gray-100">
+                                                    <p className="text-gray-500">
+                                                        Aucune vidéo disponible
+                                                    </p>
+                                                </div>
+                                            )}
+                                        </div>
                                     </>
                                 )}
 
@@ -156,6 +169,7 @@ const SectionEventHome = ({
                                                         />
                                                     </svg>
                                                 </Link>
+
                                                 <div className="flex justify-between items-center">
                                                     {profil?.is_admin && (
                                                         <>
@@ -177,19 +191,44 @@ const SectionEventHome = ({
                                                 </div>
                                             </>
                                         ) : (
-                                            <div className="flex justify-between items-center">
-                                                <Image
-                                                    onClick={() =>
-                                                        deleteVideo(
-                                                            sport?.id,
-                                                            sport?.link_video
-                                                        )
-                                                    }
-                                                    src="/images/icons/trash.svg"
-                                                    alt="trash"
-                                                    width={20}
-                                                    height={20}
-                                                />
+                                            <div className="flex justify-between items-center w-full">
+                                                {/* <Link
+                                                    href={`/description/${sport?.slug}`}
+                                                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                                                >
+                                                    Voir plus
+                                                    <svg
+                                                        className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                                                        aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 14 10"
+                                                    >
+                                                        <path
+                                                            stroke="currentColor"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            strokeWidth="2"
+                                                            d="M1 5h12m0 0L9 1m4 4L9 9"
+                                                        />
+                                                    </svg>
+                                                </Link> */}
+
+                                                {profil?.is_admin && (
+                                                    <Image
+                                                        onClick={() =>
+                                                            deleteVideo(
+                                                                sport?.id,
+                                                                sport?.link_video
+                                                            )
+                                                        }
+                                                        src="/images/icons/trash.svg"
+                                                        alt="trash"
+                                                        width={20}
+                                                        height={20}
+                                                        className="cursor-pointer"
+                                                    />
+                                                )}
                                             </div>
                                         )}
                                     </div>

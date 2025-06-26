@@ -4,6 +4,7 @@ import Loading from '../Loading'
 import { toast } from 'react-toastify'
 import DATA_TOAST from '@/app/utils/constant/toast'
 import { supabase } from '@/lib/initSupabase'
+import YouTubeEmbed, { extractYouTubeId } from '../YouTubeEmbed'
 
 const ListVideoAdd = ({ profil }) => {
     const { updateVideo, updateListeVideoSports, deleteVideo } =
@@ -92,7 +93,17 @@ const ListVideoAdd = ({ profil }) => {
                                 key={index}
                                 className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-gray-50 p-4 rounded-xl shadow hover:shadow-md transition"
                             >
-                                <video
+                                <YouTubeEmbed
+                                    videoId={
+                                        extractYouTubeId(sport.link_video) ||
+                                        'os0bfBqS7mo'
+                                    }
+                                    title={sport?.name || 'Vidéo YouTube'}
+                                    height="100%"
+                                    className="h-full"
+                                />
+
+                                {/* <video
                                     controls
                                     width="302"
                                     className="rounded-xl shadow-md"
@@ -103,7 +114,7 @@ const ListVideoAdd = ({ profil }) => {
                                     />
                                     Votre navigateur ne supporte pas la lecture
                                     vidéo.
-                                </video>
+                                </video> */}
 
                                 <div className="flex-1">
                                     <h3 className="text-xl font-semibold text-indigo-700">
