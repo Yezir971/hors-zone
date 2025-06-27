@@ -347,7 +347,7 @@ const CommentBlock = ({ idSport }) => {
                                 ? 'Ajoutez un commentaire'
                                 : 'Connecte-toi pour ajouter un commentaire'
                         }
-                        className="w-4/5  border border-gray-300 rounded-full px-4 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400 box-border"
+                        className="w-4/5 text-black border border-gray-300 rounded-full px-4 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400 box-border"
                     />
                     <input
                         type="submit"

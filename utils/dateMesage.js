@@ -2,8 +2,8 @@
 
 const dateMessage = (date) => {
     const now = Date.now()
-    const then = date.getTime()
-    const diff = now - then - 7200000 // la différence moins les 2h UTC, je comprend pas d'où vient le décalage de 2h
+    const then = date // date est déjà un timestamp (nombre)
+    const diff = Math.abs(now - then - 7200000) // la différence moins les 2h UTC, je comprend pas d'où vient le décalage de 2h
 
     let secondes = Math.floor((diff / 1000) % 60)
     let minutes = Math.floor((diff / (1000 * 60)) % 60)
@@ -26,5 +26,4 @@ const dateMessage = (date) => {
     }
     return `${annees}ans`
 }
-
 module.exports = dateMessage

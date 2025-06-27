@@ -7,13 +7,14 @@ const TopLoginSignUp = () => {
                 <Image
                     src="/images/icons/arrow-left.svg"
                     alt="arrow-left"
-                    width={14}
-                    height={10}
+                    width={20}
+                    height={16}
+                    className="w-[14px] h-[10px] md:w-[20px] md:h-[16px]"
                 />
 
-                <p className="font-medium text-[8px] text-[var(--gris-bleute)]">
+                {/* <p className="font-medium text-[8px] lg:text-[12px] text-[var(--gris-bleute)]">
                     Retour
-                </p>
+                </p> */}
             </Link>
             <div className="w-full flex justify-center mt-8 mb-20">
                 <Image

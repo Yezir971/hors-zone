@@ -10,6 +10,9 @@ import DATA_TOAST from '../utils/constant/toast'
 import Loading from '@/components/Loading'
 import TopLoginSignUp from '@/components/TopLoginSignup'
 import { LuEye, LuEyeClosed } from 'react-icons/lu'
+import checkPassword from '@/utils/checkpassword'
+import checkEmail from '@/utils/checkemail'
+import checkName from '@/utils/checkname'
 
 const SignUp = () => {
     const [dataForm, setDataForm] = useState({})
@@ -17,6 +20,10 @@ const SignUp = () => {
     const { signUp, isLoading } = authContextApi()
     const [showPassword, setShowPassword] = useState(false)
     const [showPassword2, setShowPassword2] = useState(false)
+    const [errorPassword, setErrorPassword] = useState('')
+    const [errorPassword2, setErrorPassword2] = useState('')
+    const [errorEmail, setErrorEmail] = useState('')
+    const [errorPseudo, setErrorPseudo] = useState('')
 
     const togglePasswordVisibility = () => setShowPassword((v) => !v)
     const togglePassword2Visibility = () => setShowPassword2((v) => !v)
@@ -37,6 +44,18 @@ const SignUp = () => {
             ...prevState,
             [name]: value,
         }))
+        if (name === 'passwordConfirm') {
+            setErrorPassword2(checkPassword(value))
+        }
+        if (name === 'password') {
+            setErrorPassword(checkPassword(value))
+        }
+        if (name === 'email') {
+            setErrorEmail(checkEmail(value))
+        }
+        if (name === 'pseudo') {
+            setErrorPseudo(checkName(value))
+        }
     }
 
     const checkAllInputSignup = () => {
@@ -79,6 +98,11 @@ const SignUp = () => {
                                     required
                                 />
                             </div>
+                            {errorPseudo && (
+                                <p className="mt-2 text-[0.75rem] text-[var(--error-color)]">
+                                    {errorPseudo}
+                                </p>
+                            )}
                             <div>
                                 <label className="block mb-3 text-base font-normal">
                                     Email{' '}
@@ -92,6 +116,11 @@ const SignUp = () => {
                                     required
                                 />
                             </div>
+                            {errorEmail && (
+                                <p className="mt-2 text-[0.75rem] text-[var(--error-color)]">
+                                    {errorEmail}
+                                </p>
+                            )}
                             <div>
                                 <label className="block mb-3 text-base font-normal">
                                     Mot de passe{' '}
@@ -121,6 +150,11 @@ const SignUp = () => {
                                         )}
                                     </button>
                                 </div>
+                                {errorPassword && (
+                                    <p className="mt-2 text-[0.75rem] text-[var(--error-color)]">
+                                        {errorPassword}
+                                    </p>
+                                )}
                             </div>
                             <div>
                                 <label className="block mb-3 text-base font-normal">
@@ -150,6 +184,11 @@ const SignUp = () => {
                                         )}
                                     </button>
                                 </div>
+                                {errorPassword2 && (
+                                    <p className="mt-2 text-[0.75rem] text-[var(--error-color)]">
+                                        {errorPassword2}
+                                    </p>
+                                )}
                             </div>
                             <button
                                 type="submit"

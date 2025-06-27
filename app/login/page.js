@@ -3,6 +3,8 @@
 import Loading from '@/components/Loading'
 import TopLoginSignUp from '@/components/TopLoginSignup'
 import { authContextApi } from '@/context/authContext'
+import checkEmail from '@/utils/checkemail'
+import checkPassword from '@/utils/checkpassword'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -11,6 +13,8 @@ import { LuEye, LuEyeClosed } from 'react-icons/lu'
 const Login = () => {
     const router = useRouter()
     const [showPassword, setShowPassword] = useState(false)
+    const [errorPassword, setErrorPassword] = useState('')
+    const [errorEmail, setErrorEmail] = useState('')
 
     const [dataForm, setDataForm] = useState({})
     const togglePasswordVisibility = () => setShowPassword((v) => !v)
@@ -29,6 +33,17 @@ const Login = () => {
             ...prevState,
             [name]: value,
         }))
+
+        if (name === 'password') {
+            setErrorPassword(checkPassword(value))
+        }
+        if (name === 'email') {
+            setErrorEmail(checkEmail(value))
+        }
+
+        console.log(dataForm)
+        console.log(errorPassword)
+        console.log(errorEmail)
     }
     const fetchLogin = async (e) => {
         e.preventDefault()
@@ -63,6 +78,11 @@ const Login = () => {
                                     required
                                 />
                             </div>
+                            {errorEmail && (
+                                <p className="mt-2 text-[0.75rem] text-[var(--error-color)]">
+                                    {errorEmail}
+                                </p>
+                            )}
                             <div>
                                 <label className="block mt-7 mb-3 text-base font-normal">
                                     Mot de passe
@@ -89,10 +109,15 @@ const Login = () => {
                                             <LuEyeClosed />
                                         )}
                                     </button>
-                                </div>{' '}
+                                </div>
+                                {errorPassword && (
+                                    <p className="mt-2 text-[0.75rem] text-[var(--error-color)]">
+                                        {errorPassword}
+                                    </p>
+                                )}
                             </div>
 
-                            <p className="mt-2 text-[0.75rem] text-[var(--orange-1)]">
+                            <p className="mt-2 text-[0.75rem] text-[var(--bleu-electrique)]">
                                 Mot de passe oublié ?
                             </p>
                             <span className="flex mb-16 gap-3 mt-4 items-center">
