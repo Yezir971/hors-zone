@@ -114,7 +114,7 @@ const Description = () => {
                 </div>
             </div>
 
-            <div className="mb-[46px] flex flex-col gap-14 rounded-2xl border-[var(--gris-fonce)] border-t-[2px] rounded-t-[50px] p-[39px]">
+            <div className="mb-[46px] flex flex-col gap-14 rounded-2xl border-[var(--gris-fonce)] border-t-[2px] rounded-t-[50px] px-[8px] lg:px-[39px]">
                 <div className="flex justify-between">
                     <p>
                         {sport.date_start} au {sport.date_end}
@@ -129,18 +129,19 @@ const Description = () => {
                             titre={sport.name}
                         />
                     </div>
-                    <div className="">
+                    <div className="w-full h-[400px]">
                         <CommentBlock idSport={sport.id} />
                     </div>
-                    <SectionEventHome
-                        sports={sportDataFiltre}
-                        titre={'On en parle'}
-                        type={'video'}
-                        filtre={false}
-                        infiniteScroll={false}
-                        profil={profil}
-                    />
                 </div>
+                <SectionEventHome
+                    className="grid-cols-2"
+                    sports={sportDataFiltre}
+                    titre={'On en parle'}
+                    type={'video'}
+                    filtre={false}
+                    infiniteScroll={false}
+                    profil={profil}
+                />
             </div>
         </>
     )

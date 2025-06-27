@@ -190,7 +190,8 @@ const CommentBlock = ({ idSport }) => {
         )
     }
     return (
-        <div className="max-w-md mx-auto rounded-lg border p-4 shadow-sm bg-white">
+        // <div className="max-w-md mx-auto rounded-lg border p-4 shadow-sm bg-white">
+        <div className="w-full rounded-lg border p-4 shadow-sm bg-white">
             {comments.length != 0 ? (
                 <>
                     <p className="text-center font-medium text-gray-700 mb-4">
