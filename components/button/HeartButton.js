@@ -100,7 +100,7 @@ export default function HeartButton({ idSport }) {
 
     return (
         <>
-            <div className="flex gap-2">
+            <div className="flex gap-2 text-[var(--blanc)] text-3xl">
                 <p>{numberLike}</p>
                 <Image
                     onClick={sendlike}

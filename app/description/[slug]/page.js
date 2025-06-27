@@ -82,7 +82,7 @@ const Description = () => {
     return (
         <>
             <div
-                className="bg-[var(--background-color)] mb-[46px] relative h-[80vh] bg-cover bg-center flex items-end justify-start"
+                className="bg-[var(--background-color)]  relative h-[80vh] bg-cover bg-center flex items-end justify-start"
                 style={{ backgroundImage: `url(${sport.image_url})` }}
             >
                 <div className="flex flex-col m-10 gap-8 z-20 text-white ">
@@ -114,14 +114,14 @@ const Description = () => {
                 </div>
             </div>
 
-            <div className="mb-[46px] flex flex-col gap-14 rounded-2xl border-[var(--gris-fonce)] border-t-[2px] rounded-t-[50px] px-[8px] lg:px-[39px]">
-                <div className="flex justify-between">
+            <div className="mb-[46px] flex flex-col gap-14 rounded-2xl border-[var(--gris-fonce)] border-t-[2px] rounded-t-[50px] pt-[39px] px-[8px] lg:px-[39px]">
+                <div className="flex justify-between px-[8px] lg:px-[39px] text-sm gap-3.5 lg:text-base">
                     <p>
                         {sport.date_start} au {sport.date_end}
                     </p>
                     <p>{sport.city}</p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-14">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-14 ">
                     <div className="w-full h-[400px]">
                         <Map
                             long={sport.long}
@@ -129,12 +129,12 @@ const Description = () => {
                             titre={sport.name}
                         />
                     </div>
-                    <div className="w-full h-[400px]">
+                    <div className="w-full h-[400px] ">
                         <CommentBlock idSport={sport.id} />
                     </div>
                 </div>
                 <SectionEventHome
-                    className="grid-cols-2"
+                    // className="px-[8px] lg:px-[39px]"
                     sports={sportDataFiltre}
                     titre={'On en parle'}
                     type={'video'}

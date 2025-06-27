@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import DATA_TOAST from '@/app/utils/constant/toast'
 import Image from 'next/image'
 import dateMessage from '@/utils/dateMesage'
+import AnswerComment from './AnswerComment'
 
 const CommentBlock = ({ idSport }) => {
     const [message, setMessage] = useState()
@@ -16,6 +17,7 @@ const CommentBlock = ({ idSport }) => {
     const [replyId, setReplyId] = useState()
     const [update, setupdate] = useState(false)
     const formRef = useRef(null)
+    const [replyName, setReplyName] = useState()
     const socketRef = useRef(null)
     const bottomRef = useRef(null)
     const scrollContainerRef = useRef(null)
@@ -63,6 +65,7 @@ const CommentBlock = ({ idSport }) => {
             }
         }
     }, [])
+    console.log(comments)
 
     const sendMessageWebsocket = (msg) => {
         if (
@@ -96,7 +99,7 @@ const CommentBlock = ({ idSport }) => {
             const { data, error } = await supabase
                 .from('comments')
                 .select(
-                    'id, sport_who_comment, user_who_comment(id, pseudo), comment, date'
+                    'id, sport_who_comment, user_who_comment(id, pseudo), comment, date, id_parent_comment(comment)'
                 )
                 .eq('sport_who_comment', idSport)
             if (error) {
@@ -134,7 +137,7 @@ const CommentBlock = ({ idSport }) => {
                     .from('comments')
                     .insert(dataMessage)
                     .select(
-                        'id, sport_who_comment, user_who_comment(id, pseudo), comment, date'
+                        'id, sport_who_comment, user_who_comment(id, pseudo), comment, date, id_parent_comment(comment)'
                     )
                 if (error) {
                     toast.error('Réponse pas envoyée.' + error, DATA_TOAST)
@@ -173,13 +176,30 @@ const CommentBlock = ({ idSport }) => {
         }
     }
 
-    const triggerReplay = (id) => {
+    const deleteComment = async (id) => {
+        try {
+            const { error } = await supabase
+                .from('comments')
+                .delete()
+                .eq('id', id)
+            if (error) {
+                toast.error('Commentaire pas supprimé.' + error, DATA_TOAST)
+            }
+            toast.success('Commentaire supprimé.', DATA_TOAST)
+            fetchMessage()
+        } catch (error) {
+            toast.error('Commentaire pas supprimé.' + error, DATA_TOAST)
+        }
+    }
+    const triggerReplay = (id, name) => {
         setReplyId(id)
+        setReplyName(name)
         setIsReply(true)
     }
     const unTriggerReplay = () => {
         setReplyId()
         setIsReply(false)
+        setReplyName()
     }
 
     if (loading && !isAuth) {
@@ -191,7 +211,7 @@ const CommentBlock = ({ idSport }) => {
     }
     return (
         // <div className="max-w-md mx-auto rounded-lg border p-4 shadow-sm bg-white">
-        <div className="w-full rounded-lg border p-4 shadow-sm bg-white">
+        <div className="w-full rounded-lg border p-4 shadow-sm bg-white box-border">
             {comments.length != 0 ? (
                 <>
                     <p className="text-center font-medium text-gray-700 mb-4">
@@ -236,9 +256,13 @@ const CommentBlock = ({ idSport }) => {
                                     <p className="font-semibold text-gray-800">
                                         {comment.user_who_comment.pseudo}
                                     </p>
-                                    <p className="text-sm text-gray-700 w-11/12">
-                                        {comment.comment}
-                                    </p>
+                                    {comment.id_parent_comment ? (
+                                        <AnswerComment comment={comment} />
+                                    ) : (
+                                        <p className="text-sm text-gray-700 w-11/12">
+                                            {comment.comment}
+                                        </p>
+                                    )}
                                     <div className="text-xs text-gray-400 mt-1 flex items-center space-x-2">
                                         <span>
                                             {dateMessage(
@@ -247,12 +271,26 @@ const CommentBlock = ({ idSport }) => {
                                         </span>
                                         <button
                                             onClick={() =>
-                                                triggerReplay(comment.id)
+                                                triggerReplay(
+                                                    comment.id,
+                                                    comment.user_who_comment
+                                                        .pseudo
+                                                )
                                             }
                                             className="cursor-pointer text-blue-500 hover:underline"
                                         >
                                             Répondre
                                         </button>
+                                        {profil?.is_admin && (
+                                            <button
+                                                onClick={() =>
+                                                    deleteComment(comment.id)
+                                                }
+                                                className="cursor-pointer text-red-500 hover:underline"
+                                            >
+                                                Supprimer
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -262,7 +300,12 @@ const CommentBlock = ({ idSport }) => {
             </div>
             {isReply && (
                 <div className="w-full bg-blue-600 flex justify-between rounded-2xl p-3">
-                    <p>Répondre à Sexy james</p>
+                    <p>
+                        Répondre à{' '}
+                        <span className="text-white font-medium">
+                            {replyName}
+                        </span>
+                    </p>
                     <Image
                         className="cursor-pointer"
                         onClick={unTriggerReplay}
@@ -289,7 +332,11 @@ const CommentBlock = ({ idSport }) => {
                         />
                     </svg>
                 </div>
-                <form ref={formRef} className="w-full" onSubmit={sendMessage}>
+                <form
+                    ref={formRef}
+                    className="lg:w-full w-full box-border"
+                    onSubmit={sendMessage}
+                >
                     <input
                         name="comment"
                         onChange={handleChange}
@@ -300,7 +347,7 @@ const CommentBlock = ({ idSport }) => {
                                 ? 'Ajoutez un commentaire'
                                 : 'Connecte-toi pour ajouter un commentaire'
                         }
-                        className="w-full border border-gray-300 rounded-full px-4 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400"
+                        className="w-4/5  border border-gray-300 rounded-full px-4 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400 box-border"
                     />
                     <input
                         type="submit"
