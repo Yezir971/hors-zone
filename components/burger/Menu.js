@@ -25,9 +25,15 @@ const Menu = ({ open }) => {
             >
                 Reportages
             </Link>
+            <Link
+                href="/competitions"
+                className="text-2xl font-medium tracking-widest text-white no-underline transition-colors duration-300"
+            >
+                Competitions
+            </Link>
             {isAuth ? (
                 <button
-                    className="text-2xl font-medium tracking-widest text-white no-underline transition-colors duration-300"
+                    className="text-2xl text-start font-medium tracking-widest text-white no-underline transition-colors duration-300"
                     onClick={logout}
                 >
                     Déconnexion

@@ -27,26 +27,26 @@ export default function Home() {
                 }
                 subDescription={'Change de zone. Vis l’aventure.'}
             />
-            <main className="px-5 gap-[79px] mt-[92px] mb-[100px]">
-                <SectionEventHome
-                    sports={sports}
-                    titre={'Événements à venir'}
-                    type={'picture'}
-                    filtre={false}
-                    infiniteScroll={false}
-                    profil={profil}
-                    showMore={'/competitions'}
-                    labelShowMore={'Tout afficher'}
-                />
+            <main className="px-5 gap-[79px] mt-[92px] mb-[100px] ">
                 <SectionEventHome
                     sports={video}
-                    titre={'Les Reportages'}
+                    titre={'Actualités'}
                     type={'video'}
                     filtre={false}
                     infiniteScroll={true}
                     showMore={'/reportages'}
                     labelShowMore={'Tout afficher'}
                     profil={profil}
+                />
+                <SectionEventHome
+                    sports={sports}
+                    titre={'Prochaines compétitions'}
+                    type={'picture'}
+                    filtre={false}
+                    infiniteScroll={false}
+                    profil={profil}
+                    showMore={'/competitions'}
+                    labelShowMore={'Tout afficher'}
                 />
             </main>
             <Footer />

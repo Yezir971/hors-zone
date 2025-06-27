@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 
-
 :root {
     --orange-1: #cf3700;
     --orange-2: #ff6c37;
@@ -43,7 +42,7 @@
 
     --bleu-electrique: #0080ff;
 
-    --background-color: #000000;
+    --background-color: #1a1a1a;
     --text-color: #ffffff;
     --card-color-nuance-1: #232323;
 
@@ -51,7 +50,6 @@
     --color-background-input-admin: #232323;
     --color-border-input-admin: #232323;
     --error-color: #cf3700;
-
 }
 
 /* WebKit only (Chrome, Edge, Safari) */
