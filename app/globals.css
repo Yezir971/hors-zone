@@ -27,6 +27,10 @@
 
     --color-border-input-admin: #444444;
     --error-color: #cf3700;
+
+    --color-background-comment: #f9f9f9;
+    --color-border-input-comment: #696969;
+    --color-background-input-comment: #f9f9f9;
 }
 
 .dark {
@@ -50,6 +54,10 @@
     --color-background-input-admin: #232323;
     --color-border-input-admin: #232323;
     --error-color: #cf3700;
+
+    --color-background-comment: #232323;
+    --color-border-input-comment: #696969;
+    --color-background-input-comment: #343434;
 }
 
 /* WebKit only (Chrome, Edge, Safari) */

@@ -211,17 +211,17 @@ const CommentBlock = ({ idSport }) => {
     }
     return (
         // <div className="max-w-md mx-auto rounded-lg border p-4 shadow-sm bg-white">
-        <div className="w-full rounded-lg border p-4 shadow-sm bg-white box-border">
+        <div className="w-full rounded-lg border p-4 shadow-sm bg-[var(--color-background-comment)] box-border">
             {comments.length != 0 ? (
                 <>
-                    <p className="text-center font-medium text-gray-700 mb-4">
+                    <p className="text-center font-medium  mb-4">
                         {comments.length} commentaire
                         {comments.length > 1 && 's'}
                     </p>
                 </>
             ) : (
                 <>
-                    <p className="text-center font-medium text-gray-700 mb-4">
+                    <p className="text-center font-medium  mb-4">
                         Aucun commentaire disponible
                     </p>
                 </>
@@ -253,17 +253,17 @@ const CommentBlock = ({ idSport }) => {
                                     </svg>
                                 </div>
                                 <div>
-                                    <p className="font-semibold text-gray-800">
+                                    <p className="font-semibold ">
                                         {comment.user_who_comment.pseudo}
                                     </p>
                                     {comment.id_parent_comment ? (
                                         <AnswerComment comment={comment} />
                                     ) : (
-                                        <p className="text-sm text-gray-700 w-11/12">
+                                        <p className="text-sm  w-11/12">
                                             {comment.comment}
                                         </p>
                                     )}
-                                    <div className="text-xs text-gray-400 mt-1 flex items-center space-x-2">
+                                    <div className="text-xs  mt-1 flex items-center space-x-2">
                                         <span>
                                             {dateMessage(
                                                 new Date(comment.date)
@@ -347,7 +347,7 @@ const CommentBlock = ({ idSport }) => {
                                 ? 'Ajoutez un commentaire'
                                 : 'Connecte-toi pour ajouter un commentaire'
                         }
-                        className="w-4/5 text-black border border-gray-300 rounded-full px-4 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400 box-border"
+                        className="w-4/5 bg-[var(--color-background-input-comment)] placeholder:text-[var(--noir)] border border-[var(--color-border-input-comment)] rounded-full px-4 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400 box-border"
                     />
                     <input
                         type="submit"
