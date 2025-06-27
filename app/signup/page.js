@@ -100,8 +100,9 @@ const SignUp = () => {
                                 <input
                                     onChange={handleChange}
                                     name="pseudo"
+                                    placeholder="JeanDupont"
                                     type="text"
-                                    className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2"
+                                    className="w-full placeholder:text-[var(--color-placeholder-input-login-signup)] h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2"
                                     required
                                 />
                             </div>
@@ -118,8 +119,9 @@ const SignUp = () => {
                                 <input
                                     onChange={handleChange}
                                     name="email"
+                                    placeholder="jeandupont@gmail.com"
                                     type="email"
-                                    className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2"
+                                    className="w-full placeholder:text-[var(--color-placeholder-input-login-signup)] h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2"
                                     required
                                 />
                             </div>
@@ -136,12 +138,13 @@ const SignUp = () => {
                                 <div className="relative">
                                     <input
                                         onChange={handleChange}
+                                        placeholder="********"
                                         type={
                                             showPassword ? 'text' : 'password'
                                         }
                                         name="password"
                                         id="password"
-                                        className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2 pr-12"
+                                        className="w-full placeholder:text-[var(--color-placeholder-input-login-signup)] h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2 pr-12"
                                         required
                                     />
                                     <button
@@ -170,12 +173,13 @@ const SignUp = () => {
                                 </label>
                                 <div className="relative">
                                     <input
+                                        placeholder="********"
                                         type={
                                             showPassword2 ? 'text' : 'password'
                                         }
                                         onChange={handleChange}
                                         name="passwordConfirm"
-                                        className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2 pr-12"
+                                        className="w-full placeholder:text-[var(--color-placeholder-input-login-signup)] h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2 pr-12"
                                         required
                                     />
                                     <button

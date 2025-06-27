@@ -84,7 +84,8 @@ const Login = () => {
                                     onChange={handleChange}
                                     name="email"
                                     type="email"
-                                    className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2"
+                                    placeholder="jeandupont@gmail.com"
+                                    className="w-full h-14 placeholder:text-[var(--color-placeholder-input-login-signup)] bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2"
                                     required
                                 />
                             </div>
@@ -101,10 +102,11 @@ const Login = () => {
                                     <input
                                         onChange={handleChange}
                                         name="password"
+                                        placeholder="********"
                                         type={`${
                                             showPassword ? 'text' : 'password'
                                         }`}
-                                        className="w-full h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2"
+                                        className="w-full placeholder:text-[var(--color-placeholder-input-login-signup)] h-14 bg-[var(--nuance-de-blanc-1)] border-[var(--gris-bleute)] rounded-[5px] border-[0.76px] px-3 py-2"
                                         required
                                     />
                                     <button

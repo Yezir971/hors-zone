@@ -31,6 +31,7 @@
     --color-background-comment: #f9f9f9;
     --color-border-input-comment: #696969;
     --color-background-input-comment: #f9f9f9;
+    --color-placeholder-input-login-signup: #696969;
 }
 
 .dark {
@@ -58,6 +59,7 @@
     --color-background-comment: #232323;
     --color-border-input-comment: #696969;
     --color-background-input-comment: #343434;
+    --color-placeholder-input-login-signup: #696969;
 }
 
 /* WebKit only (Chrome, Edge, Safari) */
