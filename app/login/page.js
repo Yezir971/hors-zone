@@ -3,12 +3,14 @@
 import Loading from '@/components/Loading'
 import TopLoginSignUp from '@/components/TopLoginSignup'
 import { authContextApi } from '@/context/authContext'
+import { supabase } from '@/lib/initSupabase'
 import checkEmail from '@/utils/checkemail'
 import checkPassword from '@/utils/checkpassword'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { LuEye, LuEyeClosed } from 'react-icons/lu'
+import Footer from '@/components/footer/Footer'
 
 const Login = () => {
     const router = useRouter()
@@ -19,13 +21,17 @@ const Login = () => {
     const [dataForm, setDataForm] = useState({})
     const togglePasswordVisibility = () => setShowPassword((v) => !v)
 
-    const { login, isLoading, isLoadingUser, isAuth, user } = authContextApi()
+    const { login, isLoading, isLoadingUser, isAuth } = authContextApi()
 
     useEffect(() => {
-        if (!isLoadingUser && user) {
-            router.push('/')
+        const checkUser = async () => {
+            const { data } = await supabase.auth.getUser()
+            if (data.user) {
+                router.push('/')
+            }
         }
-    }, [isAuth, isLoadingUser])
+        checkUser()
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -50,12 +56,16 @@ const Login = () => {
         await login(dataForm)
     }
 
-    if (isLoadingUser && !user) {
+    if (isLoadingUser) {
         return (
             <div className="flex justify-center items-center h-screen">
                 <Loading />
             </div>
         )
+    }
+
+    if (isAuth) {
+        return null
     }
 
     return (
@@ -165,6 +175,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

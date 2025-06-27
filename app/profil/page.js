@@ -17,6 +17,7 @@ import Return from '@/components/return/return'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa'
+import Footer from '@/components/footer/Footer'
 
 export default function ProfilePage() {
     const { user, isAuth, isLoadingUser, profil } = authContextApi()
@@ -27,19 +28,25 @@ export default function ProfilePage() {
             fetchUserSportLike()
         }
     }, [profil])
+
     useEffect(() => {
         if (!isLoadingUser && !isAuth) {
             router.push('/login')
         }
-    }, [isAuth, isLoadingUser])
+    }, [isAuth, isLoadingUser, router])
 
-    if (isLoadingUser && !user && !profil) {
+    if (isLoadingUser) {
         return (
             <div className="flex justify-center items-center h-screen">
                 <Loading />
             </div>
         )
     }
+
+    if (!isAuth) {
+        return null
+    }
+
     const fetchUserSportLike = async () => {
         try {
             const { data, error: likeError } = await supabase
@@ -150,6 +157,7 @@ export default function ProfilePage() {
                     <ListVideoAdd profil={profil} />
                 </>
             )}
+            <Footer />
         </>
     )
 }

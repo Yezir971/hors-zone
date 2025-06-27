@@ -2,7 +2,6 @@ import { Poppins } from 'next/font/google'
 import './globals.css'
 import { AuthProvider } from '@/context/authContext'
 import ArticleProvider from '@/context/articleContext'
-import Footer from '@/components/footer/Footer'
 import ThemeProvider from '@/context/themeContext'
 import PWAInstallPrompt from '@/components/PWAInstallPrompt'
 
@@ -160,7 +159,6 @@ export default function RootLayout({ children }) {
                     <ArticleProvider>
                         <ThemeProvider>
                             {children}
-                            <Footer />
                             <PWAInstallPrompt />
                         </ThemeProvider>
                     </ArticleProvider>

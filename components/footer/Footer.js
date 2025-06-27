@@ -1,6 +1,9 @@
+'use client'
 import { FaInstagram, FaFacebookF } from 'react-icons/fa'
 import { SiTiktok } from 'react-icons/si'
 const Footer = () => {
+
+
     return (
         <>
             <footer className="border-t text-[var(--text-color-footer)] bg-[var(--background-color-footer)] border-[var(--text-color-footer)] py-6 text-center">

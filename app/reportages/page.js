@@ -4,6 +4,7 @@ import SectionEventHome from '@/components/home/SectionEventHome'
 import Loading from '@/components/Loading'
 import { ArticleContextApi } from '@/context/articleContext'
 import { authContextApi } from '@/context/authContext'
+import Footer from '@/components/footer/Footer'
 
 const Reportages = () => {
     const { isLoadingUser, profil } = authContextApi()
@@ -45,6 +46,7 @@ const Reportages = () => {
                     profil={profil}
                 />
             </main>
+            <Footer />
         </>
     )
 }

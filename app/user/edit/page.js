@@ -2,18 +2,21 @@
 
 import DATA_TOAST from '@/app/utils/constant/toast'
 import Loading from '@/components/Loading'
+import Return from '@/components/return/return'
 import { authContextApi } from '@/context/authContext'
 import { supabase } from '@/lib/initSupabase'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 
 const EditProfil = () => {
-    const { profil } = authContextApi()
+    const { profil, isAuth, isLoadingUser, user } = authContextApi()
     const [uploading, setUploading] = useState(false)
     const formRef = useRef(null)
     const [dataForm, setDataForm] = useState(null)
     const [flagAvatar, setFlagAvatar] = useState()
-
+    const router = useRouter()
     useEffect(() => {
         if (profil) {
             setFlagAvatar(profil.avatar_url)
@@ -29,6 +32,17 @@ const EditProfil = () => {
             })
         }
     }, [profil])
+
+
+    const handleBack = () => {
+        router.push('/profil')
+    }
+
+    useEffect(() => {
+        if (!isLoadingUser && !isAuth) {
+            router.push('/login')
+        }
+    }, [isAuth, isLoadingUser, router])
 
     const deleteArticle = async (imageUrl) => {
         try {
@@ -117,7 +131,8 @@ const EditProfil = () => {
         }
     }
 
-    if (!dataForm) {
+    // Afficher un loading tant qu'on ne sait pas si l'utilisateur est connecté
+    if (isLoadingUser) {
         return (
             <div className="flex justify-center items-center h-screen">
                 <Loading />
@@ -125,10 +140,26 @@ const EditProfil = () => {
         )
     }
 
+    // Si l'utilisateur n'est pas connecté, ne rien afficher (redirection en cours)
+    if (!isAuth) {
+        return null
+    }
+
     return (
         <>
-            <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-100 flex items-center justify-center p-6">
-                <div className="bg-white shadow-2xl rounded-2xl max-w-lg w-full p-10">
+            <div className="min-h-screen bg-gradient-to-br  flex items-center justify-center p-6">
+                <div
+                    onClick={handleBack}
+                    className="absolute left-8 top-8 cursor-pointer text-black"
+                >
+                    <Image
+                        src="/images/icons/arrow-left.svg"
+                        alt="arrow-left"
+                        width={20}
+                        height={20}
+                    />
+                </div>
+                <div className=" shadow-2xl rounded-2xl max-w-lg w-full p-10">
                     <h2 className="text-3xl font-extrabold text-gray-900 mb-8 text-center">
                         Modifier le profil
                     </h2>

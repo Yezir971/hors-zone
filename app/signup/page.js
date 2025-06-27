@@ -17,7 +17,7 @@ import checkName from '@/utils/checkname'
 const SignUp = () => {
     const [dataForm, setDataForm] = useState({})
     const router = useRouter()
-    const { signUp, isLoading } = authContextApi()
+    const { signUp, isLoading, isLoadingUser } = authContextApi()
     const [showPassword, setShowPassword] = useState(false)
     const [showPassword2, setShowPassword2] = useState(false)
     const [errorPassword, setErrorPassword] = useState('')
@@ -76,6 +76,13 @@ const SignUp = () => {
         e.preventDefault()
         if (!checkAllInputSignup()) return
         signUp(dataForm)
+    }
+    if (isLoadingUser) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <Loading />
+            </div>
+        )
     }
 
     return (

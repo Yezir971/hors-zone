@@ -12,6 +12,7 @@ import { authContextApi } from '@/context/authContext'
 import { supabase } from '@/lib/initSupabase'
 import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import Footer from '@/components/footer/Footer'
 
 const Description = () => {
     const { slug } = useParams()
@@ -143,6 +144,7 @@ const Description = () => {
                     profil={profil}
                 />
             </div>
+            <Footer />
         </>
     )
 }
