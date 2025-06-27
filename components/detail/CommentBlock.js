@@ -7,6 +7,7 @@ import DATA_TOAST from '@/app/utils/constant/toast'
 import Image from 'next/image'
 import dateMessage from '@/utils/dateMesage'
 import AnswerComment from './AnswerComment'
+import Link from 'next/link'
 
 const CommentBlock = ({ idSport }) => {
     const [message, setMessage] = useState()
@@ -253,9 +254,15 @@ const CommentBlock = ({ idSport }) => {
                                     </svg>
                                 </div>
                                 <div>
-                                    <p className="font-semibold ">
-                                        {comment.user_who_comment.pseudo}
-                                    </p>
+                                    <Link
+                                        className="hover:underline cursor-pointer"
+                                        href={`/profil/${comment.user_who_comment.id}`}
+                                    >
+                                        <p className="font-semibold ">
+                                            {comment.user_who_comment.pseudo}
+                                        </p>
+                                    </Link>
+
                                     {comment.id_parent_comment ? (
                                         <AnswerComment comment={comment} />
                                     ) : (

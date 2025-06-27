@@ -33,7 +33,6 @@ const EditProfil = () => {
         }
     }, [profil])
 
-
     const handleBack = () => {
         router.push('/profil')
     }
@@ -309,7 +308,7 @@ const EditProfil = () => {
 
                         <button
                             type="submit"
-                            className="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition"
+                            className="w-full bg-[var(--bleu-electrique)] cursor-pointer text-white font-bold py-3 rounded-lg hover:bg-[#0a5197] transition"
                         >
                             Enregistrer les modifications
                         </button>
