@@ -26,12 +26,14 @@ export default function ProfilePage() {
         if (isAuth && profil?.id) {
             fetchUserSportLike()
         }
-        if (!isAuth && profil) {
+    }, [profil])
+    useEffect(() => {
+        if (!isLoadingUser && !isAuth) {
             router.push('/login')
         }
-    }, [profil])
+    }, [isAuth, isLoadingUser])
 
-    if (isLoadingUser && !user) {
+    if (isLoadingUser && !user && !profil) {
         return (
             <div className="flex justify-center items-center h-screen">
                 <Loading />
