@@ -26,7 +26,10 @@ const TitleCard = ({ title, icons, showMore, labelShowMore }) => {
                     </h2>
                 </div>
                 {showMore && (
-                    <Link href={showMore} className="text-sm underline">
+                    <Link
+                        href={showMore}
+                        className="text-sm w-full text-right underline"
+                    >
                         {labelShowMore}
                     </Link>
                 )}
