@@ -9,7 +9,7 @@ const Menu = ({ open }) => {
     return (
         <nav
             className={clsx(
-                'flex flex-col shadow-xl/20   rounded-br-[50px] bg-[linear-gradient(150deg,_#0a5197_35%,_#0080ff_100%)]  h-screen w-[220px] overflow-x-hidden text-left p-5 fixed gap-[20px] top-0 left-0 z-30 transition-transform duration-300 ease-in-out',
+                'flex flex-col shadow-xl/20 lg:w-[250px]  rounded-br-[50px] bg-[linear-gradient(150deg,_#0a5197_35%,_#0080ff_100%)]  h-screen w-[220px] overflow-x-hidden text-left p-5 fixed gap-[20px] top-0 left-0 z-30 transition-transform duration-300 ease-in-out',
                 open ? 'translate-x-0' : '-translate-x-full'
             )}
         >

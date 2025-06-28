@@ -32,7 +32,12 @@
     --color-border-input-comment: #696969;
     --color-background-input-comment: #f9f9f9;
     --color-placeholder-input-login-signup: #696969;
+
+    --color-background-container-description: #ffffff;
 }
+/* * {
+    border: 1px solid red;
+} */
 
 .dark {
     --orange-1: #0a5197;
@@ -60,6 +65,8 @@
     --color-border-input-comment: #696969;
     --color-background-input-comment: #343434;
     --color-placeholder-input-login-signup: #696969;
+
+    --color-background-container-description: #1a1a1a;
 }
 
 /* WebKit only (Chrome, Edge, Safari) */

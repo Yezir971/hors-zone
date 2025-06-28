@@ -43,13 +43,13 @@ const TopHeroBanner = () => {
     return (
         <>
             <div
-                className={`fixed top-0 right-0 w-full z-50 py-4 ${
+                className={`fixed top-0 right-0 w-full px-[21px] lg:px-[163px]    z-50 py-4 ${
                     changeBackground &&
                     'shadow-md bg-[linear-gradient(90deg,_#0a5197_35%,_#0080ff_100%)]'
                 }  transition-all duration-300`}
             >
                 <div
-                    className="grid grid-cols-3 items-center h-[80px] px-6"
+                    className="flex justify-between items-center h-[80px] px-6 relative"
                     ref={node}
                 >
                     {/* Left: Burger */}
@@ -59,13 +59,18 @@ const TopHeroBanner = () => {
                     </div>
 
                     {/* Center: Logo */}
-                    <div className="flex justify-center transition-all duration-300">
+                    <div
+                        className={`flex justify-center absolute left-[50%] translate-x-[-50%] lg:top-[58%] lg:translate-y-[-50%] top-[${
+                            isScrolled ? '28px' : '58px'
+                        }] transition-all duration-300 ease-linear`}
+                    >
+                        {/* <div className="flex justify-center transition-all duration-300"> */}
                         <Image
                             src="/images/logo/logo.svg"
                             alt="logo"
                             width={isScrolled ? 40 : 81}
                             height={isScrolled ? 40 : 79}
-                            className="transition-all duration-300"
+                            className={`transition-all duration-300 ease-linear`}
                         />
                     </div>
 

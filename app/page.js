@@ -27,7 +27,7 @@ export default function Home() {
                 }
                 subDescription={'Change de zone. Vis l’aventure.'}
             />
-            <main className="px-5 gap-[79px] mt-[92px] mb-[100px] ">
+            <main className="flex flex-col lg:px-[163px] px-5 gap-[52px] my-[72px] ">
                 <SectionEventHome
                     sports={video}
                     titre={'Actualités'}

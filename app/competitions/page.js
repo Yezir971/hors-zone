@@ -8,8 +8,7 @@ import Footer from '@/components/footer/Footer'
 
 const Competitions = () => {
     const { isLoadingUser, profil } = authContextApi()
-    const { sports, isLoadingSports } =
-        ArticleContextApi()
+    const { sports, isLoadingSports } = ArticleContextApi()
 
     if (isLoadingUser && !isLoadingSports) {
         return (
@@ -27,7 +26,7 @@ const Competitions = () => {
                 }
                 subDescription={''}
             />
-            <main className="px-5 gap-[79px] mt-[92px] mb-[100px]">
+            <main className="flex flex-col lg:px-[163px] px-5 gap-[52px] my-[72px]">
                 <SectionEventHome
                     sports={sports}
                     titre={'Les compétitions insolites'}

@@ -12,7 +12,7 @@ const TitleCard = ({ title, icons, showMore, labelShowMore }) => {
 
     return (
         <>
-            <div className="pt-[100px] max-w-[450px] pb-[1.9rem] flex justify-between items-center">
+            <div className="max-w-[450px] pb-[1.5rem] flex justify-between items-center">
                 <div className=" flex gap-[18px]">
                     {icons == 'like' && (
                         <LiaHeartSolid className="w-[30px] h-[30px]" />

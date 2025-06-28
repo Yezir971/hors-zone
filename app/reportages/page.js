@@ -8,8 +8,7 @@ import Footer from '@/components/footer/Footer'
 
 const Reportages = () => {
     const { isLoadingUser, profil } = authContextApi()
-    const { isLoadingSports, isLoadingVideo, video } =
-        ArticleContextApi()
+    const { isLoadingSports, isLoadingVideo, video } = ArticleContextApi()
 
     if (isLoadingUser && !isLoadingSports) {
         return (
@@ -27,7 +26,7 @@ const Reportages = () => {
                 }
                 subDescription={''}
             />
-            <main className="px-5 gap-[79px] mt-[92px] mb-[100px]">
+            <main className="flex flex-col lg:px-[163px] px-5 gap-[52px] my-[72px]">
                 <SectionEventHome
                     sports={video}
                     titre={'Derniers découvertes'}
@@ -40,7 +39,7 @@ const Reportages = () => {
 
                 <SectionEventHome
                     sports={video}
-                    titre={'A voir aussi'}
+                    titre={'À voir aussi'}
                     type={'video'}
                     filtre={true}
                     infiniteScroll={false}

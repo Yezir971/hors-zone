@@ -6,4 +6,5 @@ const truncateDate = (date) => {
     })
     return formatted
 }
+
 module.exports = truncateDate

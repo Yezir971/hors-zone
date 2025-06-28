@@ -194,27 +194,32 @@ export default function ProfilePage() {
                     </Link>
                 </div>
             </div>
-
-            <SectionEventHome
-                sports={notifSports}
-                titre={'Mes rappels'}
-                type={'picture'}
-                icons={'notification'}
-                isLoading={isLoadingNotifSports}
-            />
-            <SectionEventHome
-                sports={likedSports}
-                titre={'Favoris'}
-                type={'picture'}
-                icons={'like'}
-                isLoading={isLoadingLikedSports}
-            />
+            <main className="flex flex-col lg:px-[163px] px-5 gap-[52px] my-[72px]">
+                <SectionEventHome
+                    sports={notifSports}
+                    titre={'Mes rappels'}
+                    type={'picture'}
+                    icons={'notification'}
+                    isLoading={isLoadingNotifSports}
+                />
+                <SectionEventHome
+                    sports={likedSports}
+                    titre={'Favoris'}
+                    type={'picture'}
+                    icons={'like'}
+                    isLoading={isLoadingLikedSports}
+                />
+            </main>
             {profil && profil.is_admin && (
                 <>
                     <AdminPanel profil={profil} />
-                    <ListSportsAdd profil={profil} />
+                    <div className="flex flex-col lg:px-[163px] px-5 gap-[52px] my-[72px]">
+                        <ListSportsAdd profil={profil} />
+                    </div>
                     <AdminFormVideo profil={profil} />
-                    <ListVideoAdd profil={profil} />
+                    <div className="flex flex-col lg:px-[163px] px-5 gap-[52px] my-[72px]">
+                        <ListVideoAdd profil={profil} />
+                    </div>
                 </>
             )}
             <Footer />

@@ -63,8 +63,10 @@ const SectionEventHome = ({
     return (
         <>
             <div className="flex items-center text-[var(--noir)]">
-                <MdOutlineArrowBackIos className="hidden lg:block text-2xl cursor-pointer" />
-                <section className=" md:px-40 px-4">
+                <div className="absolute left-[87px] hidden lg:block">
+                    <MdOutlineArrowBackIos className="text-2xl cursor-pointer" />
+                </div>
+                <section className="w-full">
                     <TitleCard
                         title={titre}
                         showMore={showMore}
@@ -99,7 +101,11 @@ const SectionEventHome = ({
                                     {filteredData.map((sport, id) => (
                                         <div
                                             key={id}
-                                            className="max-w-[300px] border-[20px] border-solid border-[var(--card-color-nuance-1)] shrink-0 snap-start bg-[var(--card-color-nuance-1)] rounded-xl shadow-md overflow-hidden"
+                                            className={` ${
+                                                type == 'picture'
+                                                    ? 'w-[300px]'
+                                                    : 'w-[334px]'
+                                            }  border-[20px] border-solid border-[var(--card-color-nuance-1)] shrink-0 snap-start bg-[var(--card-color-nuance-1)] rounded-xl shadow-md overflow-hidden`}
                                         >
                                             {type == 'picture' ? (
                                                 <>
@@ -142,44 +148,61 @@ const SectionEventHome = ({
                                                         ? sport?.name
                                                         : sport?.video_name}
                                                 </h3>
-                                                <p className="text-sm text-[var(--text-color)] mb-3">
-                                                    {truncate(
-                                                        sport?.description,
-                                                        100
-                                                    )}
-                                                </p>
+                                                {type != 'picture' && (
+                                                    <p className="text-sm text-[var(--text-color)] mb-3">
+                                                        {truncate(
+                                                            sport?.description,
+                                                            100
+                                                        )}
+                                                    </p>
+                                                )}
 
                                                 {/* Affichage des catégories */}
                                                 {sport?.categories &&
                                                     sport.categories.length >
                                                         0 && (
-                                                        <div className="flex flex-wrap gap-1 mb-3">
-                                                            {sport.categories.map(
-                                                                (
-                                                                    category,
-                                                                    index
-                                                                ) => (
-                                                                    <span
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full"
-                                                                    >
-                                                                        {
-                                                                            category
-                                                                        }
-                                                                    </span>
-                                                                )
+                                                        <>
+                                                            <div className="flex flex-wrap gap-1 mb-3">
+                                                                {sport.categories.map(
+                                                                    (
+                                                                        category,
+                                                                        index
+                                                                    ) => (
+                                                                        <span
+                                                                            key={
+                                                                                index
+                                                                            }
+                                                                            className="bg-blue-100 text-blue-800 text-xs  font-medium px-2 py-1 rounded-full"
+                                                                        >
+                                                                            {
+                                                                                category
+                                                                            }
+                                                                        </span>
+                                                                    )
+                                                                )}
+                                                            </div>
+                                                            {type ==
+                                                                'picture' && (
+                                                                <p className="text-[10px] text-[var(--text-color)]">
+                                                                    Du{' '}
+                                                                    {truncateDate(
+                                                                        sport?.date_start
+                                                                    )}{' '}
+                                                                    au{' '}
+                                                                    {truncateDate(
+                                                                        sport?.date_end
+                                                                    )}
+                                                                </p>
                                                             )}
-                                                        </div>
+                                                        </>
                                                     )}
 
-                                                <div className="flex justify-between items-center">
+                                                <div className="flex justify-between items-center mt-[32px]">
                                                     {type == 'picture' ? (
                                                         <>
                                                             <Link
                                                                 href={`/description/${sport?.slug}`}
-                                                                className="inline-flex items-center  px-[15px] py-[5px] text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 "
+                                                                className="inline-flex items-center   px-[15px] py-[5px] text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 "
                                                             >
                                                                 Voir plus
                                                                 <svg
@@ -295,7 +318,9 @@ const SectionEventHome = ({
                         // fin </div>
                     )}
                 </section>
-                <MdOutlineArrowForwardIos className="hidden lg:block text-2xl cursor-pointer" />
+                <div className="absolute right-[87px] hidden lg:block">
+                    <MdOutlineArrowForwardIos className="text-2xl cursor-pointer" />
+                </div>
             </div>
         </>
     )

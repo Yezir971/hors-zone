@@ -13,6 +13,7 @@ import { supabase } from '@/lib/initSupabase'
 import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Footer from '@/components/footer/Footer'
+import truncateDate from '@/utils/truncateDate'
 
 const Description = () => {
     const { slug } = useParams()
@@ -84,10 +85,11 @@ const Description = () => {
     return (
         <>
             <div
-                className="bg-[var(--background-color)]  relative h-[80vh] bg-cover bg-center flex items-end justify-start"
+                className="lg:px-[153px] bg-[var(--background-color)]  relative h-[80vh] bg-cover bg-center flex items-end justify-start"
+                // className="lg:px-[153px] bg-[var(--background-color)]  relative h-[80vh] bg-cover bg-center flex items-end justify-start"
                 style={{ backgroundImage: `url(${sport.image_url})` }}
             >
-                <div className="flex flex-col m-10 gap-8 z-20 text-white ">
+                <div className="flex flex-col ml-10 mb-[45px] lg:mb-[px] lg:ml-[0px] gap-8 z-20 text-white ">
                     <h1 className="w-max font-medium text-[14px] bg-white/30 border border-white/30 rounded-full px-5 py-2.5">
                         {sport.name}
                     </h1>
@@ -116,14 +118,15 @@ const Description = () => {
                 </div>
             </div>
 
-            <div className="mb-[46px] flex flex-col gap-14 rounded-2xl border-[var(--gris-fonce)] border-t-[2px] rounded-t-[50px] pt-[39px] px-[8px] lg:px-[39px]">
-                <div className="flex justify-between px-[8px] lg:px-[39px] text-sm gap-3.5 lg:text-base">
+            <div className=" flex flex-col gap-[40px] bg-[var(--color-background-container-description)] rounded-2xl border-[var(--gris-fonce)] border-t-[2px] z-10  rounded-t-[50px] pt-[48px] pb-[72px] px-[39px] lg:px-[153px]">
+                <div className="flex justify-between  text-sm gap-3.5 lg:text-base">
                     <p>
-                        {sport.date_start} au {sport.date_end}
+                        Du {truncateDate(sport.date_start)} au{' '}
+                        {truncateDate(sport.date_end)}
                     </p>
                     <p>{sport.city}</p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-14 ">
+                <div className="grid grid-cols-1 mb-[11px] md:grid-cols-2 gap-10 ">
                     <div className="w-full h-[400px]">
                         <Map
                             long={sport.long}
@@ -145,6 +148,8 @@ const Description = () => {
                     profil={profil}
                 />
             </div>
+            <div className="bg-black h-[100vh] absolute -z-10 top-0 left-0 w-full"></div>
+
             <Footer />
         </>
     )

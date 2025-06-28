@@ -83,14 +83,15 @@ export default async function ProfilPage({ params }) {
                     </div>
                 </div>
             </div>
-
-            <SectionEventHome
-                titre="Favoris"
-                sports={sports}
-                type="picture"
-                icons="like"
-                isLoading={false}
-            />
+            <main className="flex flex-col lg:px-[163px] px-5 gap-[52px] my-[72px]">
+                <SectionEventHome
+                    titre="Favoris"
+                    sports={sports}
+                    type="picture"
+                    icons="like"
+                    isLoading={false}
+                />
+            </main>
 
             <Footer />
 
