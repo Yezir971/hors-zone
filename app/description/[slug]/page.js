@@ -112,7 +112,7 @@ const Description = () => {
                 <div className="w-auto absolute right-[39px] top-8 flex flex-col items-end gap-4">
                     <HeartButton idSport={sport.id} />
                     <ShareButton />
-                    <NotifButton />
+                    <NotifButton profil={profil} sport={sport} />
                 </div>
             </div>
 

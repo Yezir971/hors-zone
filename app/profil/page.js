@@ -24,10 +24,12 @@ export default function ProfilePage() {
     const router = useRouter()
     const [likedSports, setLikedSports] = useState()
     const [isLoadingLikedSports, setIsLoadingLikedSports] = useState(false)
+    const [notifSports, setNotifSports] = useState([])
+    const [isLoadingNotifSports, setIsLoadingNotifSports] = useState(false)
     useEffect(() => {
         if (isAuth && profil?.id) {
             fetchUserSportLike()
-            setIsLoadingLikedSports(true)
+            fetchNotifSports()
         }
     }, [profil])
 
@@ -48,8 +50,61 @@ export default function ProfilePage() {
     if (!isAuth) {
         return null
     }
+    const fetchNotifSports = async () => {
+        setIsLoadingNotifSports(true)
+        try {
+            const { data, error } = await supabase
+                .from('notif')
+                .select(
+                    'sport_notif(id, name, categories, description, image_url, slug, date_start, date_end)'
+                )
+                .eq('user_who_want_notif', profil?.id)
+            if (error) {
+                toast.error(error.message, DATA_TOAST)
+            }
+            if (data) {
+                const notif = data.map((item) => item.sport_notif)
+                const notifFilter = notif.filter((item) => {
+                    if (item.date_start && item.date_end) {
+                        const eventStartDate = new Date(item.date_start)
+                        const eventEndDate = new Date(item.date_end)
 
+                        // Alternative : utiliser UTC pour éviter les problèmes de fuseau horaire
+                        const currentDateUTC = new Date()
+                            .toISOString()
+                            .split('T')[0] // Format YYYY-MM-DD
+                        const eventStartDateUTC = eventStartDate
+                            .toISOString()
+                            .split('T')[0]
+                        const eventEndDateUTC = eventEndDate
+                            .toISOString()
+                            .split('T')[0]
+
+                        // Vérifier que la date actuelle est comprise entre date_start et date_end
+                        const isCurrentDateInRange =
+                            currentDateUTC >= eventStartDateUTC &&
+                            currentDateUTC <= eventEndDateUTC
+
+                        // Garder seulement les événements où la date actuelle est dans la plage
+                        return isCurrentDateInRange
+                    }
+
+                    return false // Exclure les événements sans dates
+                })
+                setNotifSports(notifFilter)
+            }
+        } catch (error) {
+            toast.error(
+                'Erreur de réception des soirts aimé. Veuillez vérifier votre connexion internet : ' +
+                    error,
+                DATA_TOAST
+            )
+        } finally {
+            setIsLoadingNotifSports(false)
+        }
+    }
     const fetchUserSportLike = async () => {
+        setIsLoadingLikedSports(true)
         try {
             const { data, error: likeError } = await supabase
                 .from('like')
@@ -74,6 +129,8 @@ export default function ProfilePage() {
                     error,
                 DATA_TOAST
             )
+        } finally {
+            setIsLoadingLikedSports(false)
         }
     }
 
@@ -138,20 +195,19 @@ export default function ProfilePage() {
                 </div>
             </div>
 
-            {/* <CardProfil user={user} /> */}
             <SectionEventHome
-                sports={likedSports}
+                sports={notifSports}
                 titre={'Mes rappels'}
                 type={'picture'}
                 icons={'notification'}
-                isLoading={!isLoadingLikedSports}
+                isLoading={isLoadingNotifSports}
             />
             <SectionEventHome
                 sports={likedSports}
                 titre={'Favoris'}
                 type={'picture'}
                 icons={'like'}
-                isLoading={!isLoadingLikedSports}
+                isLoading={isLoadingLikedSports}
             />
             {profil && profil.is_admin && (
                 <>

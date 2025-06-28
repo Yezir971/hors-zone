@@ -31,10 +31,8 @@ const AdminFormVideo = ({ profil }) => {
             ...prevState,
 
             [name]: value,
-            // [name]: name == 'fileName' ? files : value,
         }))
     }
-    console.log(dataForm)
 
     const handleUpload = async (e) => {
         e.preventDefault()

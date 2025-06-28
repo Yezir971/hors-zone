@@ -16,6 +16,7 @@ const EditProfil = () => {
     const formRef = useRef(null)
     const [dataForm, setDataForm] = useState(null)
     const [flagAvatar, setFlagAvatar] = useState()
+    const [responseUrlData, setResponseUrlData] = useState()
     const router = useRouter()
     useEffect(() => {
         if (profil) {
@@ -101,11 +102,14 @@ const EditProfil = () => {
                 if (flagAvatar !== null) {
                     await deleteArticle(flagAvatar)
                 }
+                setResponseUrlData(urlData.fullPath)
+            }
+            if (responseUrlData) {
                 const { error: insertError } = await supabase
                     .from('profil')
                     .update({
                         ...dataForm,
-                        avatar_url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${urlData.fullPath}`,
+                        avatar_url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${responseUrlData}`,
                     })
                     .eq('id', profil?.id)
                 if (insertError) {
@@ -113,11 +117,23 @@ const EditProfil = () => {
                         `Erreur base de données : ' + ${insertError.message}`,
                         DATA_TOAST
                     )
-                    throw new Error(
-                        'Erreur base de données : ' + insertError.message
+                }
+            } else {
+                const { error: insertError } = await supabase
+                    .from('profil')
+                    .update({
+                        ...dataForm,
+                    })
+                    .eq('id', profil?.id)
+                if (insertError) {
+                    toast.error(
+                        `Erreur base de données : ' + ${insertError.message}`,
+                        DATA_TOAST
                     )
                 }
             }
+
+ 
 
             toast.success('Profil mis à jour avec succès', DATA_TOAST)
         } catch (error) {
