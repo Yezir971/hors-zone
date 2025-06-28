@@ -37,6 +37,7 @@ export default function Home() {
                     showMore={'/reportages'}
                     labelShowMore={'Tout afficher'}
                     profil={profil}
+                    isLoading={!isLoadingVideo}
                 />
                 <SectionEventHome
                     sports={sports}
@@ -47,6 +48,7 @@ export default function Home() {
                     profil={profil}
                     showMore={'/competitions'}
                     labelShowMore={'Tout afficher'}
+                    isLoading={!isLoadingSports}
                 />
             </main>
             <Footer />

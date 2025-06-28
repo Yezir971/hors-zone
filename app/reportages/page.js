@@ -8,7 +8,7 @@ import Footer from '@/components/footer/Footer'
 
 const Reportages = () => {
     const { isLoadingUser, profil } = authContextApi()
-    const { sports, isLoadingSports, isLoadingVideo, video } =
+    const { isLoadingSports, isLoadingVideo, video } =
         ArticleContextApi()
 
     if (isLoadingUser && !isLoadingSports) {
@@ -35,6 +35,7 @@ const Reportages = () => {
                     filtre={false}
                     infiniteScroll={false}
                     profil={profil}
+                    isLoading={!isLoadingVideo}
                 />
 
                 <SectionEventHome
@@ -44,6 +45,7 @@ const Reportages = () => {
                     filtre={true}
                     infiniteScroll={false}
                     profil={profil}
+                    isLoading={!isLoadingVideo}
                 />
             </main>
             <Footer />

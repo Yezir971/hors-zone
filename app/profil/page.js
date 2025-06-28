@@ -23,9 +23,11 @@ export default function ProfilePage() {
     const { user, isAuth, isLoadingUser, profil } = authContextApi()
     const router = useRouter()
     const [likedSports, setLikedSports] = useState()
+    const [isLoadingLikedSports, setIsLoadingLikedSports] = useState(false)
     useEffect(() => {
         if (isAuth && profil?.id) {
             fetchUserSportLike()
+            setIsLoadingLikedSports(true)
         }
     }, [profil])
 
@@ -142,12 +144,14 @@ export default function ProfilePage() {
                 titre={'Mes rappels'}
                 type={'picture'}
                 icons={'notification'}
+                isLoading={!isLoadingLikedSports}
             />
             <SectionEventHome
                 sports={likedSports}
                 titre={'Favoris'}
                 type={'picture'}
                 icons={'like'}
+                isLoading={!isLoadingLikedSports}
             />
             {profil && profil.is_admin && (
                 <>

@@ -21,7 +21,7 @@ const Description = () => {
     const [sportLoad, setSportLoad] = useState(false)
     const router = useRouter()
     const { isLoadingUser, profil } = authContextApi()
-    const { video } = ArticleContextApi()
+    const { video, isLoadingVideo } = ArticleContextApi()
 
     const handleBack = () => {
         router.back()
@@ -136,7 +136,7 @@ const Description = () => {
                     </div>
                 </div>
                 <SectionEventHome
-                    isLoading={!sportLoad}
+                    isLoading={!isLoadingVideo}
                     sports={sportDataFiltre}
                     titre={'On en parle'}
                     type={'video'}

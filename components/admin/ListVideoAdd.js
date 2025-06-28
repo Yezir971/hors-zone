@@ -1,11 +1,9 @@
 import { ArticleContextApi } from '@/context/articleContext'
-import { useState } from 'react'
 import Loading from '../Loading'
 import SectionEventHome from '../home/SectionEventHome'
 
 const ListVideoAdd = ({ profil }) => {
-    const { video } = ArticleContextApi()
-    const [loading, setIsLoading] = useState(true)
+    const { video, isLoadingVideo } = ArticleContextApi()
 
     if (!video) {
         return (
@@ -24,6 +22,7 @@ const ListVideoAdd = ({ profil }) => {
                     type={'video'}
                     filtre={true}
                     profil={profil}
+                    isLoading={!isLoadingVideo}
                 />
             </div>
         </>
