@@ -44,7 +44,7 @@ const Description = () => {
         } catch (error) {
             toast.error(
                 'Erreur de connexion, veuillez vérifier votre connexion internet : ' +
-                    e,
+                    error,
                 DATA_TOAST
             )
             throw new Error(`Le sport ${slug} n'existe pas !`)
@@ -52,7 +52,8 @@ const Description = () => {
             setSportLoad(true)
         }
     }
-
+    console.log(sport)
+    console.log(video)
     // Filtrer les vidéos quand sport ou video changent
     useEffect(() => {
         if (sport && video && Array.isArray(video)) {
@@ -67,7 +68,7 @@ const Description = () => {
             setSportDataFiltre(videoFilter)
         }
     }, [sport, video])
-
+    console.log(sportDataFiltre)
     useEffect(() => {
         fetchOneSport()
     }, [])
@@ -135,7 +136,7 @@ const Description = () => {
                     </div>
                 </div>
                 <SectionEventHome
-                    // className="px-[8px] lg:px-[39px]"
+                    isLoading={!sportLoad}
                     sports={sportDataFiltre}
                     titre={'On en parle'}
                     type={'video'}

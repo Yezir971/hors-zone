@@ -66,7 +66,6 @@ const CommentBlock = ({ idSport }) => {
             }
         }
     }, [])
-    console.log(comments)
 
     const sendMessageWebsocket = (msg) => {
         if (

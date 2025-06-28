@@ -8,6 +8,11 @@ const Filtre = ({ data, onFilterChange }) => {
     const [selectedCategories, setSelectedCategories] = useState([])
     const [allCategories, setAllCategories] = useState([])
 
+    // Fonction pour normaliser les chaînes de caractères (supprimer les espaces en trop, etc.)
+    const normalizeString = (str) => {
+        return str.trim().toLowerCase()
+    }
+
     // Fonction pour extraire toutes les catégories uniques
     const extractCategories = useCallback((sportsData) => {
         const categories = new Set()
@@ -27,14 +32,36 @@ const Filtre = ({ data, onFilterChange }) => {
             return sportsData
         }
 
+        console.log('Filtrage avec catégories:', categories)
+        console.log('Données à filtrer:', sportsData)
+
         return sportsData.filter((data) => {
             if (!data.categories || !Array.isArray(data.categories)) {
+                console.log('Données sans catégories:', data)
                 return false
             }
 
-            return categories.some((selectedCategory) =>
-                data.categories.includes(selectedCategory)
-            )
+            const hasMatchingCategory = categories.some((selectedCategory) => {
+                // Comparaison exacte d'abord
+                let includes = data.categories.includes(selectedCategory)
+
+                // Si pas de correspondance exacte, essayer avec normalisation
+                if (!includes) {
+                    const normalizedSelected = normalizeString(selectedCategory)
+                    includes = data.categories.some(
+                        (cat) => normalizeString(cat) === normalizedSelected
+                    )
+                }
+
+                console.log(
+                    `Vérification "${selectedCategory}" dans [${data.categories.join(
+                        ', '
+                    )}]: ${includes}`
+                )
+                return includes
+            })
+
+            return hasMatchingCategory
         })
     }, [])
 
@@ -65,7 +92,10 @@ const Filtre = ({ data, onFilterChange }) => {
     // Effet pour initialiser les catégories quand les données changent
     useEffect(() => {
         if (data && data.length > 0) {
-            setAllCategories(extractCategories(data))
+            const extractedCategories = extractCategories(data)
+            console.log('Catégories extraites:', extractedCategories)
+            console.log('Données reçues:', data)
+            setAllCategories(extractedCategories)
         }
     }, [data, extractCategories])
 

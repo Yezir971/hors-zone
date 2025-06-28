@@ -135,6 +135,7 @@ const Profil = () => {
                 type={'picture'}
                 icons={'like'}
                 isLoading={isLoadingSport}
+                filtre={true}
             />
             <Footer />
         </>
