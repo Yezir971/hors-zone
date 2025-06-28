@@ -33,7 +33,7 @@ export default function Home() {
                     titre={'Actualités'}
                     type={'video'}
                     filtre={false}
-                    infiniteScroll={true}
+                    infiniteScroll={false}
                     showMore={'/reportages'}
                     labelShowMore={'Tout afficher'}
                     profil={profil}
