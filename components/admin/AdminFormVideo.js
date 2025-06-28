@@ -144,7 +144,7 @@ const AdminFormVideo = ({ profil }) => {
                             id="link_video"
                             name="link_video"
                             onChange={handleChange}
-                            className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
+                            className="border placeholder:text-[var(--placeholder-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
                             placeholder="https://www.youtube.com/watch?v=os0bfBqS7mo"
                             required
                         />
@@ -162,7 +162,7 @@ const AdminFormVideo = ({ profil }) => {
                             id="titre"
                             name="titre"
                             onChange={handleChange}
-                            className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
+                            className="border placeholder:text-[var(--placeholder-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
                             placeholder="Aqua poney"
                             required
                         />
@@ -286,7 +286,7 @@ const AdminFormVideo = ({ profil }) => {
                             name="description"
                             onChange={handleChange}
                             rows={4}
-                            className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
+                            className="border placeholder:text-[var(--placeholder-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
                         />
                     </div>
 

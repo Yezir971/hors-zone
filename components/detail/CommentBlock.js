@@ -152,7 +152,7 @@ const CommentBlock = ({ idSport }) => {
                     .from('comments')
                     .insert(dataMessage)
                     .select(
-                        'id, sport_who_comment, user_who_comment(id, pseudo), comment, date'
+                        'id, sport_who_comment, user_who_comment(id, pseudo, avatar_url), comment, date'
                     )
                 if (error) {
                     toast.error(
@@ -238,19 +238,32 @@ const CommentBlock = ({ idSport }) => {
                                 className="flex items-start space-x-3"
                             >
                                 <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-                                    <svg
-                                        className="w-5 h-5 text-gray-600"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="1.5"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                    {comment.user_who_comment.avatar_url ? (
+                                        <Image
+                                            src={
+                                                comment.user_who_comment
+                                                    .avatar_url
+                                            }
+                                            alt="avatar"
+                                            width={50}
+                                            height={50}
+                                            className="rounded-full"
                                         />
-                                    </svg>
+                                    ) : (
+                                        <svg
+                                            className="w-5 h-5 text-gray-600"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                            />
+                                        </svg>
+                                    )}
                                 </div>
                                 <div>
                                     <Link

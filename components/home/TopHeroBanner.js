@@ -49,7 +49,7 @@ const TopHeroBanner = () => {
                 }  transition-all duration-300`}
             >
                 <div
-                    className="flex justify-between items-center h-[80px] px-6 relative"
+                    className="flex justify-between items-center h-[80px] px-6 lg:px-[0px] relative"
                     ref={node}
                 >
                     {/* Left: Burger */}
@@ -65,13 +65,15 @@ const TopHeroBanner = () => {
                         }] transition-all duration-300 ease-linear`}
                     >
                         {/* <div className="flex justify-center transition-all duration-300"> */}
-                        <Image
-                            src="/images/logo/logo.svg"
-                            alt="logo"
-                            width={isScrolled ? 40 : 81}
-                            height={isScrolled ? 40 : 79}
-                            className={`transition-all duration-300 ease-linear`}
-                        />
+                        <Link href="/">
+                            <Image
+                                src="/images/logo/logo.svg"
+                                alt="logo"
+                                width={isScrolled ? 40 : 81}
+                                height={isScrolled ? 40 : 79}
+                                className={`transition-all duration-300 ease-linear`}
+                            />
+                        </Link>
                     </div>
 
                     {/* Right: Profil */}

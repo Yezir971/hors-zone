@@ -16,7 +16,6 @@ const EditProfil = () => {
     const formRef = useRef(null)
     const [dataForm, setDataForm] = useState(null)
     const [flagAvatar, setFlagAvatar] = useState()
-    const [responseUrlData, setResponseUrlData] = useState()
     const router = useRouter()
     useEffect(() => {
         if (profil) {
@@ -83,57 +82,50 @@ const EditProfil = () => {
         try {
             setUploading(true)
             const file = dataForm.avatar_url?.[0]
+            let uploadedImageUrl = null
 
             if (file) {
-                // toast.error('Aucun fichier sélectionné', DATA_TOAST)
-                // throw new Error('Aucun fichier sélectionné')
                 const fileExt = file.name.split('.').pop()
                 const fileName = `${Date.now()}.${fileExt}`
                 const filePath = `avatars/${fileName}`
 
                 const { error: urlError, data: urlData } =
                     await supabase.storage.from('sports').upload(filePath, file)
+
                 if (urlError) {
                     toast.error(
-                        `Format de l'image incompatible : ' + ${urlError}`,
+                        `Format de l'image incompatible : ${urlError}`,
                         DATA_TOAST
                     )
+                    return
                 }
+
+                // Supprimer l'ancienne image si elle existe
                 if (flagAvatar !== null) {
                     await deleteArticle(flagAvatar)
                 }
-                setResponseUrlData(urlData.fullPath)
-            }
-            if (responseUrlData) {
-                const { error: insertError } = await supabase
-                    .from('profil')
-                    .update({
-                        ...dataForm,
-                        avatar_url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${responseUrlData}`,
-                    })
-                    .eq('id', profil?.id)
-                if (insertError) {
-                    toast.error(
-                        `Erreur base de données : ' + ${insertError.message}`,
-                        DATA_TOAST
-                    )
-                }
-            } else {
-                const { error: insertError } = await supabase
-                    .from('profil')
-                    .update({
-                        ...dataForm,
-                    })
-                    .eq('id', profil?.id)
-                if (insertError) {
-                    toast.error(
-                        `Erreur base de données : ' + ${insertError.message}`,
-                        DATA_TOAST
-                    )
-                }
+
+                // Construire l'URL complète de l'image
+                uploadedImageUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/sports/${urlData.path}`
             }
 
- 
+            // Mettre à jour le profil avec ou sans nouvelle image
+            const updateData = uploadedImageUrl
+                ? { ...dataForm, avatar_url: uploadedImageUrl }
+                : { ...dataForm }
+
+            const { error: insertError } = await supabase
+                .from('profil')
+                .update(updateData)
+                .eq('id', profil?.id)
+
+            if (insertError) {
+                toast.error(
+                    `Erreur base de données : ${insertError.message}`,
+                    DATA_TOAST
+                )
+                return
+            }
 
             toast.success('Profil mis à jour avec succès', DATA_TOAST)
         } catch (error) {
@@ -175,7 +167,7 @@ const EditProfil = () => {
                     />
                 </div>
                 <div className=" shadow-2xl rounded-2xl max-w-lg w-full p-10">
-                    <h2 className="text-3xl font-extrabold text-gray-900 mb-8 text-center">
+                    <h2 className="text-3xl font-extrabold text-[var(--text-color-footer)] mb-8 text-center">
                         Modifier le profil
                     </h2>
 

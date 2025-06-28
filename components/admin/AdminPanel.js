@@ -210,7 +210,7 @@ export default function AdminPanel({ profil }) {
                         id="titre"
                         name="titre"
                         onChange={handleChange}
-                        className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
+                        className="border placeholder:text-[var(--placeholder-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
                         placeholder="Aqua poney"
                         required
                     />
@@ -228,7 +228,7 @@ export default function AdminPanel({ profil }) {
                         id="sous_titre"
                         name="sous_titre"
                         onChange={handleChange}
-                        className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
+                        className="border placeholder:text-[var(--placeholder-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
                         placeholder="Aqua poney"
                         required
                     />
@@ -353,7 +353,7 @@ export default function AdminPanel({ profil }) {
                         id="localisation"
                         name="localisation"
                         onChange={handleChange}
-                        className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
+                        className="border placeholder:text-[var(--placeholder-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
                         placeholder="	52 Rue Verdun 75012"
                         required
                     />
@@ -370,7 +370,7 @@ export default function AdminPanel({ profil }) {
                         id="date_start"
                         name="date_start"
                         onChange={handleChange}
-                        className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
+                        className="border placeholder:text-[var(--placeholder-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
                         required
                     />
                 </div>
@@ -386,7 +386,7 @@ export default function AdminPanel({ profil }) {
                         id="dateEnd"
                         name="date_end"
                         onChange={handleChange}
-                        className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
+                        className="border placeholder:text-[var(--placeholder-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
                         required
                     />
                 </div>
@@ -401,7 +401,7 @@ export default function AdminPanel({ profil }) {
                     rows="4"
                     name="description"
                     onChange={handleChange}
-                    className="border placeholder:text-[var(--text-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
+                    className="border placeholder:text-[var(--placeholder-color)] text-[var(--text-color)] border-[var(--color-border-input-admin)] bg-[var(--color-background-input-admin)] text-sm rounded-lg  block w-full p-2.5"
                     placeholder="Description"
                 ></textarea>
                 <button

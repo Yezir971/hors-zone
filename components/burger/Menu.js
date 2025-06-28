@@ -23,7 +23,7 @@ const Menu = ({ open }) => {
                 href="/reportages"
                 className="text-2xl font-medium tracking-widest text-white no-underline transition-colors duration-300"
             >
-                Reportages
+                Actualités
             </Link>
             <Link
                 href="/competitions"

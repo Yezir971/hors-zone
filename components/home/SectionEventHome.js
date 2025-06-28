@@ -94,18 +94,14 @@ const SectionEventHome = ({
                                 <div
                                     className={
                                         infiniteScroll
-                                            ? 'flex gap-4 flex-wrap '
-                                            : 'flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth '
+                                            ? 'flex gap-6 flex-wrap '
+                                            : 'flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth '
                                     }
                                 >
                                     {filteredData.map((sport, id) => (
                                         <div
                                             key={id}
-                                            className={` ${
-                                                type == 'picture'
-                                                    ? 'w-[300px]'
-                                                    : 'w-[334px]'
-                                            }  border-[20px] border-solid border-[var(--card-color-nuance-1)] shrink-0 snap-start bg-[var(--card-color-nuance-1)] rounded-xl shadow-md overflow-hidden`}
+                                            className={`w-[334px]  border-[20px] border-solid border-[var(--card-color-nuance-1)] shrink-0 snap-start bg-[var(--card-color-nuance-1)] rounded-xl shadow-md overflow-hidden`}
                                         >
                                             {type == 'picture' ? (
                                                 <>

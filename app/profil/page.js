@@ -14,10 +14,10 @@ import AdminFormVideo from '@/components/admin/AdminFormVideo'
 import ListSportsAdd from '@/components/admin/ListSportsAdd'
 import ListVideoAdd from '@/components/admin/ListVideoAdd'
 import Return from '@/components/return/return'
-import Image from 'next/image'
 import Link from 'next/link'
 import { FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa'
 import Footer from '@/components/footer/Footer'
+import Image from 'next/image'
 
 export default function ProfilePage() {
     const { user, isAuth, isLoadingUser, profil } = authContextApi()
