@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 import TopLoginSignUp from '@/components/TopLoginSignup'
 import { supabase } from '@/lib/initSupabase'
 import { useRouter } from 'next/navigation'
-import DATA_TOAST from '@/utils/constant/toast'
 import { toast } from 'react-toastify'
 import Loading from '@/components/Loading'
+import DATA_TOAST from '@/app/utils/constant/toast'
 
 const ChangePassword = () => {
     const router = useRouter()
