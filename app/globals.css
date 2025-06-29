@@ -84,9 +84,6 @@
     border-radius: 50px;
 }
 
-* {
-    /* border: 1px solid red; */
-}
 @keyframes modalAppear {
     0% {
         transform: translateY(-30%);

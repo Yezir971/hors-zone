@@ -8,6 +8,7 @@ import Image from 'next/image'
 import dateMessage from '@/utils/dateMesage'
 import AnswerComment from './AnswerComment'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const CommentBlock = ({ idSport }) => {
     const [message, setMessage] = useState()
@@ -22,6 +23,7 @@ const CommentBlock = ({ idSport }) => {
     const socketRef = useRef(null)
     const bottomRef = useRef(null)
     const scrollContainerRef = useRef(null)
+    const router = useRouter()
     useEffect(() => {
         if (scrollContainerRef.current) {
             scrollContainerRef.current.scrollTop =
@@ -359,8 +361,17 @@ const CommentBlock = ({ idSport }) => {
                     <input
                         name="comment"
                         onChange={handleChange}
+                        onClick={() => {
+                            if (!isAuth) {
+                                router.push('/login')
+                                toast.warning(
+                                    'Connecte-toi pour ajouter un commentaire',
+                                    DATA_TOAST
+                                )
+                            }
+                        }}
                         type="text"
-                        disabled={!isAuth}
+                        // disabled={!isAuth}
                         placeholder={
                             profil?.id
                                 ? 'Ajoutez un commentaire'

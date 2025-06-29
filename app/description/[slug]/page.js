@@ -53,8 +53,7 @@ const Description = () => {
             setSportLoad(true)
         }
     }
-    console.log(sport)
-    console.log(video)
+
     // Filtrer les vidéos quand sport ou video changent
     useEffect(() => {
         if (sport && video && Array.isArray(video)) {
@@ -69,7 +68,6 @@ const Description = () => {
             setSportDataFiltre(videoFilter)
         }
     }, [sport, video])
-    console.log(sportDataFiltre)
     useEffect(() => {
         fetchOneSport()
     }, [])

@@ -147,7 +147,7 @@ export default function ProfilePage() {
                                 alt="avatar"
                                 width={100}
                                 height={100}
-                                className="rounded-full"
+                                className="rounded-full h-[100px] object-cover"
                             />
                         ) : (
                             <Image

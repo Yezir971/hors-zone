@@ -63,10 +63,14 @@ const SectionEventHome = ({
     return (
         <>
             <div className="flex items-center text-[var(--noir)]">
-                <div className="absolute left-[87px] hidden lg:block">
+                <div
+                    className={`absolute left-[87px] hidden ${
+                        infiniteScroll ? 'lg:hidden' : 'lg:block'
+                    } `}
+                >
                     <MdOutlineArrowBackIos className="text-2xl cursor-pointer" />
                 </div>
-                <section className="w-full">
+                <section className="w-full  ">
                     <TitleCard
                         title={titre}
                         showMore={showMore}
@@ -94,8 +98,8 @@ const SectionEventHome = ({
                                 <div
                                     className={
                                         infiniteScroll
-                                            ? 'flex gap-6 flex-wrap '
-                                            : 'flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth '
+                                            ? 'flex gap-6 flex-wrap custom-scrollbar overflow-y-auto'
+                                            : 'flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth custom-scrollbar   '
                                     }
                                 >
                                     {filteredData.map((sport, id) => (
@@ -250,27 +254,6 @@ const SectionEventHome = ({
                                                                     sport?.created_at
                                                                 )}
                                                             </p>
-                                                            {/* <Link
-                                                        href={`/description/${sport?.slug}`}
-                                                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
-                                                    >
-                                                        Voir plus
-                                                        <svg
-                                                            className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                                                            aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            fill="none"
-                                                            viewBox="0 0 14 10"
-                                                        >
-                                                            <path
-                                                                stroke="currentColor"
-                                                                strokeLinecap="round"
-                                                                strokeLinejoin="round"
-                                                                strokeWidth="2"
-                                                                d="M1 5h12m0 0L9 1m4 4L9 9"
-                                                            />
-                                                        </svg>
-                                                    </Link> */}
 
                                                             {profil?.is_admin && (
                                                                 <Image
@@ -314,7 +297,11 @@ const SectionEventHome = ({
                         // fin </div>
                     )}
                 </section>
-                <div className="absolute right-[87px] hidden lg:block">
+                <div
+                    className={`absolute right-[87px] hidden ${
+                        infiniteScroll ? 'lg:hidden' : 'lg:block'
+                    } `}
+                >
                     <MdOutlineArrowForwardIos className="text-2xl cursor-pointer" />
                 </div>
             </div>

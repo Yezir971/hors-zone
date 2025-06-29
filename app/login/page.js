@@ -10,7 +10,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { LuEye, LuEyeClosed } from 'react-icons/lu'
-import Footer from '@/components/footer/Footer'
 
 const Login = () => {
     const router = useRouter()
@@ -47,9 +46,7 @@ const Login = () => {
             setErrorEmail(checkEmail(value))
         }
 
-        console.log(dataForm)
-        console.log(errorPassword)
-        console.log(errorEmail)
+       
     }
     const fetchLogin = async (e) => {
         e.preventDefault()
@@ -129,9 +126,12 @@ const Login = () => {
                                 )}
                             </div>
 
-                            <p className="mt-2 text-[0.75rem] text-[var(--bleu-electrique)]">
+                            <Link
+                                href="/reset-password"
+                                className="mt-2 text-[0.75rem] text-[var(--bleu-electrique)]"
+                            >
                                 Mot de passe oublié ?
-                            </p>
+                            </Link>
                             <span className="flex mb-16 gap-3 mt-4 items-center">
                                 <input type="checkbox" id="remember" />
                                 <label
@@ -177,7 +177,6 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>
     )
 }
