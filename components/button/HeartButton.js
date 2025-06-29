@@ -4,14 +4,15 @@ import DATA_TOAST from '@/app/utils/constant/toast'
 import { authContextApi } from '@/context/authContext'
 import { supabase } from '@/lib/initSupabase'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 export default function HeartButton({ idSport }) {
     const [likeToogle, setLikeToggle] = useState(false)
     const [numberLike, setNumberLike] = useState(0)
-    const { profil } = authContextApi()
-
+    const { profil, isAuth } = authContextApi()
+    const router = useRouter()
     useEffect(() => {
         if (profil?.id) {
             fetchLike()
@@ -19,6 +20,11 @@ export default function HeartButton({ idSport }) {
     }, [profil])
 
     const sendlike = async () => {
+        if (!isAuth) {
+            toast.warning('Connecte-toi pour ajouter un like', DATA_TOAST)
+            router.push('/login')
+            return
+        }
         try {
             if (!likeToogle) {
                 await supabase.from('like').insert([

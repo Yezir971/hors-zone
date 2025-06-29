@@ -1,12 +1,16 @@
 import DATA_TOAST from '@/app/utils/constant/toast'
+import { authContextApi } from '@/context/authContext'
 import { supabase } from '@/lib/initSupabase'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 
 const NotifButton = ({ profil, sport }) => {
     const [toggle, setToggle] = useState(false)
     const [update, setUpdate] = useState(false)
+    const { isAuth } = authContextApi()
+    const router = useRouter()
     useEffect(() => {
         if (profil) {
             fetchNotif()
@@ -29,6 +33,14 @@ const NotifButton = ({ profil, sport }) => {
     }
 
     const sendNotif = async () => {
+        if (!isAuth) {
+            toast.warning(
+                'Connecte-toi pour ajouter une notification',
+                DATA_TOAST
+            )
+            router.push('/login')
+            return
+        }
         try {
             if (toggle) {
                 const { error } = await supabase
