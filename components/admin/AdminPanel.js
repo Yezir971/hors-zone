@@ -28,10 +28,10 @@ export default function AdminPanel({ profil }) {
 
     const handleCheckboxChange = (e) => {
         const { value } = e.target
-        if (categories.includes(value)) {
+        if (categories && categories.includes(value)) {
             setCategories(categories.filter((category) => category !== value))
         } else {
-            setCategories([...categories, value])
+            setCategories([...(categories || []), value])
         }
     }
     const geocodeAddress = async (address) => {
@@ -156,9 +156,10 @@ export default function AdminPanel({ profil }) {
             toast.success('Événement ajouté avec succès', DATA_TOAST)
             update()
             setDataForm({})
+            setCategories([])
             formRef.current?.reset()
         } catch (error) {
-            toast.error('Erreur lors de l’upload: ' + error.message, DATA_TOAST)
+            toast.error("Erreur lors de l'upload: " + error.message, DATA_TOAST)
             return
         } finally {
             setUploading(false)
@@ -179,12 +180,12 @@ export default function AdminPanel({ profil }) {
 
                 <div className="relative">
                     <label
-                        className="block mb-2 top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-medium absolute text-[var(--text-color)] "
+                        className="block mb-2 top-3/4 left-1/2 -translate-x-1/2 text-center -translate-y-1/2 lg:text-sm text-xs font-medium absolute text-[var(--text-color)] "
                         htmlFor="dropzone-file"
                     >
                         Téléverser une image (maximum 50Mo)
                     </label>
-                    <FaUpload className="text-5xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute text-[var(--text-color)]" />
+                    <FaUpload className=" lg:text-5xl text-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute text-[var(--text-color)]" />
 
                     {/* Input file */}
                     <input

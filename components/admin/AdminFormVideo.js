@@ -18,10 +18,10 @@ const AdminFormVideo = ({ profil }) => {
 
     const handleCheckboxChange = (e) => {
         const { value } = e.target
-        if (categories.includes(value)) {
+        if (categories && categories.includes(value)) {
             setCategories(categories.filter((category) => category !== value))
         } else {
-            setCategories([...categories, value])
+            setCategories([...(categories || []), value])
         }
     }
 
@@ -87,6 +87,8 @@ const AdminFormVideo = ({ profil }) => {
             }
             toast.success('Vidéo upload avec succès.', DATA_TOAST)
             updateVideo()
+            setDataForm({})
+            setCategories([])
             formRef.current?.reset()
         } catch (error) {
             toast.error(
