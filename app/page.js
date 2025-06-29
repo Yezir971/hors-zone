@@ -21,11 +21,9 @@ export default function Home() {
     return (
         <>
             <HeroBanner
-                titre={'Explorez le sport autrement !'}
-                description={
-                    'Quidditch, sabre laser, tir à l’arc à cheval, yoga aérien… Hors Zone te fait découvrir des sports insolites et leurs événements près de chez toi.'
-                }
-                subDescription={'Change de zone. Vis l’aventure.'}
+                titre={'Explore le sport autrement !'}
+                description={'Des sports méconnus à vivre près de chez vous.'}
+                subDescription={"Change de zone. Vis l'aventure."}
             />
             <main className="flex flex-col lg:px-[163px] px-5 gap-[52px] my-[72px] ">
                 <SectionEventHome
