@@ -52,6 +52,7 @@ export const AuthProvider = ({ children }) => {
                 .select()
                 .eq('uuid', user.id)
                 .single()
+                // .limit(1)
 
             if (error) {
                 console.error('Erreur de chargement du profil:', error.message)

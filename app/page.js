@@ -5,11 +5,19 @@ import Loading from '@/components/Loading'
 import { ArticleContextApi } from '@/context/articleContext'
 import { authContextApi } from '@/context/authContext'
 import Footer from '@/components/footer/Footer'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 export default function Home() {
     const { isLoadingUser, profil } = authContextApi()
     const { sports, isLoadingSports, isLoadingVideo, video } =
         ArticleContextApi()
+
+    const [videoReverse, setVideoReverse] = useState([])
+
+    useEffect(() => {
+        setVideoReverse(video.reverse())
+    }, [video])
 
     if (isLoadingUser && !isLoadingSports) {
         return (
@@ -18,6 +26,7 @@ export default function Home() {
             </div>
         )
     }
+
     return (
         <>
             <HeroBanner
@@ -27,7 +36,7 @@ export default function Home() {
             />
             <main className="flex flex-col lg:px-[163px] px-5 gap-[52px] my-[72px] ">
                 <SectionEventHome
-                    sports={video}
+                    sports={videoReverse}
                     titre={'Actualités'}
                     type={'video'}
                     filtre={false}
